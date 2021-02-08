@@ -1,0 +1,309 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
+[ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
+[ext_resource path="res://addons/rpg_database/Scripts/Class.cs" type="Script" id=3]
+
+[sub_resource type="ImageTexture" id=1]
+size = Vector2( 96, 96 )
+
+[sub_resource type="ImageTexture" id=2]
+size = Vector2( 32, 32 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_top = 32.0
+margin_right = 640.0
+margin_bottom = 479.0
+color = Color( 0, 0.384314, 0.568627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="TabContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 36.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharaSaveButton" type="Button" parent="Tabs/Character"]
+margin_left = 280.0
+margin_top = 416.0
+margin_right = 370.0
+margin_bottom = 446.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterButton" type="OptionButton" parent="Tabs/Character"]
+margin_left = 253.0
+margin_top = 14.0
+margin_right = 389.0
+margin_bottom = 38.0
+text = "Kate"
+align = 1
+items = [ "Kate", null, false, 0, null, "Axel", null, false, 1, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddButton" type="Button" parent="Tabs/Character/CharacterButton"]
+margin_left = 142.0
+margin_right = 166.0
+margin_bottom = 24.0
+text = "+"
+
+[node name="FaceLabel" type="Label" parent="Tabs/Character"]
+margin_left = 62.0
+margin_top = 46.0
+margin_right = 102.0
+margin_bottom = 60.0
+text = "Face"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FaceSprite" type="Sprite" parent="Tabs/Character/FaceLabel"]
+position = Vector2( 20, 72 )
+texture = SubResource( 1 )
+
+[node name="FaceSearch" type="FileDialog" parent="Tabs/Character/FaceLabel"]
+margin_right = 542.0
+margin_bottom = 288.0
+window_title = "Abrir un Archivo"
+mode = 0
+filters = PoolStringArray( "*.png" )
+
+[node name="Search" type="Button" parent="Tabs/Character/FaceLabel"]
+margin_left = 43.0
+margin_top = -5.0
+margin_right = 55.0
+margin_bottom = 15.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="Tabs/Character"]
+margin_left = 63.0
+margin_top = 197.0
+margin_right = 103.0
+margin_bottom = 211.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameText" type="LineEdit" parent="Tabs/Character/NameLabel"]
+margin_left = 53.0
+margin_top = -6.0
+margin_right = 185.0
+margin_bottom = 20.0
+text = "Kate"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClassLabel" type="Label" parent="Tabs/Character"]
+margin_left = 315.0
+margin_top = 198.0
+margin_right = 355.0
+margin_bottom = 212.0
+text = "Class"
+
+[node name="ClassText" type="OptionButton" parent="Tabs/Character/ClassLabel"]
+margin_left = 53.0
+margin_top = -6.0
+margin_right = 185.0
+margin_bottom = 20.0
+text = "Warrior"
+items = [ "Warrior", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InitLevelLabel" type="Label" parent="Tabs/Character"]
+margin_left = 312.0
+margin_top = 57.0
+margin_right = 387.0
+margin_bottom = 71.0
+text = "Initial Level"
+
+[node name="InitLevelText" type="SpinBox" parent="Tabs/Character/InitLevelLabel"]
+margin_left = 90.0
+margin_top = -8.0
+margin_right = 144.0
+margin_bottom = 18.0
+min_value = 1.0
+value = 1.0
+
+[node name="MaxLevelLabel" type="Label" parent="Tabs/Character"]
+margin_left = 320.0
+margin_top = 96.0
+margin_right = 384.0
+margin_bottom = 110.0
+text = "Max Level"
+
+[node name="MaxLevelText" type="SpinBox" parent="Tabs/Character/MaxLevelLabel"]
+margin_left = 82.0
+margin_top = -7.0
+margin_right = 136.0
+margin_bottom = 19.0
+min_value = 1.0
+max_value = 99999.0
+value = 99.0
+
+[node name="Class" type="Control" parent="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 3 )
+
+[node name="ClassSaveButton" type="Button" parent="Tabs/Class"]
+margin_left = 280.0
+margin_top = 416.0
+margin_right = 370.0
+margin_bottom = 446.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClassButton" type="OptionButton" parent="Tabs/Class"]
+margin_left = 253.0
+margin_top = 14.0
+margin_right = 389.0
+margin_bottom = 38.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="Tabs/Class"]
+margin_left = 24.0
+margin_top = 65.0
+margin_right = 64.0
+margin_bottom = 79.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameText" type="LineEdit" parent="Tabs/Class/NameLabel"]
+margin_left = 54.0
+margin_top = -5.0
+margin_right = 141.0
+margin_bottom = 19.0
+
+[node name="IconLabel" type="Label" parent="Tabs/Class"]
+margin_left = 190.0
+margin_top = 64.0
+margin_right = 230.0
+margin_bottom = 78.0
+text = "Icon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconSprite" type="Sprite" parent="Tabs/Class/IconLabel"]
+position = Vector2( 88, 6 )
+texture = SubResource( 2 )
+
+[node name="ExpLabel" type="Label" parent="Tabs/Class"]
+margin_left = 363.0
+margin_top = 65.0
+margin_right = 445.0
+margin_bottom = 79.0
+text = "Exp. Formula"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExpText" type="LineEdit" parent="Tabs/Class/ExpLabel"]
+margin_left = 105.0
+margin_top = -6.0
+margin_right = 260.0
+margin_bottom = 18.0
+text = "level * 30"
+
+[node name="Skill" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Item" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Weapon" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Armor" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="System" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
+[connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Character/CharacterButton" to="Tabs/Character" method="_on_CharacterButton_item_selected"]
+[connection signal="pressed" from="Tabs/Character/CharacterButton/AddButton" to="Tabs/Character" method="_on_AddButton_pressed"]
+[connection signal="file_selected" from="Tabs/Character/FaceLabel/FaceSearch" to="Tabs/Character" method="_on_FaceSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Character/FaceLabel/Search" to="Tabs/Character" method="_on_Search_pressed"]
