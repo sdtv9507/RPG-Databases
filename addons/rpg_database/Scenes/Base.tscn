@@ -19,10 +19,11 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -1.0
 margin_top = 32.0
-margin_right = 640.0
+margin_right = 639.0
 margin_bottom = 479.0
-color = Color( 0, 0.384314, 0.568627, 1 )
+color = Color( 0.133333, 0.137255, 0.141176, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -35,6 +36,7 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -58,12 +60,12 @@ __meta__ = {
 
 [node name="CharacterButton" type="OptionButton" parent="Tabs/Character"]
 margin_left = 253.0
-margin_top = 14.0
+margin_top = 13.0
 margin_right = 389.0
-margin_bottom = 38.0
+margin_bottom = 37.0
 text = "Kate"
 align = 1
-items = [ "Kate", null, false, 0, null, "Axel", null, false, 1, null, "Axel", null, false, 2, null ]
+items = [ "Kate", null, false, 0, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -195,15 +197,15 @@ margin_left = 108.0
 margin_top = -6.0
 margin_right = 242.0
 margin_bottom = 20.0
-text = "Ítem 0"
-items = [ "Ítem 0", null, false, 0, null ]
+text = "Broad Sword"
+items = [ "Broad Sword", null, false, 0, null ]
 selected = 0
 
 [node name="ArmorLabel" type="Label" parent="Tabs/Character"]
 margin_left = 62.0
-margin_top = 308.0
+margin_top = 300.0
 margin_right = 143.0
-margin_bottom = 322.0
+margin_bottom = 314.0
 text = "Initial Armor"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -214,15 +216,15 @@ margin_left = 94.0
 margin_top = -6.0
 margin_right = 228.0
 margin_bottom = 20.0
-text = "Ítem 0"
-items = [ "Ítem 0", null, false, 0, null ]
+text = "Clothes"
+items = [ "Clothes", null, false, 0, null ]
 selected = 0
 
 [node name="AccesoryLabel" type="Label" parent="Tabs/Character"]
 margin_left = 45.0
-margin_top = 359.0
+margin_top = 350.0
 margin_right = 144.0
-margin_bottom = 373.0
+margin_bottom = 364.0
 text = "Initial Accesory"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -233,12 +235,11 @@ margin_left = 111.0
 margin_top = -6.0
 margin_right = 245.0
 margin_bottom = 20.0
-text = "Ítem 0"
-items = [ "Ítem 0", null, false, 0, null ]
+text = "Ring"
+items = [ "Ring", null, false, 0, null ]
 selected = 0
 
 [node name="Class" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -258,9 +259,9 @@ __meta__ = {
 }
 
 [node name="ClassButton" type="OptionButton" parent="Tabs/Class"]
-margin_left = 253.0
+margin_left = 252.0
 margin_top = 14.0
-margin_right = 389.0
+margin_right = 388.0
 margin_bottom = 38.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
@@ -268,6 +269,12 @@ selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AddClass" type="Button" parent="Tabs/Class/ClassButton"]
+margin_left = 142.0
+margin_right = 166.0
+margin_bottom = 24.0
+text = "+"
 
 [node name="NameLabel" type="Label" parent="Tabs/Class"]
 margin_left = 24.0
@@ -286,9 +293,9 @@ margin_right = 141.0
 margin_bottom = 19.0
 
 [node name="IconLabel" type="Label" parent="Tabs/Class"]
-margin_left = 190.0
+margin_left = 210.0
 margin_top = 64.0
-margin_right = 230.0
+margin_right = 250.0
 margin_bottom = 78.0
 text = "Icon"
 __meta__ = {
@@ -296,8 +303,23 @@ __meta__ = {
 }
 
 [node name="IconSprite" type="Sprite" parent="Tabs/Class/IconLabel"]
-position = Vector2( 88, 6 )
+position = Vector2( 87, 6 )
 texture = SubResource( 2 )
+
+[node name="Search" type="Button" parent="Tabs/Class/IconLabel"]
+margin_left = 37.0
+margin_top = -2.0
+margin_right = 57.0
+margin_bottom = 18.0
+text = "..."
+
+[node name="IconSearch" type="FileDialog" parent="Tabs/Class/IconLabel"]
+margin_left = -43.0
+margin_top = 24.0
+margin_right = 272.0
+margin_bottom = 154.0
+window_title = "Abrir un Archivo"
+mode = 0
 
 [node name="ExpLabel" type="Label" parent="Tabs/Class"]
 margin_left = 363.0
@@ -315,6 +337,184 @@ margin_top = -6.0
 margin_right = 260.0
 margin_bottom = 18.0
 text = "level * 30"
+
+[node name="HPLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 110.0
+margin_right = 65.0
+margin_bottom = 124.0
+text = "HP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HPText" type="LineEdit" parent="Tabs/Class/HPLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 20 + 5"
+
+[node name="MPLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 140.0
+margin_right = 65.0
+margin_bottom = 154.0
+text = "MP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MPText" type="LineEdit" parent="Tabs/Class/MPLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 12 + 3"
+
+[node name="ATKLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 170.0
+margin_right = 65.0
+margin_bottom = 184.0
+text = "ATK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ATKText" type="LineEdit" parent="Tabs/Class/ATKLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 5 + 2"
+
+[node name="DEFLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 200.0
+margin_right = 65.0
+margin_bottom = 214.0
+text = "DEF"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DEFText" type="LineEdit" parent="Tabs/Class/DEFLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 5 + 2"
+
+[node name="INTLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 230.0
+margin_right = 65.0
+margin_bottom = 244.0
+text = "INT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="INTText" type="LineEdit" parent="Tabs/Class/INTLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 5 + 2"
+
+[node name="RESLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 260.0
+margin_right = 65.0
+margin_bottom = 274.0
+text = "RES"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RESText" type="LineEdit" parent="Tabs/Class/RESLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 5 + 2"
+
+[node name="SPDLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 290.0
+margin_right = 65.0
+margin_bottom = 304.0
+text = "SPD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SPDText" type="LineEdit" parent="Tabs/Class/SPDLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 5 + 2"
+
+[node name="LUKLabel" type="Label" parent="Tabs/Class"]
+margin_left = 25.0
+margin_top = 320.0
+margin_right = 65.0
+margin_bottom = 334.0
+text = "LUK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LUKText" type="LineEdit" parent="Tabs/Class/LUKLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+text = "level * 5 + 2"
+
+[node name="SkillLabel" type="Label" parent="Tabs/Class"]
+margin_left = 376.0
+margin_top = 98.0
+margin_right = 429.0
+margin_bottom = 112.0
+text = "Skill List"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkillContainer" type="PanelContainer" parent="Tabs/Class/SkillLabel"]
+margin_left = 7.0
+margin_top = 20.0
+margin_right = 236.0
+margin_bottom = 331.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkillListContainer" type="VBoxContainer" parent="Tabs/Class/SkillLabel/SkillContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 222.0
+margin_bottom = 310.0
+
+[node name="SkillList" type="ItemList" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
+margin_right = 215.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 0, 255 )
+
+[node name="AddSkill" type="Button" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
+margin_top = 259.0
+margin_right = 215.0
+margin_bottom = 279.0
+text = "Add Skill"
+
+[node name="RemoveSkill" type="Button" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
+margin_top = 283.0
+margin_right = 215.0
+margin_bottom = 303.0
+text = "Remove Skill"
 
 [node name="Skill" type="Control" parent="Tabs"]
 visible = false
@@ -367,3 +567,8 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Character/CharacterButton/AddButton" to="Tabs/Character" method="_on_AddButton_pressed"]
 [connection signal="file_selected" from="Tabs/Character/FaceLabel/FaceSearch" to="Tabs/Character" method="_on_FaceSearch_file_selected"]
 [connection signal="pressed" from="Tabs/Character/FaceLabel/Search" to="Tabs/Character" method="_on_Search_pressed"]
+[connection signal="pressed" from="Tabs/Class/ClassSaveButton" to="Tabs/Class" method="_on_ClassSaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Class/ClassButton" to="Tabs/Class" method="_on_ClassButton_item_selected"]
+[connection signal="pressed" from="Tabs/Class/ClassButton/AddClass" to="Tabs/Class" method="_on_AddClass_pressed"]
+[connection signal="pressed" from="Tabs/Class/IconLabel/Search" to="Tabs/Class" method="_on_Search_pressed"]
+[connection signal="file_selected" from="Tabs/Class/IconLabel/IconSearch" to="Tabs/Class" method="_on_IconSearch_file_selected"]

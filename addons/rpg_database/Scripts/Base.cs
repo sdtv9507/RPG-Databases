@@ -41,7 +41,40 @@ public class Base : Control
 			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
 			class_data.Add("name", "Warrior");
+			class_data.Add("icon", "");
+			class_data.Add("experience", "level * 30");
+			class_data.Add("hp", "level * 25 + 10");
+			class_data.Add("mp", "level * 15 + 5");
+			class_data.Add("atk", "level * 5 + 3");
+			class_data.Add("def", "level * 5 + 3");
+			class_data.Add("int", "level * 5 + 3");
+			class_data.Add("res", "level * 5 + 3");
+			class_data.Add("spd", "level * 5 + 3");
+			class_data.Add("luk", "level * 5 + 3");
+			class_data.Add("skill_list", "");
 			class_array.Add("class0", class_data);
+			database_editor.StoreLine(JSON.Print(class_array));
+			database_editor.Close();
+		}
+
+		if (!database_editor.FileExists("res://databases/Skill.json"))
+		{
+			database_editor.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			class_data.Add("name", "Double Attack");
+			class_array.Add("skill0", class_data);
+			database_editor.StoreLine(JSON.Print(class_array));
+			database_editor.Close();
+		}
+
+		if (!database_editor.FileExists("res://databases/Item.json"))
+		{
+			database_editor.Open("res://databases/Item.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			class_data.Add("name", "Potion");
+			class_array.Add("item0", class_data);
 			database_editor.StoreLine(JSON.Print(class_array));
 			database_editor.Close();
 		}

@@ -20,14 +20,12 @@ public class Character : Control
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
-			Godot.Collections.Dictionary newCharDict = jsonDictionary["chara"+i] as Godot.Collections.Dictionary;
-			if (i == 0)
-			{
-				GetNode<OptionButton>("CharacterButton").SetItemText(0, newCharDict["name"] as string);
-			}
-            if (jsonDictionary.Count > 1 && i > 0)
+            Godot.Collections.Dictionary newClassDict = jsonDictionary["chara"+i] as Godot.Collections.Dictionary;
+            if (i > GetNode<OptionButton>("CharacterButton").GetItemCount())
             {
-                GetNode<OptionButton>("CharacterButton").AddItem(newCharDict["name"] as string);
+                GetNode<OptionButton>("CharacterButton").AddItem(newClassDict["name"] as string);
+            }else{
+                GetNode<OptionButton>("CharacterButton").SetItemText(i, newClassDict["name"] as string);
             }
         }
         database_editor.Close();
@@ -41,8 +39,13 @@ public class Character : Control
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary dataDictionary = jsonDictionary["chara"+id] as Godot.Collections.Dictionary;
-		GetNode<OptionButton>("CharacterButton").SetItemText(0, dataDictionary["name"] as string);
+		GetNode<OptionButton>("CharacterButton").SetItemText(id, dataDictionary["name"] as string);
 		GetNode<LineEdit>("NameLabel/NameText").Text = dataDictionary["name"] as string;
+		string face = dataDictionary["faceImage"] as string;
+		if (face != "")
+        {
+            GetNode<Sprite>("FaceLabel/FaceSprite").Texture = GD.Load(dataDictionary["faceImage"] as string) as Godot.Texture;
+        }
 		GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value = Convert.ToInt32(dataDictionary["initialLevel"]);
 		GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value = Convert.ToInt32(dataDictionary["maxLevel"]);
         database_editor.Close();
@@ -52,8 +55,16 @@ public class Character : Control
 		string classAsText = class_editor.GetAsText();
 		JSONParseResult classParsed = JSON.Parse(classAsText);
 		Godot.Collections.Dictionary classDictionary = classParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary dataClassDictionary = classDictionary["class0"] as Godot.Collections.Dictionary;
-        GetNode<OptionButton>("ClassLabel/ClassText").SetItemText(0, dataClassDictionary["name"] as string);
+		for (int i = 0; i < classDictionary.Count; i++)
+        {
+            Godot.Collections.Dictionary newClassDict = classDictionary["class"+i] as Godot.Collections.Dictionary;  
+            if (i > GetNode<OptionButton>("ClassLabel/ClassText").GetItemCount())
+            {
+                GetNode<OptionButton>("ClassLabel/ClassText").AddItem(newClassDict["name"] as string);
+            }else{
+                GetNode<OptionButton>("ClassLabel/ClassText").SetItemText(i, newClassDict["name"] as string);
+            }
+        }
         class_editor.Close();
 
 		Godot.File weapon_editor = new Godot.File();
@@ -142,6 +153,7 @@ public class Character : Control
 		finalData["faceImage"] = facePath;
 		finalData["charaImage"] = "";
 		finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
+		GetNode<OptionButton>("CharacterButton").SetItemText(character_selected, GetNode<LineEdit>("NameLabel/NameText").Text);
 		finalData["class"] = GetNode<OptionButton>("ClassLabel/ClassText").Selected;
 		finalData["initialLevel"] = GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value;
 		finalData["maxLevel"] = GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value;
