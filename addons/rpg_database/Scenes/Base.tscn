@@ -35,7 +35,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -64,7 +63,7 @@ margin_right = 389.0
 margin_bottom = 38.0
 text = "Kate"
 align = 1
-items = [ "Kate", null, false, 0, null, "Axel", null, false, 1, null ]
+items = [ "Kate", null, false, 0, null, "Axel", null, false, 1, null, "Axel", null, false, 2, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -161,6 +160,9 @@ margin_right = 144.0
 margin_bottom = 18.0
 min_value = 1.0
 value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MaxLevelLabel" type="Label" parent="Tabs/Character"]
 margin_left = 320.0
@@ -178,7 +180,65 @@ min_value = 1.0
 max_value = 99999.0
 value = 99.0
 
+[node name="WeaponLabel" type="Label" parent="Tabs/Character"]
+margin_left = 48.0
+margin_top = 250.0
+margin_right = 141.0
+margin_bottom = 264.0
+text = "Initial Weapon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponButton" type="OptionButton" parent="Tabs/Character/WeaponLabel"]
+margin_left = 108.0
+margin_top = -6.0
+margin_right = 242.0
+margin_bottom = 20.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="ArmorLabel" type="Label" parent="Tabs/Character"]
+margin_left = 62.0
+margin_top = 308.0
+margin_right = 143.0
+margin_bottom = 322.0
+text = "Initial Armor"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ArmorButton" type="OptionButton" parent="Tabs/Character/ArmorLabel"]
+margin_left = 94.0
+margin_top = -6.0
+margin_right = 228.0
+margin_bottom = 20.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="AccesoryLabel" type="Label" parent="Tabs/Character"]
+margin_left = 45.0
+margin_top = 359.0
+margin_right = 144.0
+margin_bottom = 373.0
+text = "Initial Accesory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccesoryButton" type="OptionButton" parent="Tabs/Character/AccesoryLabel"]
+margin_left = 111.0
+margin_top = -6.0
+margin_right = 245.0
+margin_bottom = 20.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
 [node name="Class" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0

@@ -46,6 +46,39 @@ public class Base : Control
 			database_editor.Close();
 		}
 
+		if (!database_editor.FileExists("res://databases/Weapon.json"))
+		{
+			database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			class_data.Add("name", "Broad Sword");
+			class_array.Add("weapon0", class_data);
+			database_editor.StoreLine(JSON.Print(class_array));
+			database_editor.Close();
+		}
+
+		if (!database_editor.FileExists("res://databases/Armor.json"))
+		{
+			database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			class_data.Add("name", "Clothes");
+			class_array.Add("armor0", class_data);
+			database_editor.StoreLine(JSON.Print(class_array));
+			database_editor.Close();
+		}
+
+		if (!database_editor.FileExists("res://databases/Accesory.json"))
+		{
+			database_editor.Open("res://databases/Accesory.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			class_data.Add("name", "Ring");
+			class_array.Add("accesory0", class_data);
+			database_editor.StoreLine(JSON.Print(class_array));
+			database_editor.Close();
+		}
+
 		GetNode<Control>("Tabs/Character").Call("_Start");
 	}
 

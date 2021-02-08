@@ -55,6 +55,33 @@ public class Character : Control
         Godot.Collections.Dictionary dataClassDictionary = classDictionary["class0"] as Godot.Collections.Dictionary;
         GetNode<OptionButton>("ClassLabel/ClassText").SetItemText(0, dataClassDictionary["name"] as string);
         class_editor.Close();
+
+		Godot.File weapon_editor = new Godot.File();
+		weapon_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
+		string weaponAsText = weapon_editor.GetAsText();
+		JSONParseResult weaponParsed = JSON.Parse(weaponAsText);
+		Godot.Collections.Dictionary weaponDictionary = weaponParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary dataWeaponDictionary = weaponDictionary["weapon0"] as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("WeaponLabel/WeaponButton").SetItemText(0, dataWeaponDictionary["name"] as string);
+        weapon_editor.Close();
+		
+		Godot.File armor_editor = new Godot.File();
+		armor_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+		string armorAsText = armor_editor.GetAsText();
+		JSONParseResult armorParsed = JSON.Parse(armorAsText);
+		Godot.Collections.Dictionary armorDictionary = armorParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor0"] as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("ArmorLabel/ArmorButton").SetItemText(0, dataArmorDictionary["name"] as string);
+        armor_editor.Close();
+		
+		Godot.File accesory_editor = new Godot.File();
+		accesory_editor.Open("res://databases/Accesory.json", Godot.File.ModeFlags.Read);
+		string accesoryAsText = accesory_editor.GetAsText();
+		JSONParseResult accesoryParsed = JSON.Parse(accesoryAsText);
+		Godot.Collections.Dictionary accesoryDictionary = accesoryParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary dataAccesoryDictionary = accesoryDictionary["accesory0"] as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("AccesoryLabel/AccesoryButton").SetItemText(0, dataAccesoryDictionary["name"] as string);
+        accesory_editor.Close();
 	}
 
 	public void _on_CharaSaveButton_pressed()
