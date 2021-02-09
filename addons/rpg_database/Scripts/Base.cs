@@ -122,6 +122,8 @@ public class Base : Control
 			GetNode<Control>("Tabs/Character").Call("_Start");
 		} else if (tab == 1) {
 			GetNode<Control>("Tabs/Class").Call("_Start");
+		} else if (tab == 2) {
+			GetNode<Control>("Tabs/Skill").Call("_Start");
 		}
 	}
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

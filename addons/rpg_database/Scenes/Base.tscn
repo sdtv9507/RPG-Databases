@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
 [ext_resource path="res://addons/rpg_database/Scripts/Class.cs" type="Script" id=3]
+[ext_resource path="res://addons/rpg_database/Scripts/Skill.cs" type="Script" id=4]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
 
 [sub_resource type="ImageTexture" id=2]
+size = Vector2( 32, 32 )
+
+[sub_resource type="ImageTexture" id=3]
 size = Vector2( 32, 32 )
 
 [node name="Control" type="Control"]
@@ -36,7 +40,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -49,10 +52,10 @@ __meta__ = {
 }
 
 [node name="CharaSaveButton" type="Button" parent="Tabs/Character"]
-margin_left = 280.0
-margin_top = 416.0
-margin_right = 370.0
-margin_bottom = 446.0
+margin_left = 269.0
+margin_top = 415.0
+margin_right = 359.0
+margin_bottom = 445.0
 text = "Save"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -240,6 +243,7 @@ items = [ "Ring", null, false, 0, null ]
 selected = 0
 
 [node name="Class" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -524,6 +528,283 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 4 )
+
+[node name="SkillSaveButton" type="Button" parent="Tabs/Skill"]
+margin_left = 280.0
+margin_top = 416.0
+margin_right = 370.0
+margin_bottom = 446.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkillButton" type="OptionButton" parent="Tabs/Skill"]
+margin_left = 252.0
+margin_top = 14.0
+margin_right = 388.0
+margin_bottom = 38.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddSkill" type="Button" parent="Tabs/Skill/SkillButton"]
+margin_left = 140.0
+margin_right = 164.0
+margin_bottom = 24.0
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 24.0
+margin_top = 65.0
+margin_right = 64.0
+margin_bottom = 79.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameText" type="LineEdit" parent="Tabs/Skill/NameLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 230.0
+margin_top = 65.0
+margin_right = 270.0
+margin_bottom = 79.0
+text = "Icon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Search" type="Button" parent="Tabs/Skill/IconLabel"]
+margin_left = 36.0
+margin_top = -4.0
+margin_right = 60.0
+margin_bottom = 16.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconSprite" type="Sprite" parent="Tabs/Skill/IconLabel"]
+position = Vector2( 87, 6 )
+texture = SubResource( 3 )
+
+[node name="IconSearch" type="FileDialog" parent="Tabs/Skill/IconLabel"]
+margin_right = 315.0
+margin_bottom = 130.0
+window_title = "Abrir un Archivo"
+mode = 0
+
+[node name="DescLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 25.0
+margin_top = 96.0
+margin_right = 99.0
+margin_bottom = 110.0
+text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="TextEdit" parent="Tabs/Skill/DescLabel"]
+margin_left = -2.0
+margin_top = 18.0
+margin_right = 322.0
+margin_bottom = 107.0
+
+[node name="SkillTypeLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 24.0
+margin_top = 215.0
+margin_right = 84.0
+margin_bottom = 229.0
+text = "Skill Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkillTypeButton" type="OptionButton" parent="Tabs/Skill/SkillTypeLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "Skills"
+items = [ "Skills", null, false, 0, null ]
+selected = 0
+
+[node name="MPCostLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 150.0
+margin_top = 214.0
+margin_right = 202.0
+margin_bottom = 228.0
+text = "MP Cost"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MPCostBox" type="SpinBox" parent="Tabs/Skill/MPCostLabel"]
+margin_top = 20.0
+margin_right = 74.0
+margin_bottom = 44.0
+max_value = 1e+08
+
+[node name="TPCostLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 260.0
+margin_top = 215.0
+margin_right = 307.0
+margin_bottom = 229.0
+text = "TP Cost"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TPCostBox" type="SpinBox" parent="Tabs/Skill/TPCostLabel"]
+margin_top = 20.0
+margin_right = 74.0
+margin_bottom = 44.0
+
+[node name="TargetLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 25.0
+margin_top = 270.0
+margin_right = 65.0
+margin_bottom = 284.0
+text = "Target"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TargetButton" type="OptionButton" parent="Tabs/Skill/TargetLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "None"
+items = [ "None", null, false, 0, null, "One Enemy", null, false, 1, null, "All Enemies", null, false, 2, null, "One Random Enemy", null, false, 3, null, "Two Random Enemies", null, false, 4, null, "Three Random Enemies", null, false, 5, null, "Four Random Enemies", null, false, 6, null, "One Ally", null, false, 7, null, "All Allies", null, false, 8, null, "One Ally (Dead)", null, false, 9, null, "All Allies (Dead)", null, false, 10, null, "User", null, false, 11, null ]
+selected = 0
+
+[node name="UsableLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 150.0
+margin_top = 270.0
+margin_right = 194.0
+margin_bottom = 284.0
+text = "Usable"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UsableButton" type="OptionButton" parent="Tabs/Skill/UsableLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "Always"
+items = [ "Always", null, false, 0, null, "Only in Battle", null, false, 1, null, "Only in Menu", null, false, 2, null, "Never", null, false, 3, null ]
+selected = 0
+
+[node name="HitLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 268.0
+margin_top = 270.0
+margin_right = 319.0
+margin_bottom = 284.0
+text = "Success"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitBox" type="SpinBox" parent="Tabs/Skill/HitLabel"]
+margin_top = 20.0
+margin_right = 74.0
+margin_bottom = 44.0
+value = 100.0
+
+[node name="TypeLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 25.0
+margin_top = 330.0
+margin_right = 65.0
+margin_bottom = 344.0
+text = "Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TypeButton" type="OptionButton" parent="Tabs/Skill/TypeLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "Always Hit"
+items = [ "Always Hit", null, false, 0, null, "Physical", null, false, 1, null, "Magical", null, false, 2, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DamageLabel" type="Label" parent="Tabs/Skill"]
+margin_left = 375.0
+margin_top = 65.0
+margin_right = 427.0
+margin_bottom = 79.0
+text = "Damage"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DTypeLabel" type="Label" parent="Tabs/Skill/DamageLabel"]
+margin_left = 6.0
+margin_top = 24.0
+margin_right = 46.0
+margin_bottom = 38.0
+text = "Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DTypeButton" type="OptionButton" parent="Tabs/Skill/DamageLabel/DTypeLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "None"
+items = [ "None", null, false, 0, null, "HP Damage", null, false, 1, null, "MP Damage", null, false, 2, null, "HP Recovery", null, false, 3, null, "MP Recovery", null, false, 4, null, "HP Absorb", null, false, 5, null, "MP Absorb", null, false, 6, null ]
+selected = 0
+
+[node name="ElementLabel" type="Label" parent="Tabs/Skill/DamageLabel"]
+margin_left = 120.0
+margin_top = 24.0
+margin_right = 173.0
+margin_bottom = 38.0
+text = "Element"
+
+[node name="ElementButton" type="OptionButton" parent="Tabs/Skill/DamageLabel/ElementLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="DFormulaLabel" type="Label" parent="Tabs/Skill/DamageLabel"]
+margin_left = 6.0
+margin_top = 84.0
+margin_right = 58.0
+margin_bottom = 98.0
+text = "Formula"
+
+[node name="FormulaText" type="LineEdit" parent="Tabs/Skill/DamageLabel/DFormulaLabel"]
+margin_top = 20.0
+margin_right = 215.0
+margin_bottom = 46.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Item" type="Control" parent="Tabs"]
 visible = false
@@ -553,6 +834,15 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="System" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Editor" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
