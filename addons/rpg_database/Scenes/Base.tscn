@@ -40,6 +40,7 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -521,7 +522,6 @@ margin_bottom = 303.0
 text = "Remove Skill"
 
 [node name="Skill" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -620,11 +620,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="Tabs/Skill/DescLabel"]
+[node name="DescText" type="TextEdit" parent="Tabs/Skill/DescLabel"]
 margin_left = -2.0
-margin_top = 18.0
+margin_top = 24.0
 margin_right = 322.0
-margin_bottom = 107.0
+margin_bottom = 113.0
 
 [node name="SkillTypeLabel" type="Label" parent="Tabs/Skill"]
 margin_left = 24.0
@@ -643,6 +643,9 @@ margin_bottom = 44.0
 text = "Skills"
 items = [ "Skills", null, false, 0, null ]
 selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MPCostLabel" type="Label" parent="Tabs/Skill"]
 margin_left = 150.0
@@ -687,16 +690,16 @@ __meta__ = {
 
 [node name="TargetButton" type="OptionButton" parent="Tabs/Skill/TargetLabel"]
 margin_top = 20.0
-margin_right = 96.0
+margin_right = 160.0
 margin_bottom = 44.0
 text = "None"
 items = [ "None", null, false, 0, null, "One Enemy", null, false, 1, null, "All Enemies", null, false, 2, null, "One Random Enemy", null, false, 3, null, "Two Random Enemies", null, false, 4, null, "Three Random Enemies", null, false, 5, null, "Four Random Enemies", null, false, 6, null, "One Ally", null, false, 7, null, "All Allies", null, false, 8, null, "One Ally (Dead)", null, false, 9, null, "All Allies (Dead)", null, false, 10, null, "User", null, false, 11, null ]
 selected = 0
 
 [node name="UsableLabel" type="Label" parent="Tabs/Skill"]
-margin_left = 150.0
+margin_left = 240.0
 margin_top = 270.0
-margin_right = 194.0
+margin_right = 284.0
 margin_bottom = 284.0
 text = "Usable"
 __meta__ = {
@@ -705,17 +708,17 @@ __meta__ = {
 
 [node name="UsableButton" type="OptionButton" parent="Tabs/Skill/UsableLabel"]
 margin_top = 20.0
-margin_right = 96.0
+margin_right = 128.0
 margin_bottom = 44.0
 text = "Always"
 items = [ "Always", null, false, 0, null, "Only in Battle", null, false, 1, null, "Only in Menu", null, false, 2, null, "Never", null, false, 3, null ]
 selected = 0
 
 [node name="HitLabel" type="Label" parent="Tabs/Skill"]
-margin_left = 268.0
-margin_top = 270.0
-margin_right = 319.0
-margin_bottom = 284.0
+margin_left = 150.0
+margin_top = 330.0
+margin_right = 201.0
+margin_bottom = 344.0
 text = "Success"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -797,6 +800,9 @@ margin_top = 84.0
 margin_right = 58.0
 margin_bottom = 98.0
 text = "Formula"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FormulaText" type="LineEdit" parent="Tabs/Skill/DamageLabel/DFormulaLabel"]
 margin_top = 20.0
@@ -862,3 +868,8 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Class/ClassButton/AddClass" to="Tabs/Class" method="_on_AddClass_pressed"]
 [connection signal="pressed" from="Tabs/Class/IconLabel/Search" to="Tabs/Class" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Class/IconLabel/IconSearch" to="Tabs/Class" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Skill/SkillSaveButton" to="Tabs/Skill" method="_on_SkillSaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Skill/SkillButton" to="Tabs/Skill" method="_on_SkillButton_item_selected"]
+[connection signal="pressed" from="Tabs/Skill/SkillButton/AddSkill" to="Tabs/Skill" method="_on_AddSkill_pressed"]
+[connection signal="pressed" from="Tabs/Skill/IconLabel/Search" to="Tabs/Skill" method="_on_Search_pressed"]
+[connection signal="file_selected" from="Tabs/Skill/IconLabel/IconSearch" to="Tabs/Skill" method="_on_IconSearch_file_selected"]

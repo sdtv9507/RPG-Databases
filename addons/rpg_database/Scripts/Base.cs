@@ -60,55 +60,67 @@ public class Base : Control
 		if (!database_editor.FileExists("res://databases/Skill.json"))
 		{
 			database_editor.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Double Attack");
-			class_array.Add("skill0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
+			Godot.Collections.Dictionary skill_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary skill_data = new Godot.Collections.Dictionary();
+			skill_data.Add("name", "Double Attack");
+			skill_data.Add("icon", "");
+			skill_data.Add("description", "Attacks an enemy twice");
+			skill_data.Add("skill_type", 0);
+			skill_data.Add("mp_cost", 4);
+			skill_data.Add("tp_cost", 2);
+			skill_data.Add("target", 1);
+			skill_data.Add("usable", 1);
+			skill_data.Add("success", 95);
+			skill_data.Add("hit_type", 1);
+			skill_data.Add("damage_type", 1);
+			skill_data.Add("element", 0);
+			skill_data.Add("formula", "atk * 4 - def * 2");
+			skill_array.Add("skill0", skill_data);
+			database_editor.StoreLine(JSON.Print(skill_array));
 			database_editor.Close();
 		}
 
 		if (!database_editor.FileExists("res://databases/Item.json"))
 		{
 			database_editor.Open("res://databases/Item.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Potion");
-			class_array.Add("item0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
+			Godot.Collections.Dictionary item_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary item_data = new Godot.Collections.Dictionary();
+			item_data.Add("name", "Potion");
+			item_array.Add("item0", item_data);
+			database_editor.StoreLine(JSON.Print(item_array));
 			database_editor.Close();
 		}
 
 		if (!database_editor.FileExists("res://databases/Weapon.json"))
 		{
 			database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Broad Sword");
-			class_array.Add("weapon0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
+			Godot.Collections.Dictionary weapon_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary weapon_data = new Godot.Collections.Dictionary();
+			weapon_data.Add("name", "Broad Sword");
+			weapon_array.Add("weapon0", weapon_data);
+			database_editor.StoreLine(JSON.Print(weapon_array));
 			database_editor.Close();
 		}
 
 		if (!database_editor.FileExists("res://databases/Armor.json"))
 		{
 			database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Clothes");
-			class_array.Add("armor0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
+			Godot.Collections.Dictionary armor_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary armor_data = new Godot.Collections.Dictionary();
+			armor_data.Add("name", "Clothes");
+			armor_array.Add("armor0", armor_data);
+			database_editor.StoreLine(JSON.Print(armor_array));
 			database_editor.Close();
 		}
 
 		if (!database_editor.FileExists("res://databases/Accesory.json"))
 		{
 			database_editor.Open("res://databases/Accesory.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Ring");
-			class_array.Add("accesory0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
+			Godot.Collections.Dictionary accesory_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary accesory_data = new Godot.Collections.Dictionary();
+			accesory_data.Add("name", "Ring");
+			accesory_array.Add("accesory0", accesory_data);
+			database_editor.StoreLine(JSON.Print(accesory_array));
 			database_editor.Close();
 		}
 

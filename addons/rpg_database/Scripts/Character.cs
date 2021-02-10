@@ -21,7 +21,7 @@ public class Character : Control
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary newClassDict = jsonDictionary["chara"+i] as Godot.Collections.Dictionary;
-            if (i > GetNode<OptionButton>("CharacterButton").GetItemCount())
+            if (i > GetNode<OptionButton>("CharacterButton").GetItemCount() - 1)
             {
                 GetNode<OptionButton>("CharacterButton").AddItem(newClassDict["name"] as string);
             }else{

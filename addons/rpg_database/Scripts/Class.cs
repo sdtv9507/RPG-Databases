@@ -21,7 +21,7 @@ public class Class : Control
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary newClassDict = jsonDictionary["class"+i] as Godot.Collections.Dictionary;
-            if (i > GetNode<OptionButton>("ClassButton").GetItemCount())
+            if (i > GetNode<OptionButton>("ClassButton").GetItemCount() - 1)
             {
                 GetNode<OptionButton>("ClassButton").AddItem(newClassDict["name"] as string);
             }else{
