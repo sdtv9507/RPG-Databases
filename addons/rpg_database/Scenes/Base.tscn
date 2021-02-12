@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
 [ext_resource path="res://addons/rpg_database/Scripts/Class.cs" type="Script" id=3]
 [ext_resource path="res://addons/rpg_database/Scripts/Skill.cs" type="Script" id=4]
+[ext_resource path="res://addons/rpg_database/Scripts/SystemScript.cs" type="Script" id=5]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -244,7 +245,6 @@ items = [ "Ring", null, false, 0, null ]
 selected = 0
 
 [node name="Class" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -522,6 +522,7 @@ margin_bottom = 303.0
 text = "Remove Skill"
 
 [node name="Skill" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -847,6 +848,86 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 5 )
+
+[node name="StatsLabel" type="Label" parent="Tabs/System"]
+margin_left = 20.0
+margin_top = 16.0
+margin_right = 60.0
+margin_bottom = 30.0
+text = "Stats"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsContainer" type="PanelContainer" parent="Tabs/System/StatsLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 136.0
+margin_bottom = 230.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsBoxContainer" type="VBoxContainer" parent="Tabs/System/StatsLabel/StatsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 121.0
+margin_bottom = 209.0
+
+[node name="StatsList" type="ItemList" parent="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer"]
+margin_right = 114.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 0, 154 )
+
+[node name="AddStat" type="Button" parent="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer"]
+margin_top = 158.0
+margin_right = 114.0
+margin_bottom = 178.0
+text = "Add Stat"
+
+[node name="RemoveStat" type="Button" parent="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer"]
+margin_top = 182.0
+margin_right = 114.0
+margin_bottom = 202.0
+text = "Remove Stat"
+
+[node name="AddStat" type="WindowDialog" parent="Tabs/System/StatsLabel"]
+margin_left = -9.99999
+margin_top = 11.0
+margin_right = 370.0
+margin_bottom = 107.0
+window_title = "Add Stat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatName" type="LineEdit" parent="Tabs/System/StatsLabel/AddStat"]
+margin_left = 80.0
+margin_top = 18.0
+margin_right = 359.0
+margin_bottom = 42.0
+
+[node name="StatLabel" type="Label" parent="Tabs/System/StatsLabel/AddStat"]
+margin_left = 10.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 38.0
+text = "Name"
+
+[node name="OKButton" type="Button" parent="Tabs/System/StatsLabel/AddStat"]
+margin_left = 96.0
+margin_top = 60.0
+margin_right = 171.0
+margin_bottom = 80.0
+text = "OK"
+
+[node name="CancelButton" type="Button" parent="Tabs/System/StatsLabel/AddStat"]
+margin_left = 196.0
+margin_top = 60.0
+margin_right = 271.0
+margin_bottom = 80.0
+text = "Cancel"
 
 [node name="Editor" type="Control" parent="Tabs"]
 visible = false
@@ -873,3 +954,6 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Skill/SkillButton/AddSkill" to="Tabs/Skill" method="_on_AddSkill_pressed"]
 [connection signal="pressed" from="Tabs/Skill/IconLabel/Search" to="Tabs/Skill" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Skill/IconLabel/IconSearch" to="Tabs/Skill" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
+[connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
+[connection signal="pressed" from="Tabs/System/StatsLabel/AddStat/OKButton" to="Tabs/System" method="_on_OKButton_pressed"]

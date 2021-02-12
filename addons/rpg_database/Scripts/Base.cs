@@ -124,6 +124,26 @@ public class Base : Control
 			database_editor.Close();
 		}
 
+		if (!database_editor.FileExists("res://databases/System.json"))
+		{
+			database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary system_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary system_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary stats_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
+			stats_data.Add("0", "HP");
+			stats_data.Add("1", "MP");
+			stats_data.Add("2", "ATK");
+			stats_data.Add("3", "DEF");
+			stats_data.Add("4", "INT");
+			stats_data.Add("5", "RES");
+			stats_data.Add("6", "SPD");
+			stats_data.Add("7", "LUK");
+			system_array.Add("stats", system_data);
+			database_editor.StoreLine(JSON.Print(system_array));
+			database_editor.Close();
+		}
+
 		GetNode<Control>("Tabs/Character").Call("_Start");
 	}
 
@@ -136,6 +156,8 @@ public class Base : Control
 			GetNode<Control>("Tabs/Class").Call("_Start");
 		} else if (tab == 2) {
 			GetNode<Control>("Tabs/Skill").Call("_Start");
+		} else if (tab == 3) {
+			GetNode<Control>("Tabs/System").Call("_Start");
 		}
 	}
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
