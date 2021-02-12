@@ -16,6 +16,27 @@ public class Base : Control
 			database_editor.Open("res://databases/editor_database.json", Godot.File.ModeFlags.Write);
 			database_editor.Close();
 		}
+		
+		if (!database_editor.FileExists("res://databases/System.json"))
+		{
+			database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary system_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary system_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary stats_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
+			stats_data.Add("0", "hp");
+			stats_data.Add("1", "mp");
+			stats_data.Add("2", "atk");
+			stats_data.Add("3", "def");
+			stats_data.Add("4", "int");
+			stats_data.Add("5", "res");
+			stats_data.Add("6", "spd");
+			stats_data.Add("7", "luk");
+			system_array.Add("stats", stats_data);
+			database_editor.StoreLine(JSON.Print(system_array));
+			database_editor.Close();
+		}
+
 		if (!database_editor.FileExists("res://databases/Character.json"))
 		{
 			database_editor.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
@@ -40,17 +61,19 @@ public class Base : Control
 			database_editor.Open("res://databases/Class.json", Godot.File.ModeFlags.Write);
 			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_stats_array = new Godot.Collections.Dictionary();
 			class_data.Add("name", "Warrior");
 			class_data.Add("icon", "");
 			class_data.Add("experience", "level * 30");
-			class_data.Add("hp", "level * 25 + 10");
-			class_data.Add("mp", "level * 15 + 5");
-			class_data.Add("atk", "level * 5 + 3");
-			class_data.Add("def", "level * 5 + 3");
-			class_data.Add("int", "level * 5 + 3");
-			class_data.Add("res", "level * 5 + 3");
-			class_data.Add("spd", "level * 5 + 3");
-			class_data.Add("luk", "level * 5 + 3");
+			class_stats_array.Add("hp", "level * 25 + 10");
+			class_stats_array.Add("mp", "level * 15 + 5");
+			class_stats_array.Add("atk", "level * 5 + 3");
+			class_stats_array.Add("def", "level * 5 + 3");
+			class_stats_array.Add("int", "level * 5 + 3");
+			class_stats_array.Add("res", "level * 5 + 3");
+			class_stats_array.Add("spd", "level * 5 + 3");
+			class_stats_array.Add("luk", "level * 5 + 3");
+			class_data.Add("stat_list", class_stats_array);
 			class_data.Add("skill_list", "");
 			class_array.Add("class0", class_data);
 			database_editor.StoreLine(JSON.Print(class_array));
@@ -124,26 +147,6 @@ public class Base : Control
 			database_editor.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/System.json"))
-		{
-			database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary system_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary system_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary stats_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
-			stats_data.Add("0", "HP");
-			stats_data.Add("1", "MP");
-			stats_data.Add("2", "ATK");
-			stats_data.Add("3", "DEF");
-			stats_data.Add("4", "INT");
-			stats_data.Add("5", "RES");
-			stats_data.Add("6", "SPD");
-			stats_data.Add("7", "LUK");
-			system_array.Add("stats", system_data);
-			database_editor.StoreLine(JSON.Print(system_array));
-			database_editor.Close();
-		}
-
 		GetNode<Control>("Tabs/Character").Call("_Start");
 	}
 
@@ -156,7 +159,7 @@ public class Base : Control
 			GetNode<Control>("Tabs/Class").Call("_Start");
 		} else if (tab == 2) {
 			GetNode<Control>("Tabs/Skill").Call("_Start");
-		} else if (tab == 3) {
+		} else if (tab == 6) {
 			GetNode<Control>("Tabs/System").Call("_Start");
 		}
 	}

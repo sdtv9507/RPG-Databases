@@ -40,6 +40,14 @@ public class Class : Control
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary newClassDict = jsonDictionary["class"+id] as Godot.Collections.Dictionary;
+
+        Godot.File system_editor = new Godot.File();
+		system_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+		string systemAsText = system_editor.GetAsText();
+		JSONParseResult systemParsed = JSON.Parse(systemAsText);
+		Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary newSystemDict = systemDictionary["stats"] as Godot.Collections.Dictionary;
+        
         GetNode<LineEdit>("NameLabel/NameText").Text = newClassDict["name"] as string;
         string icon = newClassDict["icon"] as string;
         if (icon != "")
@@ -47,15 +55,24 @@ public class Class : Control
             GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(newClassDict["icon"] as string) as Godot.Texture;
         }
         GetNode<LineEdit>("ExpLabel/ExpText").Text = newClassDict["experience"] as string;
-        GetNode<LineEdit>("HPLabel/HPText").Text = newClassDict["hp"] as string;
-        GetNode<LineEdit>("MPLabel/MPText").Text = newClassDict["mp"] as string;
-        GetNode<LineEdit>("ATKLabel/ATKText").Text = newClassDict["atk"] as string;
-        GetNode<LineEdit>("DEFLabel/DEFText").Text = newClassDict["def"] as string;
-        GetNode<LineEdit>("INTLabel/INTText").Text = newClassDict["int"] as string;
-        GetNode<LineEdit>("RESLabel/RESText").Text = newClassDict["res"] as string;
-        GetNode<LineEdit>("SPDLabel/SPDText").Text = newClassDict["spd"] as string;
-        GetNode<LineEdit>("LUKLabel/LUKText").Text = newClassDict["luk"] as string;
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList").Clear();
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList").Clear();
+        for (int i = 0; i < newSystemDict.Count; i++)
+        {
+            string statName = newSystemDict[i.ToString()] as string;
+            Godot.Collections.Dictionary classStatFormula = newClassDict["stat_list"] as Godot.Collections.Dictionary;
+            string statFormula = "";
+            if (classStatFormula.Contains(statName))
+            {
+                statFormula = classStatFormula[statName as string] as string;
+            }else{
+                statFormula = "level * 5";
+            }
+            GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList").AddItem(statName);
+            GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList").AddItem(statFormula);
+        }
         database_editor.Close();
+        system_editor.Close();
     }
 
     private void _on_Search_pressed()
@@ -84,18 +101,20 @@ public class Class : Control
         database_editor.Close();
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary finalData = jsonDictionary["class"+class_selected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary classStatFormula = finalData["stat_list"] as Godot.Collections.Dictionary;
+        
 		finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
 		GetNode<OptionButton>("ClassButton").SetItemText(class_selected, GetNode<LineEdit>("NameLabel/NameText").Text);
 		finalData["icon"] = icon_path;
         finalData["experience"] = GetNode<LineEdit>("ExpLabel/ExpText").Text;
-        finalData["hp"] = GetNode<LineEdit>("HPLabel/HPText").Text;
-        finalData["mp"] = GetNode<LineEdit>("MPLabel/MPText").Text;
-        finalData["atk"] = GetNode<LineEdit>("ATKLabel/ATKText").Text;
-        finalData["def"] = GetNode<LineEdit>("DEFLabel/DEFText").Text;
-        finalData["int"] = GetNode<LineEdit>("INTLabel/INTText").Text;
-        finalData["res"] = GetNode<LineEdit>("RESLabel/RESText").Text;
-        finalData["res"] = GetNode<LineEdit>("SPDLabel/SPDText").Text;
-        finalData["res"] = GetNode<LineEdit>("LUKLabel/LUKText").Text;
+        int items = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList").GetItemCount();
+        for (int i = 0; i < items; i++)
+        {
+            string stat = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList").GetItemText(i);
+            string formula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList").GetItemText(i);
+            classStatFormula[stat] = formula;
+        }
+        database_editor.Close();
         finalData["skill_list"] = "";
         database_editor.Open("res://databases/Class.json", Godot.File.ModeFlags.Write);
 		database_editor.StoreString(JSON.Print(jsonDictionary));

@@ -9,13 +9,12 @@ public class SystemScript : Control
     // private string b = "text";
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public void _Start()
     {
         Godot.File database_editor = new Godot.File();
 		database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
 		string jsonAsText = database_editor.GetAsText();
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary finalData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
 
@@ -24,6 +23,7 @@ public class SystemScript : Control
             ItemList item = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList");
             item.AddItem((finalData[i.ToString()]).ToString());
         }
+        database_editor.Close();
     }
 
     public void _save_Stats()
@@ -34,14 +34,12 @@ public class SystemScript : Control
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         database_editor.Close();
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary finalData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
 
         int statSize = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetItemCount();
         for (int i = 0; i < statSize; i++)
         {
             String text = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetItemText(i);
-            //stats_data[i.ToString()] = text;
             stats_data.Add(i.ToString(), text);
         }
         jsonDictionary["stats"] = stats_data;

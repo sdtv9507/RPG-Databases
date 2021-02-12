@@ -41,7 +41,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -245,6 +244,7 @@ items = [ "Ring", null, false, 0, null ]
 selected = 0
 
 [node name="Class" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -254,9 +254,9 @@ margin_bottom = -4.0
 script = ExtResource( 3 )
 
 [node name="ClassSaveButton" type="Button" parent="Tabs/Class"]
-margin_left = 280.0
+margin_left = 286.0
 margin_top = 416.0
-margin_right = 370.0
+margin_right = 376.0
 margin_bottom = 446.0
 text = "Save"
 __meta__ = {
@@ -343,142 +343,6 @@ margin_right = 260.0
 margin_bottom = 18.0
 text = "level * 30"
 
-[node name="HPLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 110.0
-margin_right = 65.0
-margin_bottom = 124.0
-text = "HP"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HPText" type="LineEdit" parent="Tabs/Class/HPLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 20 + 5"
-
-[node name="MPLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 140.0
-margin_right = 65.0
-margin_bottom = 154.0
-text = "MP"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MPText" type="LineEdit" parent="Tabs/Class/MPLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 12 + 3"
-
-[node name="ATKLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 170.0
-margin_right = 65.0
-margin_bottom = 184.0
-text = "ATK"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ATKText" type="LineEdit" parent="Tabs/Class/ATKLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 5 + 2"
-
-[node name="DEFLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 200.0
-margin_right = 65.0
-margin_bottom = 214.0
-text = "DEF"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DEFText" type="LineEdit" parent="Tabs/Class/DEFLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 5 + 2"
-
-[node name="INTLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 230.0
-margin_right = 65.0
-margin_bottom = 244.0
-text = "INT"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="INTText" type="LineEdit" parent="Tabs/Class/INTLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 5 + 2"
-
-[node name="RESLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 260.0
-margin_right = 65.0
-margin_bottom = 274.0
-text = "RES"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RESText" type="LineEdit" parent="Tabs/Class/RESLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 5 + 2"
-
-[node name="SPDLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 290.0
-margin_right = 65.0
-margin_bottom = 304.0
-text = "SPD"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SPDText" type="LineEdit" parent="Tabs/Class/SPDLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 5 + 2"
-
-[node name="LUKLabel" type="Label" parent="Tabs/Class"]
-margin_left = 25.0
-margin_top = 320.0
-margin_right = 65.0
-margin_bottom = 334.0
-text = "LUK"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LUKText" type="LineEdit" parent="Tabs/Class/LUKLabel"]
-margin_left = 44.0
-margin_top = -6.0
-margin_right = 160.0
-margin_bottom = 20.0
-text = "level * 5 + 2"
-
 [node name="SkillLabel" type="Label" parent="Tabs/Class"]
 margin_left = 376.0
 margin_top = 98.0
@@ -492,8 +356,8 @@ __meta__ = {
 [node name="SkillContainer" type="PanelContainer" parent="Tabs/Class/SkillLabel"]
 margin_left = 7.0
 margin_top = 20.0
-margin_right = 236.0
-margin_bottom = 331.0
+margin_right = 237.0
+margin_bottom = 340.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -501,25 +365,70 @@ __meta__ = {
 [node name="SkillListContainer" type="VBoxContainer" parent="Tabs/Class/SkillLabel/SkillContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 222.0
-margin_bottom = 310.0
+margin_right = 223.0
+margin_bottom = 313.0
 
 [node name="SkillList" type="ItemList" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
-margin_right = 215.0
+margin_right = 216.0
 margin_bottom = 255.0
 rect_min_size = Vector2( 0, 255 )
 
 [node name="AddSkill" type="Button" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
 margin_top = 259.0
-margin_right = 215.0
+margin_right = 216.0
 margin_bottom = 279.0
 text = "Add Skill"
 
 [node name="RemoveSkill" type="Button" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
 margin_top = 283.0
-margin_right = 215.0
+margin_right = 216.0
 margin_bottom = 303.0
 text = "Remove Skill"
+
+[node name="StatsLabel" type="Label" parent="Tabs/Class"]
+margin_top = 98.0
+margin_right = 40.0
+margin_bottom = 112.0
+text = "Stats"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsContainer" type="PanelContainer" parent="Tabs/Class/StatsLabel"]
+margin_left = 7.0
+margin_top = 20.0
+margin_right = 281.0
+margin_bottom = 348.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DataContainer" type="HBoxContainer" parent="Tabs/Class/StatsLabel/StatsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 267.0
+margin_bottom = 321.0
+
+[node name="StatsListContainer" type="VBoxContainer" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer"]
+margin_right = 96.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="StatsList" type="ItemList" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer/StatsListContainer"]
+margin_right = 96.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 0, 314 )
+
+[node name="FormulaListContainer" type="VBoxContainer" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer"]
+margin_left = 100.0
+margin_right = 260.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 160, 0 )
+
+[node name="FormulaList" type="ItemList" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer/FormulaListContainer"]
+margin_right = 160.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 0, 314 )
 
 [node name="Skill" type="Control" parent="Tabs"]
 visible = false
