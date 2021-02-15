@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -13,6 +13,9 @@ size = Vector2( 96, 96 )
 size = Vector2( 32, 32 )
 
 [sub_resource type="ImageTexture" id=3]
+size = Vector2( 32, 32 )
+
+[sub_resource type="ImageTexture" id=4]
 size = Vector2( 32, 32 )
 
 [node name="Control" type="Control"]
@@ -730,6 +733,273 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="ItemSaveButton" type="Button" parent="Tabs/Item"]
+margin_left = 280.0
+margin_top = 416.0
+margin_right = 370.0
+margin_bottom = 446.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemButton" type="OptionButton" parent="Tabs/Item"]
+margin_left = 252.0
+margin_top = 13.0
+margin_right = 388.0
+margin_bottom = 37.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="Tabs/Item"]
+margin_left = 24.0
+margin_top = 65.0
+margin_right = 64.0
+margin_bottom = 79.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameText" type="LineEdit" parent="Tabs/Item/NameLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconLabel" type="Label" parent="Tabs/Item"]
+margin_left = 230.0
+margin_top = 65.0
+margin_right = 270.0
+margin_bottom = 79.0
+text = "Icon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconSprite" type="Sprite" parent="Tabs/Item/IconLabel"]
+position = Vector2( 87, 6 )
+texture = SubResource( 4 )
+
+[node name="Search" type="Button" parent="Tabs/Item/IconLabel"]
+margin_left = 36.0
+margin_top = -4.0
+margin_right = 60.0
+margin_bottom = 16.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconSearch" type="FileDialog" parent="Tabs/Item/IconLabel"]
+margin_right = 315.0
+margin_bottom = 130.0
+window_title = "Abrir un Archivo"
+mode = 0
+
+[node name="DescLabel" type="Label" parent="Tabs/Item"]
+margin_left = 25.0
+margin_top = 96.0
+margin_right = 99.0
+margin_bottom = 110.0
+text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescText" type="TextEdit" parent="Tabs/Item/DescLabel"]
+margin_left = -2.0
+margin_top = 24.0
+margin_right = 322.0
+margin_bottom = 113.0
+
+[node name="ItemTypeLabel" type="Label" parent="Tabs/Item"]
+margin_left = 25.0
+margin_top = 220.0
+margin_right = 90.0
+margin_bottom = 234.0
+text = "Item Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemTypeButton" type="OptionButton" parent="Tabs/Item/ItemTypeLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 118.0
+margin_bottom = 48.0
+text = "Normal"
+items = [ "Normal", null, false, 0, null, "Key Item", null, false, 1, null ]
+selected = 0
+
+[node name="PriceLabel" type="Label" parent="Tabs/Item"]
+margin_left = 160.0
+margin_top = 220.0
+margin_right = 200.0
+margin_bottom = 234.0
+text = "Price"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PriceBox" type="SpinBox" parent="Tabs/Item/PriceLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 82.0
+margin_bottom = 50.0
+max_value = 1e+07
+
+[node name="ConsumableLabel" type="Label" parent="Tabs/Item"]
+margin_left = 251.0
+margin_top = 220.0
+margin_right = 330.0
+margin_bottom = 234.0
+text = "Consumable"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConsumableButton" type="OptionButton" parent="Tabs/Item/ConsumableLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 82.0
+margin_bottom = 50.0
+text = "Yes"
+items = [ "Yes", null, false, 0, null, "No", null, false, 1, null ]
+selected = 0
+
+[node name="TargetLabel" type="Label" parent="Tabs/Item"]
+margin_left = 25.0
+margin_top = 280.0
+margin_right = 65.0
+margin_bottom = 294.0
+text = "Target"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TargetButton" type="OptionButton" parent="Tabs/Item/TargetLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 162.0
+margin_bottom = 48.0
+text = "None"
+items = [ "None", null, false, 0, null, "One Enemy", null, false, 1, null, "All Enemies", null, false, 2, null, "1 Random Enemy", null, false, 3, null, "2 Random Enemies", null, false, 4, null, "3 Random Enemies", null, false, 5, null, "4 Random Enemies", null, false, 6, null, "One Ally", null, false, 7, null, "All Allies", null, false, 8, null, "One Ally (Dead)", null, false, 9, null, "All Allies (Dead)", null, false, 10, null, "User", null, false, 11, null ]
+selected = 0
+
+[node name="UsableLabel" type="Label" parent="Tabs/Item"]
+margin_left = 210.0
+margin_top = 280.0
+margin_right = 254.0
+margin_bottom = 294.0
+text = "Usable"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UsableButton" type="OptionButton" parent="Tabs/Item/UsableLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 118.0
+margin_bottom = 50.0
+text = "Always"
+items = [ "Always", null, false, 0, null, "Only in Battle", null, false, 1, null, "Only in Menu", null, false, 2, null, "Never", null, false, 3, null ]
+selected = 0
+
+[node name="HitLabel" type="Label" parent="Tabs/Item"]
+margin_left = 25.0
+margin_top = 340.0
+margin_right = 65.0
+margin_bottom = 354.0
+text = "Success"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitBox" type="SpinBox" parent="Tabs/Item/HitLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 76.0
+margin_bottom = 48.0
+
+[node name="TypeLabel" type="Label" parent="Tabs/Item"]
+margin_left = 133.0
+margin_top = 340.0
+margin_right = 173.0
+margin_bottom = 354.0
+text = "Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TypeButton" type="OptionButton" parent="Tabs/Item/TypeLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 120.0
+margin_bottom = 50.0
+text = "Always Hit"
+items = [ "Always Hit", null, false, 0, null, "Physical", null, false, 1, null, "Magical", null, false, 2, null ]
+selected = 0
+
+[node name="DamageLabel" type="Label" parent="Tabs/Item"]
+margin_left = 375.0
+margin_top = 65.0
+margin_right = 427.0
+margin_bottom = 79.0
+text = "Damage"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DTypeLabel" type="Label" parent="Tabs/Item/DamageLabel"]
+margin_left = 6.0
+margin_top = 24.0
+margin_right = 46.0
+margin_bottom = 38.0
+text = "Type"
+
+[node name="DTypeButton" type="OptionButton" parent="Tabs/Item/DamageLabel/DTypeLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "None"
+items = [ "None", null, false, 0, null, "HP Damage", null, false, 1, null, "MP Damage", null, false, 2, null, "HP Recovery", null, false, 3, null, "MP Recovery", null, false, 4, null, "HP Absorb", null, false, 5, null, "MP Absorb", null, false, 6, null ]
+selected = 0
+
+[node name="ElementLabel" type="Label" parent="Tabs/Item/DamageLabel"]
+margin_left = 120.0
+margin_top = 24.0
+margin_right = 173.0
+margin_bottom = 38.0
+text = "Element"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Item/DamageLabel/ElementLabel"]
+margin_top = 20.0
+margin_right = 96.0
+margin_bottom = 44.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="DFormulaLabel" type="Label" parent="Tabs/Item/DamageLabel"]
+margin_left = 6.0
+margin_top = 86.0
+margin_right = 58.0
+margin_bottom = 100.0
+text = "Formula"
+
+[node name="FormulaText" type="LineEdit" parent="Tabs/Item/DamageLabel/DFormulaLabel"]
+margin_top = 20.0
+margin_right = 215.0
+margin_bottom = 46.0
 
 [node name="Weapon" type="Control" parent="Tabs"]
 visible = false
