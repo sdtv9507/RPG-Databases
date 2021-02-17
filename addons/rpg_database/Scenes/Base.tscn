@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
 [ext_resource path="res://addons/rpg_database/Scripts/Class.cs" type="Script" id=3]
 [ext_resource path="res://addons/rpg_database/Scripts/Skill.cs" type="Script" id=4]
 [ext_resource path="res://addons/rpg_database/Scripts/SystemScript.cs" type="Script" id=5]
+[ext_resource path="res://addons/rpg_database/Scripts/Item.cs" type="Script" id=6]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -733,6 +734,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 6 )
 
 [node name="ItemSaveButton" type="Button" parent="Tabs/Item"]
 margin_left = 280.0
@@ -755,6 +757,12 @@ selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AddItem" type="Button" parent="Tabs/Item/ItemButton"]
+margin_left = 140.0
+margin_right = 164.0
+margin_bottom = 24.0
+text = "+"
 
 [node name="NameLabel" type="Label" parent="Tabs/Item"]
 margin_left = 24.0
@@ -800,8 +808,9 @@ __meta__ = {
 }
 
 [node name="IconSearch" type="FileDialog" parent="Tabs/Item/IconLabel"]
-margin_right = 315.0
-margin_bottom = 130.0
+margin_right = 400.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 315, 130 )
 window_title = "Abrir un Archivo"
 mode = 0
 
@@ -981,7 +990,7 @@ margin_right = 173.0
 margin_bottom = 38.0
 text = "Element"
 
-[node name="OptionButton" type="OptionButton" parent="Tabs/Item/DamageLabel/ElementLabel"]
+[node name="ElementButton" type="OptionButton" parent="Tabs/Item/DamageLabel/ElementLabel"]
 margin_top = 20.0
 margin_right = 96.0
 margin_bottom = 44.0
@@ -1133,6 +1142,11 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Skill/SkillButton/AddSkill" to="Tabs/Skill" method="_on_AddSkill_pressed"]
 [connection signal="pressed" from="Tabs/Skill/IconLabel/Search" to="Tabs/Skill" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Skill/IconLabel/IconSearch" to="Tabs/Skill" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Item/ItemSaveButton" to="Tabs/Item" method="_on_ItemSaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Item/ItemButton" to="Tabs/Item" method="_on_ItemButton_item_selected"]
+[connection signal="pressed" from="Tabs/Item/ItemButton/AddItem" to="Tabs/Item" method="_on_AddItem_pressed"]
+[connection signal="pressed" from="Tabs/Item/IconLabel/Search" to="Tabs/Item" method="_on_Search_pressed"]
+[connection signal="file_selected" from="Tabs/Item/IconLabel/IconSearch" to="Tabs/Item" method="_on_IconSearch_file_selected"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/AddStat/OKButton" to="Tabs/System" method="_on_OKButton_pressed"]

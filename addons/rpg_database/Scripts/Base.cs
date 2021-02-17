@@ -109,6 +109,18 @@ public class Base : Control
 			Godot.Collections.Dictionary item_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary item_data = new Godot.Collections.Dictionary();
 			item_data.Add("name", "Potion");
+			item_data.Add("icon", "");
+			item_data.Add("description", "Heals 50HP to one ally");
+			item_data.Add("item_type", 0);
+			item_data.Add("price", 50);
+			item_data.Add("consumable", 0);
+			item_data.Add("target", 7);
+			item_data.Add("usable", 0);
+			item_data.Add("success", 100);
+			item_data.Add("hit_type", 0);
+			item_data.Add("damage_type", 3);
+			item_data.Add("element", 0);
+			item_data.Add("formula", "50");
 			item_array.Add("item0", item_data);
 			database_editor.StoreLine(JSON.Print(item_array));
 			database_editor.Close();
@@ -159,6 +171,8 @@ public class Base : Control
 			GetNode<Control>("Tabs/Class").Call("_Start");
 		} else if (tab == 2) {
 			GetNode<Control>("Tabs/Skill").Call("_Start");
+		} else if (tab == 3) {
+			GetNode<Control>("Tabs/Item").Call("_Start");
 		} else if (tab == 6) {
 			GetNode<Control>("Tabs/System").Call("_Start");
 		}
