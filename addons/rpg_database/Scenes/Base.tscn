@@ -45,6 +45,7 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1019,6 +1020,50 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
+[node name="WeaponSaveButton" type="Button" parent="Tabs/Weapon"]
+margin_left = 286.0
+margin_top = 416.0
+margin_right = 376.0
+margin_bottom = 446.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponButton" type="OptionButton" parent="Tabs/Weapon"]
+margin_left = 253.0
+margin_top = 13.0
+margin_right = 389.0
+margin_bottom = 37.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Tabs/Weapon/WeaponButton"]
+margin_left = 138.0
+margin_right = 162.0
+margin_bottom = 24.0
+text = "+"
+
+[node name="NameLabel" type="Label" parent="Tabs/Weapon"]
+margin_left = 24.0
+margin_top = 65.0
+margin_right = 64.0
+margin_bottom = 79.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameText" type="LineEdit" parent="Tabs/Weapon/NameLabel"]
+margin_left = 54.0
+margin_top = -5.0
+margin_right = 141.0
+margin_bottom = 19.0
+
 [node name="Armor" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0
@@ -1029,7 +1074,6 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="System" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1080,37 +1124,82 @@ margin_right = 114.0
 margin_bottom = 202.0
 text = "Remove Stat"
 
-[node name="AddStat" type="WindowDialog" parent="Tabs/System/StatsLabel"]
-margin_left = -9.99999
-margin_top = 11.0
-margin_right = 370.0
-margin_bottom = 107.0
+[node name="WeaponTypesLabel" type="Label" parent="Tabs/System"]
+margin_left = 183.0
+margin_top = 16.0
+margin_right = 276.0
+margin_bottom = 30.0
+text = "Weapon Types"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponTypesContainer" type="PanelContainer" parent="Tabs/System/WeaponTypesLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 136.0
+margin_bottom = 232.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WpBoxContainer" type="VBoxContainer" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 121.0
+margin_bottom = 209.0
+
+[node name="WeaponList" type="ItemList" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer"]
+margin_right = 114.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 0, 154 )
+
+[node name="AddWeapon" type="Button" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer"]
+margin_top = 158.0
+margin_right = 114.0
+margin_bottom = 178.0
+text = "Add Type"
+
+[node name="RemoveWeapon" type="Button" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer"]
+margin_top = 182.0
+margin_right = 114.0
+margin_bottom = 202.0
+text = "Remove Type"
+
+[node name="EditField" type="WindowDialog" parent="Tabs/System"]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 27.0
+margin_right = -230.0
+margin_bottom = 122.0
 window_title = "Add Stat"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatName" type="LineEdit" parent="Tabs/System/StatsLabel/AddStat"]
+[node name="FieldName" type="LineEdit" parent="Tabs/System/EditField"]
 margin_left = 80.0
 margin_top = 18.0
 margin_right = 359.0
 margin_bottom = 42.0
 
-[node name="StatLabel" type="Label" parent="Tabs/System/StatsLabel/AddStat"]
+[node name="FieldLabel" type="Label" parent="Tabs/System/EditField"]
 margin_left = 10.0
 margin_top = 24.0
 margin_right = 50.0
 margin_bottom = 38.0
 text = "Name"
 
-[node name="OKButton" type="Button" parent="Tabs/System/StatsLabel/AddStat"]
+[node name="OKButton" type="Button" parent="Tabs/System/EditField"]
 margin_left = 96.0
 margin_top = 60.0
 margin_right = 171.0
 margin_bottom = 80.0
 text = "OK"
 
-[node name="CancelButton" type="Button" parent="Tabs/System/StatsLabel/AddStat"]
+[node name="CancelButton" type="Button" parent="Tabs/System/EditField"]
 margin_left = 196.0
 margin_top = 60.0
 margin_right = 271.0
@@ -1149,4 +1238,8 @@ margin_bottom = -4.0
 [connection signal="file_selected" from="Tabs/Item/IconLabel/IconSearch" to="Tabs/Item" method="_on_IconSearch_file_selected"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
-[connection signal="pressed" from="Tabs/System/StatsLabel/AddStat/OKButton" to="Tabs/System" method="_on_OKButton_pressed"]
+[connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
+[connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/RemoveWeapon" to="Tabs/System" method="_on_RemoveWeapon_pressed"]
+[connection signal="popup_hide" from="Tabs/System/EditField" to="Tabs/System" method="_on_EditField_popup_hide"]
+[connection signal="pressed" from="Tabs/System/EditField/OKButton" to="Tabs/System" method="_on_OKButton_pressed"]
+[connection signal="pressed" from="Tabs/System/EditField/CancelButton" to="Tabs/System" method="_on_CancelButton_pressed"]

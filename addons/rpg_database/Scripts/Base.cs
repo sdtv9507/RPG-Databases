@@ -21,9 +21,9 @@ public class Base : Control
 		{
 			database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
 			Godot.Collections.Dictionary system_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary system_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary stats_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary weapont_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary armort_data = new Godot.Collections.Dictionary();
 			stats_data.Add("0", "hp");
 			stats_data.Add("1", "mp");
 			stats_data.Add("2", "atk");
@@ -32,7 +32,16 @@ public class Base : Control
 			stats_data.Add("5", "res");
 			stats_data.Add("6", "spd");
 			stats_data.Add("7", "luk");
+			weapont_data.Add("0","Sword");
+			weapont_data.Add("1","Spear");
+			weapont_data.Add("2","Axe");
+			weapont_data.Add("3","Staff");
+			armort_data.Add("0","Armor");
+			armort_data.Add("1","Robe");
+			armort_data.Add("2","Shield");
 			system_array.Add("stats", stats_data);
+			system_array.Add("weapons", weapont_data);
+			system_array.Add("armors", armort_data);
 			database_editor.StoreLine(JSON.Print(system_array));
 			database_editor.Close();
 		}
