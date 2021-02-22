@@ -19,6 +19,8 @@ public class SystemScript : Control
         Godot.Collections.Dictionary statsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weaponsData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
 
+        GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").Clear();
+        GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").Clear();
         for (int i = 0; i < statsData.Count; i++)
         {
             ItemList item = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList");
