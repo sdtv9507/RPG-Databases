@@ -65,30 +65,6 @@ public class Base : Control
 			database_editor.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Class.json"))
-		{
-			database_editor.Open("res://databases/Class.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_stats_array = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Warrior");
-			class_data.Add("icon", "");
-			class_data.Add("experience", "level * 30");
-			class_stats_array.Add("hp", "level * 25 + 10");
-			class_stats_array.Add("mp", "level * 15 + 5");
-			class_stats_array.Add("atk", "level * 5 + 3");
-			class_stats_array.Add("def", "level * 5 + 3");
-			class_stats_array.Add("int", "level * 5 + 3");
-			class_stats_array.Add("res", "level * 5 + 3");
-			class_stats_array.Add("spd", "level * 5 + 3");
-			class_stats_array.Add("luk", "level * 5 + 3");
-			class_data.Add("stat_list", class_stats_array);
-			class_data.Add("skill_list", "");
-			class_array.Add("class0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
-			database_editor.Close();
-		}
-
 		if (!database_editor.FileExists("res://databases/Skill.json"))
 		{
 			database_editor.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
@@ -109,6 +85,32 @@ public class Base : Control
 			skill_data.Add("formula", "atk * 4 - def * 2");
 			skill_array.Add("skill0", skill_data);
 			database_editor.StoreLine(JSON.Print(skill_array));
+			database_editor.Close();
+		}
+
+		if (!database_editor.FileExists("res://databases/Class.json"))
+		{
+			database_editor.Open("res://databases/Class.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary class_stats_array = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary skill_list_array = new Godot.Collections.Dictionary();
+			class_data.Add("name", "Warrior");
+			class_data.Add("icon", "");
+			class_data.Add("experience", "level * 30");
+			class_stats_array.Add("hp", "level * 25 + 10");
+			class_stats_array.Add("mp", "level * 15 + 5");
+			class_stats_array.Add("atk", "level * 5 + 3");
+			class_stats_array.Add("def", "level * 5 + 3");
+			class_stats_array.Add("int", "level * 5 + 3");
+			class_stats_array.Add("res", "level * 5 + 3");
+			class_stats_array.Add("spd", "level * 5 + 3");
+			class_stats_array.Add("luk", "level * 5 + 3");
+			skill_list_array.Add(0, 5);
+			class_data.Add("skill_list", skill_list_array);
+			class_data.Add("stat_list", class_stats_array);
+			class_array.Add("class0", class_data);
+			database_editor.StoreLine(JSON.Print(class_array));
 			database_editor.Close();
 		}
 

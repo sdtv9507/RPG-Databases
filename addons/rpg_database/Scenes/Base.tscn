@@ -28,9 +28,8 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -1.0
 margin_top = 32.0
-margin_right = 639.0
+margin_right = 640.0
 margin_bottom = 479.0
 color = Color( 0.133333, 0.137255, 0.141176, 1 )
 __meta__ = {
@@ -258,9 +257,9 @@ margin_bottom = -4.0
 script = ExtResource( 3 )
 
 [node name="ClassSaveButton" type="Button" parent="Tabs/Class"]
-margin_left = 286.0
+margin_left = 269.0
 margin_top = 416.0
-margin_right = 376.0
+margin_right = 359.0
 margin_bottom = 446.0
 text = "Save"
 __meta__ = {
@@ -360,33 +359,104 @@ __meta__ = {
 [node name="SkillContainer" type="PanelContainer" parent="Tabs/Class/SkillLabel"]
 margin_left = 7.0
 margin_top = 20.0
-margin_right = 237.0
-margin_bottom = 340.0
+margin_right = 215.0
+margin_bottom = 289.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SkillListContainer" type="VBoxContainer" parent="Tabs/Class/SkillLabel/SkillContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Class/SkillLabel/SkillContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 223.0
-margin_bottom = 313.0
+margin_right = 201.0
+margin_bottom = 262.0
 
-[node name="SkillList" type="ItemList" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
-margin_right = 216.0
+[node name="SkillListContainer" type="VBoxContainer" parent="Tabs/Class/SkillLabel/SkillContainer/HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 128, 0 )
+
+[node name="SkillList" type="ItemList" parent="Tabs/Class/SkillLabel/SkillContainer/HBoxContainer/SkillListContainer"]
+margin_right = 128.0
 margin_bottom = 255.0
 rect_min_size = Vector2( 0, 255 )
 
-[node name="AddSkill" type="Button" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
-margin_top = 259.0
-margin_right = 216.0
-margin_bottom = 279.0
-text = "Add Skill"
+[node name="SkillLevelContainer" type="VBoxContainer" parent="Tabs/Class/SkillLabel/SkillContainer/HBoxContainer"]
+margin_left = 132.0
+margin_right = 194.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 62, 0 )
 
-[node name="RemoveSkill" type="Button" parent="Tabs/Class/SkillLabel/SkillContainer/SkillListContainer"]
-margin_top = 283.0
-margin_right = 216.0
-margin_bottom = 303.0
+[node name="SkillLevelList" type="ItemList" parent="Tabs/Class/SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer"]
+margin_right = 62.0
+margin_bottom = 255.0
+rect_min_size = Vector2( 0, 255 )
+
+[node name="AddSkill" type="WindowDialog" parent="Tabs/Class/SkillLabel"]
+margin_left = -272.0
+margin_top = 19.0
+margin_right = 120.0
+margin_bottom = 147.0
+rect_min_size = Vector2( 392, 96 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkillLabel" type="Label" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 18.0
+margin_top = 18.0
+margin_right = 58.0
+margin_bottom = 32.0
+text = "Skill"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Class/SkillLabel/AddSkill/SkillLabel"]
+margin_left = 36.0
+margin_top = -6.0
+margin_right = 330.0
+margin_bottom = 18.0
+
+[node name="LevelLabel" type="Label" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 18.0
+margin_top = 60.0
+margin_right = 58.0
+margin_bottom = 74.0
+text = "Level"
+
+[node name="LevelSpin" type="SpinBox" parent="Tabs/Class/SkillLabel/AddSkill/LevelLabel"]
+margin_left = 42.0
+margin_top = -6.0
+margin_right = 138.0
+margin_bottom = 18.0
+
+[node name="OkButton" type="Button" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 96.0
+margin_top = 94.0
+margin_right = 180.0
+margin_bottom = 118.0
+text = "Accept"
+
+[node name="CancelButton" type="Button" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 200.0
+margin_top = 94.0
+margin_right = 284.0
+margin_bottom = 118.0
+text = "Cancel"
+
+[node name="AddSkillButton" type="Button" parent="Tabs/Class/SkillLabel"]
+margin_left = 72.0
+margin_top = 291.0
+margin_right = 168.0
+margin_bottom = 315.0
+text = "Add Skill"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemoveButton" type="Button" parent="Tabs/Class/SkillLabel"]
+margin_left = 73.0
+margin_top = 318.0
+margin_right = 167.0
+margin_bottom = 342.0
 text = "Remove Skill"
 
 [node name="StatsLabel" type="Label" parent="Tabs/Class"]
@@ -402,7 +472,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 20.0
 margin_right = 281.0
-margin_bottom = 348.0
+margin_bottom = 314.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -411,28 +481,28 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 267.0
-margin_bottom = 321.0
+margin_bottom = 287.0
 
 [node name="StatsListContainer" type="VBoxContainer" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer"]
 margin_right = 96.0
-margin_bottom = 314.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 96, 0 )
 
 [node name="StatsList" type="ItemList" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer/StatsListContainer"]
 margin_right = 96.0
-margin_bottom = 314.0
-rect_min_size = Vector2( 0, 314 )
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 280 )
 
 [node name="FormulaListContainer" type="VBoxContainer" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer"]
 margin_left = 100.0
 margin_right = 260.0
-margin_bottom = 314.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 160, 0 )
 
 [node name="FormulaList" type="ItemList" parent="Tabs/Class/StatsLabel/StatsContainer/DataContainer/FormulaListContainer"]
 margin_right = 160.0
-margin_bottom = 314.0
-rect_min_size = Vector2( 0, 314 )
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 280 )
 
 [node name="Skill" type="Control" parent="Tabs"]
 visible = false
@@ -1226,6 +1296,10 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Class/ClassButton/AddClass" to="Tabs/Class" method="_on_AddClass_pressed"]
 [connection signal="pressed" from="Tabs/Class/IconLabel/Search" to="Tabs/Class" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Class/IconLabel/IconSearch" to="Tabs/Class" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Class/SkillLabel/AddSkill/OkButton" to="Tabs/Class" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="Tabs/Class/SkillLabel/AddSkill/CancelButton" to="Tabs/Class" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="Tabs/Class/SkillLabel/AddSkillButton" to="Tabs/Class" method="_on_AddSkillButton_pressed"]
+[connection signal="pressed" from="Tabs/Class/SkillLabel/RemoveButton" to="Tabs/Class" method="_on_RemoveButton_pressed"]
 [connection signal="pressed" from="Tabs/Skill/SkillSaveButton" to="Tabs/Skill" method="_on_SkillSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Skill/SkillButton" to="Tabs/Skill" method="_on_SkillButton_item_selected"]
 [connection signal="pressed" from="Tabs/Skill/SkillButton/AddSkill" to="Tabs/Skill" method="_on_AddSkill_pressed"]
