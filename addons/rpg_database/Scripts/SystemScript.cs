@@ -18,9 +18,11 @@ public class SystemScript : Control
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary statsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weaponsData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armorsData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
 
         GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").Clear();
         GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").Clear();
+        GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").Clear();
         for (int i = 0; i < statsData.Count; i++)
         {
             ItemList item = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList");
@@ -32,6 +34,12 @@ public class SystemScript : Control
             ItemList item = GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList");
             item.AddItem((weaponsData[i.ToString()]).ToString());
         }
+
+        for (int i = 0; i < armorsData.Count; i++)
+        {
+            ItemList item = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList");
+            item.AddItem((armorsData[i.ToString()]).ToString());
+        }
         database_editor.Close();
     }
 
@@ -39,6 +47,7 @@ public class SystemScript : Control
     {
         _save_Stats();
         _save_Weapons();
+        _save_Armors();
     }
     private void _save_Stats()
     {
@@ -84,6 +93,28 @@ public class SystemScript : Control
 		database_editor.Close();
     }
 
+    private void _save_Armors()
+    {
+        Godot.File database_editor = new Godot.File();
+		database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+		string jsonAsText = database_editor.GetAsText();
+		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
+        database_editor.Close();
+		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armors_data = new Godot.Collections.Dictionary();
+
+        int armorSize = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").GetItemCount();
+        for (int i = 0; i < armorSize; i++)
+        {
+            String text = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").GetItemText(i);
+            armors_data.Add(i.ToString(), text);
+        }
+        jsonDictionary["armors"] = armors_data;
+        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+		database_editor.StoreString(JSON.Print(jsonDictionary));
+		database_editor.Close();
+    }
+
     private void _on_AddStat_pressed()
     {
         editedField = 0;
@@ -107,6 +138,8 @@ public class SystemScript : Control
                 GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").AddItem(name);
             }else if (editedField == 1) {
                 GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").AddItem(name);
+            }else if (editedField == 2) {
+                GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").AddItem(name);
             }
             _save_Data();
         }
@@ -117,10 +150,12 @@ public class SystemScript : Control
     private void _on_CancelButton_pressed()
     {
         editedField = -1;
+        GetNode<WindowDialog>("EditField").Hide();
     }
     private void _on_EditField_popup_hide()
     {
         editedField = -1;
+        GetNode<WindowDialog>("EditField").Hide();
     }
 
     private void _on_AddWeapon_pressed()
@@ -135,6 +170,22 @@ public class SystemScript : Control
         if (index > -1)
         {
             GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").RemoveItem(index);
+            _save_Data();
+        }
+    }
+
+    private void _on_AddArmor_pressed()
+    {
+        editedField = 2;
+        GetNode<WindowDialog>("EditField").PopupCentered();
+    }
+
+    private void _on_RemoveArmor_pressed()
+    {
+        int index = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").GetSelectedItems()[0];
+        if (index > -1)
+        {
+            GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").RemoveItem(index);
             _save_Data();
         }
     }

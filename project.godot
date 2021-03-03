@@ -18,10 +18,6 @@ config/icon="res://icon.png"
 window/size/width=640
 window/size/height=480
 
-[editor_plugins]
-
-enabled=PoolStringArray( "rpg_database" )
-
 [locale]
 
 locale_filter=[ 1, [  ] ]
