@@ -44,7 +44,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1144,6 +1143,7 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="System" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1153,9 +1153,9 @@ margin_bottom = -4.0
 script = ExtResource( 5 )
 
 [node name="StatsLabel" type="Label" parent="Tabs/System"]
-margin_left = 20.0
+margin_left = 12.0
 margin_top = 16.0
-margin_right = 60.0
+margin_right = 52.0
 margin_bottom = 30.0
 text = "Stats"
 __meta__ = {
@@ -1195,9 +1195,9 @@ margin_bottom = 202.0
 text = "Remove Stat"
 
 [node name="WeaponTypesLabel" type="Label" parent="Tabs/System"]
-margin_left = 183.0
+margin_left = 162.0
 margin_top = 16.0
-margin_right = 276.0
+margin_right = 255.0
 margin_bottom = 30.0
 text = "Weapon Types"
 __meta__ = {
@@ -1237,9 +1237,9 @@ margin_bottom = 202.0
 text = "Remove Type"
 
 [node name="ArmorTypesLabel" type="Label" parent="Tabs/System"]
-margin_left = 350.0
+margin_left = 312.0
 margin_top = 16.0
-margin_right = 431.0
+margin_right = 393.0
 margin_bottom = 30.0
 text = "Armor Types"
 __meta__ = {
@@ -1274,6 +1274,48 @@ margin_top = 182.0
 margin_right = 114.0
 margin_bottom = 202.0
 text = "Remove Type"
+
+[node name="ElementLabel" type="Label" parent="Tabs/System"]
+margin_left = 462.0
+margin_top = 18.0
+margin_right = 515.0
+margin_bottom = 32.0
+text = "Elements"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ElementContainer" type="PanelContainer" parent="Tabs/System/ElementLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 136.0
+margin_bottom = 232.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EleBoxContainer" type="VBoxContainer" parent="Tabs/System/ElementLabel/ElementContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 121.0
+margin_bottom = 209.0
+
+[node name="ElementList" type="ItemList" parent="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer"]
+margin_right = 114.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 0, 154 )
+
+[node name="AddElement" type="Button" parent="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer"]
+margin_top = 158.0
+margin_right = 114.0
+margin_bottom = 178.0
+text = "Add Element"
+
+[node name="RemoveElement" type="Button" parent="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer"]
+margin_top = 182.0
+margin_right = 114.0
+margin_bottom = 202.0
+text = "Remove Elem"
 
 [node name="EditField" type="WindowDialog" parent="Tabs/System"]
 anchor_right = 1.0
@@ -1354,6 +1396,8 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/RemoveWeapon" to="Tabs/System" method="_on_RemoveWeapon_pressed"]
 [connection signal="pressed" from="Tabs/System/ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/AddArmor" to="Tabs/System" method="_on_AddArmor_pressed"]
 [connection signal="pressed" from="Tabs/System/ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/RemoveArmor" to="Tabs/System" method="_on_RemoveArmor_pressed"]
+[connection signal="pressed" from="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer/AddElement" to="Tabs/System" method="_on_AddElement_pressed"]
+[connection signal="pressed" from="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer/RemoveElement" to="Tabs/System" method="_on_RemoveElement_pressed"]
 [connection signal="popup_hide" from="Tabs/System/EditField" to="Tabs/System" method="_on_EditField_popup_hide"]
 [connection signal="pressed" from="Tabs/System/EditField/OKButton" to="Tabs/System" method="_on_OKButton_pressed"]
 [connection signal="pressed" from="Tabs/System/EditField/CancelButton" to="Tabs/System" method="_on_CancelButton_pressed"]

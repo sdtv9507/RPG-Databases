@@ -24,6 +24,7 @@ public class Base : Control
 			Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary weapont_data = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary armort_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary element_data = new Godot.Collections.Dictionary();
 			stats_data.Add("0", "hp");
 			stats_data.Add("1", "mp");
 			stats_data.Add("2", "atk");
@@ -39,9 +40,14 @@ public class Base : Control
 			armort_data.Add("0","Armor");
 			armort_data.Add("1","Robe");
 			armort_data.Add("2","Shield");
+			element_data.Add("0","Physical");
+			element_data.Add("1","Fire");
+			element_data.Add("2","Ice");
+			element_data.Add("3","Wind");
 			system_array.Add("stats", stats_data);
 			system_array.Add("weapons", weapont_data);
 			system_array.Add("armors", armort_data);
+			system_array.Add("elements", element_data);
 			database_editor.StoreLine(JSON.Print(system_array));
 			database_editor.Close();
 		}

@@ -19,10 +19,12 @@ public class SystemScript : Control
         Godot.Collections.Dictionary statsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weaponsData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorsData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary elementsData = jsonDictionary["elements"] as Godot.Collections.Dictionary;
 
         GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").Clear();
         GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").Clear();
         GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").Clear();
+        GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").Clear();
         for (int i = 0; i < statsData.Count; i++)
         {
             ItemList item = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList");
@@ -40,6 +42,12 @@ public class SystemScript : Control
             ItemList item = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList");
             item.AddItem((armorsData[i.ToString()]).ToString());
         }
+        
+        for (int i = 0; i < elementsData.Count; i++)
+        {
+            ItemList item = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList");
+            item.AddItem((elementsData[i.ToString()]).ToString());
+        }
         database_editor.Close();
     }
 
@@ -48,6 +56,7 @@ public class SystemScript : Control
         _save_Stats();
         _save_Weapons();
         _save_Armors();
+        _save_Elements();
     }
     private void _save_Stats()
     {
@@ -115,6 +124,28 @@ public class SystemScript : Control
 		database_editor.Close();
     }
 
+    private void _save_Elements()
+    {
+        Godot.File database_editor = new Godot.File();
+		database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+		string jsonAsText = database_editor.GetAsText();
+		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
+        database_editor.Close();
+		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary elements_data = new Godot.Collections.Dictionary();
+
+        int elementSize = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").GetItemCount();
+        for (int i = 0; i < elementSize; i++)
+        {
+            String text = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").GetItemText(i);
+            elements_data.Add(i.ToString(), text);
+        }
+        jsonDictionary["elements"] = elements_data;
+        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+		database_editor.StoreString(JSON.Print(jsonDictionary));
+		database_editor.Close();
+    }
+
     private void _on_AddStat_pressed()
     {
         editedField = 0;
@@ -140,6 +171,8 @@ public class SystemScript : Control
                 GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").AddItem(name);
             }else if (editedField == 2) {
                 GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").AddItem(name);
+            }else if (editedField == 3) {
+                GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").AddItem(name);
             }
             _save_Data();
         }
@@ -186,6 +219,22 @@ public class SystemScript : Control
         if (index > -1)
         {
             GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").RemoveItem(index);
+            _save_Data();
+        }
+    }
+
+    private void _on_AddElement_pressed()
+    {
+        editedField = 3;
+        GetNode<WindowDialog>("EditField").PopupCentered();
+    }
+
+    private void _on_RemoveElement_pressed()
+    {
+        int index = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").GetSelectedItems()[0];
+        if (index > -1)
+        {
+            GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").RemoveItem(index);
             _save_Data();
         }
     }
