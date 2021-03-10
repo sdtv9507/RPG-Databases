@@ -146,21 +146,6 @@ public class SystemScript : Control
 		database_editor.Close();
     }
 
-    private void _on_AddStat_pressed()
-    {
-        editedField = 0;
-        GetNode<WindowDialog>("EditField").PopupCentered();
-    }
-
-    private void _on_RemoveStat_pressed()
-    {
-        int index = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetSelectedItems()[0];
-        if (index > -1)
-        {
-            GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").RemoveItem(index);
-            _save_Data();
-        }
-    }
     private void _on_OKButton_pressed()
     {
         string name = GetNode<LineEdit>("EditField/FieldName").Text;
@@ -191,10 +176,28 @@ public class SystemScript : Control
         GetNode<WindowDialog>("EditField").Hide();
     }
 
+    private void _on_AddStat_pressed()
+    {
+        editedField = 0;
+        GetNode<WindowDialog>("EditField").WindowTitle = "Add Stat";
+        GetNode<WindowDialog>("EditField").PopupCentered(new Vector2(392, 95));
+    }
+
+    private void _on_RemoveStat_pressed()
+    {
+        int index = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetSelectedItems()[0];
+        if (index > -1)
+        {
+            GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").RemoveItem(index);
+            _save_Data();
+        }
+    }    
+    
     private void _on_AddWeapon_pressed()
     {
         editedField = 1;
-        GetNode<WindowDialog>("EditField").PopupCentered();
+        GetNode<WindowDialog>("EditField").WindowTitle = "Add Weapon";
+        GetNode<WindowDialog>("EditField").PopupCentered(new Vector2(392, 95));
     }
 
     private void _on_RemoveWeapon_pressed()
@@ -210,7 +213,8 @@ public class SystemScript : Control
     private void _on_AddArmor_pressed()
     {
         editedField = 2;
-        GetNode<WindowDialog>("EditField").PopupCentered();
+        GetNode<WindowDialog>("EditField").WindowTitle = "Add Armor";
+        GetNode<WindowDialog>("EditField").PopupCentered(new Vector2(392, 95));
     }
 
     private void _on_RemoveArmor_pressed()
@@ -226,7 +230,8 @@ public class SystemScript : Control
     private void _on_AddElement_pressed()
     {
         editedField = 3;
-        GetNode<WindowDialog>("EditField").PopupCentered();
+        GetNode<WindowDialog>("EditField").WindowTitle = "Add Element";
+        GetNode<WindowDialog>("EditField").PopupCentered(new Vector2(392, 95));
     }
 
     private void _on_RemoveElement_pressed()
