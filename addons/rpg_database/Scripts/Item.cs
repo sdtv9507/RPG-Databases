@@ -18,6 +18,12 @@ public class Item : Control
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         
+        Godot.File system_editor = new Godot.File();
+		database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+		string systemAsText = database_editor.GetAsText();
+		JSONParseResult systemParsed = JSON.Parse(systemAsText);
+		Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
+        
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary newItemDict = jsonDictionary["item"+i] as Godot.Collections.Dictionary;
@@ -26,6 +32,17 @@ public class Item : Control
                 GetNode<OptionButton>("ItemButton").AddItem(newItemDict["name"] as string);
             }else{
                 GetNode<OptionButton>("ItemButton").SetItemText(i, newItemDict["name"] as string);
+            }
+        }
+        
+        Godot.Collections.Dictionary newSystemDict = systemDictionary["elements"] as Godot.Collections.Dictionary;
+        for (int i = 0; i < newSystemDict.Count; i++)
+        {
+            if (i > GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").GetItemCount() - 1)
+            {
+                GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").AddItem(newSystemDict[i.ToString()] as string);
+            }else{
+                GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").SetItemText(i, newSystemDict[i.ToString()] as string);
             }
         }
         database_editor.Close();

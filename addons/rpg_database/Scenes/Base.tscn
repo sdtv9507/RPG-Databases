@@ -777,6 +777,9 @@ margin_bottom = 44.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DFormulaLabel" type="Label" parent="Tabs/Skill/DamageLabel"]
 margin_left = 6.0
@@ -1061,9 +1064,11 @@ margin_bottom = 38.0
 text = "Element"
 
 [node name="ElementButton" type="OptionButton" parent="Tabs/Item/DamageLabel/ElementLabel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_top = 20.0
-margin_right = 96.0
-margin_bottom = 44.0
+margin_right = 20.0
+margin_bottom = 26.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
