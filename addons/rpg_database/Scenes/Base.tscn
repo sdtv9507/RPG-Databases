@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -20,6 +20,9 @@ size = Vector2( 32, 32 )
 size = Vector2( 32, 32 )
 
 [sub_resource type="ImageTexture" id=5]
+size = Vector2( 32, 32 )
+
+[sub_resource type="ImageTexture" id=6]
 size = Vector2( 32, 32 )
 
 [node name="Control" type="Control"]
@@ -1119,7 +1122,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Tabs/Weapon/WeaponButton"]
+[node name="AddWeaponButton" type="Button" parent="Tabs/Weapon/WeaponButton"]
 margin_left = 138.0
 margin_right = 162.0
 margin_bottom = 24.0
@@ -1218,7 +1221,7 @@ margin_left = 2.0
 margin_top = 24.0
 margin_right = 82.0
 margin_bottom = 48.0
-max_value = 999999.0
+max_value = 1e+11
 
 [node name="StatsLabel" type="Label" parent="Tabs/Weapon"]
 margin_left = 25.0
@@ -1266,61 +1269,6 @@ margin_right = 160.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 184 )
 
-[node name="DamageLabel" type="Label" parent="Tabs/Weapon"]
-margin_left = 374.0
-margin_top = 129.0
-margin_right = 426.0
-margin_bottom = 143.0
-text = "Damage"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DTypeLabel" type="Label" parent="Tabs/Weapon/DamageLabel"]
-margin_left = 6.0
-margin_top = 24.0
-margin_right = 46.0
-margin_bottom = 38.0
-text = "Type"
-
-[node name="DTypeButton" type="OptionButton" parent="Tabs/Weapon/DamageLabel/DTypeLabel"]
-margin_top = 20.0
-margin_right = 96.0
-margin_bottom = 44.0
-text = "Ítem 0"
-items = [ "Ítem 0", null, false, 0, null ]
-selected = 0
-
-[node name="ElementLabel" type="Label" parent="Tabs/Weapon/DamageLabel"]
-margin_left = 120.0
-margin_top = 24.0
-margin_right = 173.0
-margin_bottom = 38.0
-text = "Element"
-
-[node name="ElementButton" type="OptionButton" parent="Tabs/Weapon/DamageLabel/ElementLabel"]
-margin_top = 20.0
-margin_right = 96.0
-margin_bottom = 44.0
-text = "Ítem 0"
-items = [ "Ítem 0", null, false, 0, null ]
-selected = 0
-
-[node name="DFormulaLabel" type="Label" parent="Tabs/Weapon/DamageLabel"]
-margin_left = 6.0
-margin_top = 86.0
-margin_right = 58.0
-margin_bottom = 100.0
-text = "Formula"
-
-[node name="FormulaText" type="LineEdit" parent="Tabs/Weapon/DamageLabel/DFormulaLabel"]
-margin_top = 20.0
-margin_right = 215.0
-margin_bottom = 46.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Armor" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0
@@ -1329,6 +1277,175 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="ArmorSaveButton" type="Button" parent="Tabs/Armor"]
+margin_left = 286.0
+margin_top = 416.0
+margin_right = 376.0
+margin_bottom = 446.0
+text = "Save"
+
+[node name="ArmorButton" type="OptionButton" parent="Tabs/Armor"]
+margin_left = 253.0
+margin_top = 13.0
+margin_right = 389.0
+margin_bottom = 37.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddArmorButton" type="Button" parent="Tabs/Armor/ArmorButton"]
+margin_left = 138.0
+margin_right = 162.0
+margin_bottom = 24.0
+text = "+"
+
+[node name="NameLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 24.0
+margin_top = 65.0
+margin_right = 64.0
+margin_bottom = 79.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameText" type="LineEdit" parent="Tabs/Armor/NameLabel"]
+margin_left = 44.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 20.0
+
+[node name="IconLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 230.0
+margin_top = 65.0
+margin_right = 270.0
+margin_bottom = 79.0
+text = "Icon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconSprite" type="Sprite" parent="Tabs/Armor/IconLabel"]
+position = Vector2( 87, 6 )
+texture = SubResource( 6 )
+
+[node name="Search" type="Button" parent="Tabs/Armor/IconLabel"]
+margin_left = 36.0
+margin_top = -4.0
+margin_right = 60.0
+margin_bottom = 16.0
+text = "..."
+
+[node name="IconSearch" type="FileDialog" parent="Tabs/Armor/IconLabel"]
+margin_right = 315.0
+margin_bottom = 130.0
+window_title = "Open a File"
+mode = 0
+
+[node name="DescLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 25.0
+margin_top = 96.0
+margin_right = 99.0
+margin_bottom = 110.0
+text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescText" type="TextEdit" parent="Tabs/Armor/DescLabel"]
+margin_left = -2.0
+margin_top = 24.0
+margin_right = 322.0
+margin_bottom = 113.0
+
+[node name="ATypeLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 368.0
+margin_top = 65.0
+margin_right = 442.0
+margin_bottom = 79.0
+text = "Armor Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ATypeButton" type="OptionButton" parent="Tabs/Armor/ATypeLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 118.0
+margin_bottom = 48.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="PriceLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 530.0
+margin_top = 65.0
+margin_right = 570.0
+margin_bottom = 79.0
+text = "Price"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PriceSpin" type="SpinBox" parent="Tabs/Armor/PriceLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 82.0
+margin_bottom = 48.0
+max_value = 1e+11
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 25.0
+margin_top = 222.0
+margin_right = 65.0
+margin_bottom = 236.0
+text = "Stats"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsContainer" type="PanelContainer" parent="Tabs/Armor/StatsLabel"]
+margin_left = 2.0
+margin_top = 18.0
+margin_right = 242.0
+margin_bottom = 216.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DataContainer" type="HBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 233.0
+margin_bottom = 191.0
+
+[node name="StatNameContainer" type="VBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer"]
+margin_right = 60.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 60, 0 )
+
+[node name="StatNameList" type="ItemList" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatNameContainer"]
+margin_right = 60.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 184 )
+
+[node name="StatValueContainer" type="VBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer"]
+margin_left = 64.0
+margin_right = 224.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 160, 0 )
+
+[node name="StatValueList" type="ItemList" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueContainer"]
+margin_right = 160.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 184 )
 
 [node name="System" type="Control" parent="Tabs"]
 visible = false
