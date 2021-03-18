@@ -230,6 +230,23 @@ public class Class : Control
     private void _on_CancelButton_pressed() {
         GetNode<WindowDialog>("SkillLabel/AddSkill").Hide();
     }
+
+    private void _on_StatsList_item_selected(int index) {
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList").Select(index);
+    }
+
+    private void _on_FormulaList_item_selected(int index) {
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList").Select(index);
+    }
+
+    private void _on_SkillList_item_selected(int index) {
+        GetNode<ItemList>("SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList").Select(index);
+    }
+
+    private void _on_SkillLevelList_item_selected(int index) {
+        GetNode<ItemList>("SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList").Select(index);
+    }
+    
 //  public override void _Process(float delta)
 //  {
 //      
