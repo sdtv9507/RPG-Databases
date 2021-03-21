@@ -120,7 +120,7 @@ public class Weapon : Control
         GetNode<OptionButton>("WeaponButton").AddItem("NewWeapon");
         int id = GetNode<OptionButton>("WeaponButton").GetItemCount() - 1;
         Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
+        database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
 		string jsonAsText = database_editor.GetAsText();
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         database_editor.Close();
