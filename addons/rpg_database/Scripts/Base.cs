@@ -148,7 +148,22 @@ public class Base : Control
 			database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
 			Godot.Collections.Dictionary weapon_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary weapon_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary weapon_stats_array = new Godot.Collections.Dictionary();
 			weapon_data.Add("name", "Broad Sword");
+			weapon_data.Add("icon", "");
+			weapon_data.Add("description", "Heals 50HP to one ally");
+			weapon_data.Add("weapon_type", 0);
+			weapon_data.Add("price", 50);
+			weapon_data.Add("element", 0);
+			weapon_stats_array.Add("hp", "0");
+			weapon_stats_array.Add("mp", "0");
+			weapon_stats_array.Add("atk", "10");
+			weapon_stats_array.Add("def", "2");
+			weapon_stats_array.Add("int", "2");
+			weapon_stats_array.Add("res", "1");
+			weapon_stats_array.Add("spd", "0");
+			weapon_stats_array.Add("luk", "0");
+			weapon_data.Add("stat_list", weapon_stats_array);
 			weapon_array.Add("weapon0", weapon_data);
 			database_editor.StoreLine(JSON.Print(weapon_array));
 			database_editor.Close();
@@ -190,6 +205,8 @@ public class Base : Control
 			GetNode<Control>("Tabs/Skill").Call("_Start");
 		} else if (tab == 3) {
 			GetNode<Control>("Tabs/Item").Call("_Start");
+		} else if (tab == 4) {
+			GetNode<Control>("Tabs/Weapon").Call("_Start");
 		} else if (tab == 6) {
 			GetNode<Control>("Tabs/System").Call("_Start");
 		}

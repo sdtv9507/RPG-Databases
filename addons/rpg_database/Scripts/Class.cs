@@ -51,8 +51,8 @@ public class Class : Control
         Godot.Collections.Dictionary newSystemDict = systemDictionary["stats"] as Godot.Collections.Dictionary;
         
         Godot.File skill_editor = new Godot.File();
-		database_editor.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
-		string skillAsText = database_editor.GetAsText();
+		skill_editor.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
+		string skillAsText = skill_editor.GetAsText();
 		JSONParseResult skillParsed = JSON.Parse(skillAsText);
 		Godot.Collections.Dictionary skillDictionary = skillParsed.Result as Godot.Collections.Dictionary;
         

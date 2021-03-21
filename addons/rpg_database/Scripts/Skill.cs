@@ -18,7 +18,6 @@ public class Skill : Control
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         
-        Godot.File system_editor = new Godot.File();
 		database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
 		string systemAsText = database_editor.GetAsText();
 		JSONParseResult systemParsed = JSON.Parse(systemAsText);

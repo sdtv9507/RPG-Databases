@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://addons/rpg_database/Scripts/Skill.cs" type="Script" id=4]
 [ext_resource path="res://addons/rpg_database/Scripts/SystemScript.cs" type="Script" id=5]
 [ext_resource path="res://addons/rpg_database/Scripts/Item.cs" type="Script" id=6]
+[ext_resource path="res://addons/rpg_database/Scripts/Weapon.cs" type="Script" id=7]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -1099,6 +1100,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 7 )
 
 [node name="WeaponSaveButton" type="Button" parent="Tabs/Weapon"]
 margin_left = 286.0
@@ -1127,6 +1129,9 @@ margin_left = 138.0
 margin_right = 162.0
 margin_bottom = 24.0
 text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NameLabel" type="Label" parent="Tabs/Weapon"]
 margin_left = 24.0
@@ -1222,6 +1227,9 @@ margin_top = 24.0
 margin_right = 82.0
 margin_bottom = 48.0
 max_value = 1e+11
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StatsLabel" type="Label" parent="Tabs/Weapon"]
 margin_left = 25.0
@@ -1268,6 +1276,27 @@ rect_min_size = Vector2( 160, 184 )
 margin_right = 160.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 184 )
+
+[node name="ElementLabel" type="Label" parent="Tabs/Weapon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 368.0
+margin_top = 128.0
+margin_right = -211.0
+margin_bottom = 142.0
+text = "Element"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ElementButton" type="OptionButton" parent="Tabs/Weapon/ElementLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 118.0
+margin_bottom = 48.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
 
 [node name="Armor" type="Control" parent="Tabs"]
 visible = false
@@ -1343,7 +1372,7 @@ text = "..."
 [node name="IconSearch" type="FileDialog" parent="Tabs/Armor/IconLabel"]
 margin_right = 315.0
 margin_bottom = 130.0
-window_title = "Open a File"
+window_title = "Abrir un Archivo"
 mode = 0
 
 [node name="DescLabel" type="Label" parent="Tabs/Armor"]
@@ -1699,6 +1728,11 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Item/ItemButton/AddItem" to="Tabs/Item" method="_on_AddItem_pressed"]
 [connection signal="pressed" from="Tabs/Item/IconLabel/Search" to="Tabs/Item" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Item/IconLabel/IconSearch" to="Tabs/Item" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Weapon/WeaponSaveButton" to="Tabs/Weapon" method="_on_WeaponSaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Weapon/WeaponButton" to="Tabs/Weapon" method="_on_WeaponButton_item_selected"]
+[connection signal="pressed" from="Tabs/Weapon/WeaponButton/AddWeaponButton" to="Tabs/Weapon" method="_on_AddWeaponButton_pressed"]
+[connection signal="pressed" from="Tabs/Weapon/IconLabel/Search" to="Tabs/Weapon" method="_on_Search_pressed"]
+[connection signal="file_selected" from="Tabs/Weapon/IconLabel/IconSearch" to="Tabs/Weapon" method="_on_IconSearch_file_selected"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
