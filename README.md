@@ -7,6 +7,6 @@ Very early wip RPG database for [Godot Engine]("https://godotengine.org") inspir
 - [x] Class Tab
 - [x] Skill Tab
 - [x] Item Tab
-- [ ] Weapon Tab
+- [x] Weapon Tab
 - [ ] Armor Tab
 - [ ] System Tab
