@@ -512,6 +512,40 @@ margin_right = 160.0
 margin_bottom = 280.0
 rect_min_size = Vector2( 0, 280 )
 
+[node name="StatEditor" type="WindowDialog" parent="Tabs/Class"]
+margin_left = 152.0
+margin_top = 67.0
+margin_right = 544.0
+margin_bottom = 162.0
+window_title = "Stat Editor"
+
+[node name="StatLabel" type="Label" parent="Tabs/Class/StatEditor"]
+margin_left = 28.0
+margin_top = 23.0
+margin_right = 68.0
+margin_bottom = 37.0
+text = "HP"
+
+[node name="StatEdit" type="LineEdit" parent="Tabs/Class/StatEditor"]
+margin_left = 103.0
+margin_top = 17.0
+margin_right = 360.0
+margin_bottom = 41.0
+
+[node name="OkButton" type="Button" parent="Tabs/Class/StatEditor"]
+margin_left = 96.0
+margin_top = 60.0
+margin_right = 171.0
+margin_bottom = 80.0
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="Tabs/Class/StatEditor"]
+margin_left = 196.0
+margin_top = 60.0
+margin_right = 271.0
+margin_bottom = 80.0
+text = "Cancel"
+
 [node name="Skill" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0
@@ -1719,7 +1753,10 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Class/SkillLabel/AddSkillButton" to="Tabs/Class" method="_on_AddSkillButton_pressed"]
 [connection signal="pressed" from="Tabs/Class/SkillLabel/RemoveButton" to="Tabs/Class" method="_on_RemoveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Class/StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList" to="Tabs/Class" method="_on_StatsList_item_selected"]
+[connection signal="item_activated" from="Tabs/Class/StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList" to="Tabs/Class" method="_on_FormulaList_item_activated"]
 [connection signal="item_selected" from="Tabs/Class/StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList" to="Tabs/Class" method="_on_FormulaList_item_selected"]
+[connection signal="pressed" from="Tabs/Class/StatEditor/OkButton" to="Tabs/Class" method="_on_OkStatButton_pressed"]
+[connection signal="pressed" from="Tabs/Class/StatEditor/CancelButton" to="Tabs/Class" method="_on_CancelStatButton_pressed"]
 [connection signal="pressed" from="Tabs/Skill/SkillSaveButton" to="Tabs/Skill" method="_on_SkillSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Skill/SkillButton" to="Tabs/Skill" method="_on_SkillButton_item_selected"]
 [connection signal="pressed" from="Tabs/Skill/SkillButton/AddSkill" to="Tabs/Skill" method="_on_AddSkill_pressed"]
