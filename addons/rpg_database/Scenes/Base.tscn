@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://addons/rpg_database/Scripts/SystemScript.cs" type="Script" id=5]
 [ext_resource path="res://addons/rpg_database/Scripts/Item.cs" type="Script" id=6]
 [ext_resource path="res://addons/rpg_database/Scripts/Weapon.cs" type="Script" id=7]
+[ext_resource path="res://addons/rpg_database/Scripts/Armor.cs" type="Script" id=8]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -1306,6 +1307,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 8 )
 
 [node name="ArmorSaveButton" type="Button" parent="Tabs/Armor"]
 margin_left = 286.0
@@ -1455,23 +1457,23 @@ margin_top = 7.0
 margin_right = 233.0
 margin_bottom = 191.0
 
-[node name="StatNameContainer" type="VBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer"]
+[node name="StatNameCont" type="VBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer"]
 margin_right = 60.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 60, 0 )
 
-[node name="StatNameList" type="ItemList" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatNameContainer"]
+[node name="StatNameList" type="ItemList" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatNameCont"]
 margin_right = 60.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 184 )
 
-[node name="StatValueContainer" type="VBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer"]
+[node name="StatValueCont" type="VBoxContainer" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer"]
 margin_left = 64.0
 margin_right = 224.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 160, 0 )
 
-[node name="StatValueList" type="ItemList" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueContainer"]
+[node name="StatValueList" type="ItemList" parent="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueCont"]
 margin_right = 160.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 184 )
@@ -1733,6 +1735,11 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Weapon/WeaponButton/AddWeaponButton" to="Tabs/Weapon" method="_on_AddWeaponButton_pressed"]
 [connection signal="pressed" from="Tabs/Weapon/IconLabel/Search" to="Tabs/Weapon" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Weapon/IconLabel/IconSearch" to="Tabs/Weapon" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Armor/ArmorSaveButton" to="Tabs/Armor" method="_on_ArmorSaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Armor/ArmorButton" to="Tabs/Armor" method="_on_ArmorButton_item_selected"]
+[connection signal="pressed" from="Tabs/Armor/ArmorButton/AddArmorButton" to="Tabs/Armor" method="_on_AddArmorButton_pressed"]
+[connection signal="pressed" from="Tabs/Armor/IconLabel/Search" to="Tabs/Armor" method="_on_Search_pressed"]
+[connection signal="file_selected" from="Tabs/Armor/IconLabel/IconSearch" to="Tabs/Armor" method="_on_IconSearch_file_selected"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]

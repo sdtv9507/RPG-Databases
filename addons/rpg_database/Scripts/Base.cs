@@ -174,7 +174,21 @@ public class Base : Control
 			database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
 			Godot.Collections.Dictionary armor_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary armor_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary armor_stats_array = new Godot.Collections.Dictionary();
 			armor_data.Add("name", "Clothes");
+			armor_data.Add("icon", "");
+			armor_data.Add("description", "Heals 50HP to one ally");
+			armor_data.Add("armor_type", 0);
+			armor_data.Add("price", 50);
+			armor_stats_array.Add("hp", "0");
+			armor_stats_array.Add("mp", "0");
+			armor_stats_array.Add("atk", "10");
+			armor_stats_array.Add("def", "2");
+			armor_stats_array.Add("int", "2");
+			armor_stats_array.Add("res", "1");
+			armor_stats_array.Add("spd", "0");
+			armor_stats_array.Add("luk", "0");
+			armor_data.Add("stat_list", armor_stats_array);
 			armor_array.Add("armor0", armor_data);
 			database_editor.StoreLine(JSON.Print(armor_array));
 			database_editor.Close();
@@ -207,6 +221,8 @@ public class Base : Control
 			GetNode<Control>("Tabs/Item").Call("_Start");
 		} else if (tab == 4) {
 			GetNode<Control>("Tabs/Weapon").Call("_Start");
+		} else if (tab == 5) {
+			GetNode<Control>("Tabs/Armor").Call("_Start");
 		} else if (tab == 6) {
 			GetNode<Control>("Tabs/System").Call("_Start");
 		}
