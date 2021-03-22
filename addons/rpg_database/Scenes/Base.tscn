@@ -1546,6 +1546,40 @@ margin_right = 160.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 184 )
 
+[node name="StatEditor" type="WindowDialog" parent="Tabs/Armor"]
+margin_left = 152.0
+margin_top = 67.0
+margin_right = 544.0
+margin_bottom = 162.0
+window_title = "Stat Editor"
+
+[node name="StatLabel" type="Label" parent="Tabs/Armor/StatEditor"]
+margin_left = 28.0
+margin_top = 23.0
+margin_right = 68.0
+margin_bottom = 37.0
+text = "HP"
+
+[node name="StatEdit" type="LineEdit" parent="Tabs/Armor/StatEditor"]
+margin_left = 103.0
+margin_top = 17.0
+margin_right = 360.0
+margin_bottom = 41.0
+
+[node name="OkButton" type="Button" parent="Tabs/Armor/StatEditor"]
+margin_left = 96.0
+margin_top = 60.0
+margin_right = 171.0
+margin_bottom = 80.0
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="Tabs/Armor/StatEditor"]
+margin_left = 196.0
+margin_top = 60.0
+margin_right = 271.0
+margin_bottom = 80.0
+text = "Cancel"
+
 [node name="System" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0
@@ -1814,6 +1848,9 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Armor/ArmorButton/AddArmorButton" to="Tabs/Armor" method="_on_AddArmorButton_pressed"]
 [connection signal="pressed" from="Tabs/Armor/IconLabel/Search" to="Tabs/Armor" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Armor/IconLabel/IconSearch" to="Tabs/Armor" method="_on_IconSearch_file_selected"]
+[connection signal="item_activated" from="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Armor" method="_on_StatValueList_item_activated"]
+[connection signal="pressed" from="Tabs/Armor/StatEditor/OkButton" to="Tabs/Armor" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="Tabs/Armor/StatEditor/CancelButton" to="Tabs/Armor" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
