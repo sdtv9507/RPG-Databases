@@ -284,6 +284,7 @@ public class Class : Control
 
     private void _on_CancelStatButton_pressed()
     {
+        stat_edit = -1;
         GetNode<WindowDialog>("StatEditor").Hide();
     }
     //  public override void _Process(float delta)

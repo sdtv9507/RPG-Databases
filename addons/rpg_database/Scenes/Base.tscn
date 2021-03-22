@@ -1223,9 +1223,9 @@ __meta__ = {
 
 [node name="DescText" type="TextEdit" parent="Tabs/Weapon/DescLabel"]
 margin_left = -2.0
-margin_top = 24.0
+margin_top = 23.0
 margin_right = 322.0
-margin_bottom = 113.0
+margin_bottom = 112.0
 
 [node name="WTypeLabel" type="Label" parent="Tabs/Weapon"]
 margin_left = 368.0
@@ -1332,6 +1332,40 @@ margin_bottom = 48.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
+
+[node name="StatEditor" type="WindowDialog" parent="Tabs/Weapon"]
+margin_left = 152.0
+margin_top = 67.0
+margin_right = 544.0
+margin_bottom = 162.0
+window_title = "Stat Editor"
+
+[node name="StatLabel" type="Label" parent="Tabs/Weapon/StatEditor"]
+margin_left = 28.0
+margin_top = 23.0
+margin_right = 68.0
+margin_bottom = 37.0
+text = "HP"
+
+[node name="StatEdit" type="LineEdit" parent="Tabs/Weapon/StatEditor"]
+margin_left = 103.0
+margin_top = 17.0
+margin_right = 360.0
+margin_bottom = 41.0
+
+[node name="OkButton" type="Button" parent="Tabs/Weapon/StatEditor"]
+margin_left = 96.0
+margin_top = 60.0
+margin_right = 171.0
+margin_bottom = 80.0
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="Tabs/Weapon/StatEditor"]
+margin_left = 196.0
+margin_top = 60.0
+margin_right = 271.0
+margin_bottom = 80.0
+text = "Cancel"
 
 [node name="Armor" type="Control" parent="Tabs"]
 visible = false
@@ -1772,6 +1806,9 @@ margin_bottom = -4.0
 [connection signal="pressed" from="Tabs/Weapon/WeaponButton/AddWeaponButton" to="Tabs/Weapon" method="_on_AddWeaponButton_pressed"]
 [connection signal="pressed" from="Tabs/Weapon/IconLabel/Search" to="Tabs/Weapon" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Weapon/IconLabel/IconSearch" to="Tabs/Weapon" method="_on_IconSearch_file_selected"]
+[connection signal="item_activated" from="Tabs/Weapon/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Weapon" method="_on_StatValueList_item_activated"]
+[connection signal="pressed" from="Tabs/Weapon/StatEditor/OkButton" to="Tabs/Weapon" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="Tabs/Weapon/StatEditor/CancelButton" to="Tabs/Weapon" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Tabs/Armor/ArmorSaveButton" to="Tabs/Armor" method="_on_ArmorSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Armor/ArmorButton" to="Tabs/Armor" method="_on_ArmorButton_item_selected"]
 [connection signal="pressed" from="Tabs/Armor/ArmorButton/AddArmorButton" to="Tabs/Armor" method="_on_AddArmorButton_pressed"]

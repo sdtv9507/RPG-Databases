@@ -9,6 +9,7 @@ public class Weapon : Control
 
     string icon_path = "";
     int weapon_selected = 0;
+    int stat_edit = -1;
     // Called when the node enters the scene tree for the first time.
     public void _Start()
     {
@@ -200,6 +201,30 @@ public class Weapon : Control
 		database_editor.Close();
     }
 
+    private void _on_StatValueList_item_activated(int index)
+    {
+        string stat_name = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").GetItemText(index);
+        string stat_formula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").GetItemText(index);
+        GetNode<Label>("StatEditor/StatLabel").Text = stat_name;
+        GetNode<LineEdit>("StatEditor/StatEdit").Text = stat_formula;
+        stat_edit = index;
+        GetNode<WindowDialog>("StatEditor").Show();
+    }
+
+    private void _on_OkButton_pressed()
+    {
+        string stat_formula = GetNode<LineEdit>("StatEditor/StatEdit").Text;
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").SetItemText(stat_edit, stat_formula);
+        _save_weapon_data();
+        stat_edit = -1;
+        GetNode<WindowDialog>("StatEditor").Hide();
+    }
+
+    private void _on_CancelButton_pressed()
+    {
+        stat_edit = -1;
+        GetNode<WindowDialog>("StatEditor").Hide();
+    }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
     //  {
