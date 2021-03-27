@@ -1847,8 +1847,8 @@ rect_min_size = Vector2( 118, 0 )
 text = "Add Set"
 
 [node name="RemoveSet" type="Button" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/ButtonDivisor"]
-margin_left = 125.0
-margin_right = 243.0
+margin_left = 122.0
+margin_right = 240.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 118, 0 )
 text = "Remove Set"
@@ -1890,6 +1890,57 @@ margin_left = 196.0
 margin_top = 60.0
 margin_right = 271.0
 margin_bottom = 80.0
+text = "Cancel"
+
+[node name="AddSlot" type="WindowDialog" parent="Tabs/System"]
+margin_right = 412.0
+margin_bottom = 142.0
+window_title = "Add Equipment Slot"
+
+[node name="TypeLabel" type="Label" parent="Tabs/System/AddSlot"]
+margin_left = 48.0
+margin_top = 24.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "Type"
+
+[node name="TypeButton" type="OptionButton" parent="Tabs/System/AddSlot/TypeLabel"]
+margin_left = 47.0
+margin_top = -6.0
+margin_right = 239.0
+margin_bottom = 22.0
+text = "Weapon"
+align = 1
+items = [ "Weapon", null, false, 0, null, "Armor", null, false, 1, null ]
+selected = 0
+
+[node name="NameLabel" type="Label" parent="Tabs/System/AddSlot"]
+margin_left = 48.0
+margin_top = 78.0
+margin_right = 88.0
+margin_bottom = 92.0
+text = "Name"
+
+[node name="NameEdit" type="LineEdit" parent="Tabs/System/AddSlot/NameLabel"]
+margin_left = 47.0
+margin_top = -6.0
+margin_right = 239.0
+margin_bottom = 22.0
+placeholder_text = "Slot Name"
+caret_blink = true
+
+[node name="OkButton" type="Button" parent="Tabs/System/AddSlot"]
+margin_left = 96.0
+margin_top = 112.0
+margin_right = 180.0
+margin_bottom = 136.0
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="Tabs/System/AddSlot"]
+margin_left = 206.0
+margin_top = 112.0
+margin_right = 290.0
+margin_bottom = 136.0
 text = "Cancel"
 
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
@@ -1948,6 +1999,10 @@ text = "Cancel"
 [connection signal="pressed" from="Tabs/System/ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/RemoveArmor" to="Tabs/System" method="_on_RemoveArmor_pressed"]
 [connection signal="pressed" from="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer/AddElement" to="Tabs/System" method="_on_AddElement_pressed"]
 [connection signal="pressed" from="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer/RemoveElement" to="Tabs/System" method="_on_RemoveElement_pressed"]
+[connection signal="pressed" from="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/ButtonDivisor/AddSet" to="Tabs/System" method="_on_AddSet_pressed"]
+[connection signal="pressed" from="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/ButtonDivisor/RemoveSet" to="Tabs/System" method="_on_RemoveSet_pressed"]
 [connection signal="popup_hide" from="Tabs/System/EditField" to="Tabs/System" method="_on_EditField_popup_hide"]
 [connection signal="pressed" from="Tabs/System/EditField/OKButton" to="Tabs/System" method="_on_OKButton_pressed"]
 [connection signal="pressed" from="Tabs/System/EditField/CancelButton" to="Tabs/System" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="Tabs/System/AddSlot/OkButton" to="Tabs/System" method="_on_AddSlotOkButton_pressed"]
+[connection signal="pressed" from="Tabs/System/AddSlot/CancelButton" to="Tabs/System" method="_on_AddSlotCancelButton_pressed"]

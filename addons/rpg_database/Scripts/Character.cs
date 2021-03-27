@@ -84,15 +84,6 @@ public class Character : Control
         Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor0"] as Godot.Collections.Dictionary;
         GetNode<OptionButton>("ArmorLabel/ArmorButton").SetItemText(0, dataArmorDictionary["name"] as string);
         armor_editor.Close();
-		
-		Godot.File accesory_editor = new Godot.File();
-		accesory_editor.Open("res://databases/Accesory.json", Godot.File.ModeFlags.Read);
-		string accesoryAsText = accesory_editor.GetAsText();
-		JSONParseResult accesoryParsed = JSON.Parse(accesoryAsText);
-		Godot.Collections.Dictionary accesoryDictionary = accesoryParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary dataAccesoryDictionary = accesoryDictionary["accesory0"] as Godot.Collections.Dictionary;
-        GetNode<OptionButton>("AccesoryLabel/AccesoryButton").SetItemText(0, dataAccesoryDictionary["name"] as string);
-        accesory_editor.Close();
 	}
 
 	public void _on_CharaSaveButton_pressed()

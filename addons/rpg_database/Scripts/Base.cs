@@ -47,10 +47,10 @@ public class Base : Control
 			element_data.Add("1","Fire");
 			element_data.Add("2","Ice");
 			element_data.Add("3","Wind");
-			slots_data.Add("0","Weapon");
-			slots_data.Add("1","Head");
-			slots_data.Add("1","Body");
-			slots_data.Add("1","Accessory");
+			slots_data.Add("w0","Weapon");
+			slots_data.Add("a1","Head");
+			slots_data.Add("a2","Body");
+			slots_data.Add("a3","Accessory");
 			system_array.Add("stats", stats_data);
 			system_array.Add("weapons", weapont_data);
 			system_array.Add("armors", armort_data);
