@@ -52,20 +52,20 @@ public class SystemScript : Control
             item.AddItem((elementsData[i.ToString()]).ToString());
         }
 
-        for (int i = 0; i < slotsData.Count; i++)
+        foreach (string id in slotsData.Keys)
         {
             ItemList kind = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList");
-            String kind_id = i.ToString()[0].ToString();
+            String kind_id = id[0].ToString();
             ItemList type = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList");
             switch (kind_id)
             {
                 case "w":
                     kind.AddItem("Weapon");
-                    type.AddItem((slotsData["w"+i.ToString()]).ToString());
+                    type.AddItem((slotsData[id]).ToString());
                     break;
                 case "a":
                     kind.AddItem("Armor");
-                    type.AddItem((slotsData["a"+i.ToString()]).ToString());
+                    type.AddItem((slotsData[id]).ToString());
                     break;
             }
         }
@@ -78,6 +78,7 @@ public class SystemScript : Control
         _save_Weapons();
         _save_Armors();
         _save_Elements();
+        _save_Slots();
     }
     private void _save_Stats()
     {
