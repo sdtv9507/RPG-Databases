@@ -1755,6 +1755,66 @@ margin_right = 114.0
 margin_bottom = 202.0
 text = "Remove Elem"
 
+[node name="EquipmentLabel" type="Label" parent="Tabs/System"]
+margin_left = 12.0
+margin_top = 258.0
+margin_right = 105.0
+margin_bottom = 272.0
+text = "Equipment Set"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EquipContainer" type="PanelContainer" parent="Tabs/System/EquipmentLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 268.0
+margin_bottom = 180.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SetContainer" type="VBoxContainer" parent="Tabs/System/EquipmentLabel/EquipContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 253.0
+margin_bottom = 159.0
+
+[node name="SetDivisor" type="HBoxContainer" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer"]
+margin_right = 246.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 128 )
+
+[node name="KindList" type="ItemList" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/SetDivisor"]
+margin_right = 96.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="TypeList" type="ItemList" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/SetDivisor"]
+margin_left = 100.0
+margin_right = 246.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 146, 0 )
+
+[node name="ButtonDivisor" type="HBoxContainer" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer"]
+margin_top = 132.0
+margin_right = 246.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 0, 18 )
+
+[node name="AddSet" type="Button" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/ButtonDivisor"]
+margin_right = 118.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 118, 0 )
+text = "Add Set"
+
+[node name="RemoveSet" type="Button" parent="Tabs/System/EquipmentLabel/EquipContainer/SetContainer/ButtonDivisor"]
+margin_left = 125.0
+margin_right = 243.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 118, 0 )
+text = "Remove Set"
+
 [node name="EditField" type="WindowDialog" parent="Tabs/System"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1793,15 +1853,6 @@ margin_top = 60.0
 margin_right = 271.0
 margin_bottom = 80.0
 text = "Cancel"
-
-[node name="Editor" type="Control" parent="Tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
 
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
