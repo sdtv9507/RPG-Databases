@@ -25,6 +25,7 @@ public class Base : Control
 			Godot.Collections.Dictionary weapont_data = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary armort_data = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary element_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary slots_data = new Godot.Collections.Dictionary();
 			stats_data.Add("0", "hp");
 			stats_data.Add("1", "mp");
 			stats_data.Add("2", "atk");
@@ -40,14 +41,21 @@ public class Base : Control
 			armort_data.Add("0","Armor");
 			armort_data.Add("1","Robe");
 			armort_data.Add("2","Shield");
+			armort_data.Add("3","Hat");
+			armort_data.Add("4","Accessory");
 			element_data.Add("0","Physical");
 			element_data.Add("1","Fire");
 			element_data.Add("2","Ice");
 			element_data.Add("3","Wind");
+			slots_data.Add("0","Weapon");
+			slots_data.Add("1","Head");
+			slots_data.Add("1","Body");
+			slots_data.Add("1","Accessory");
 			system_array.Add("stats", stats_data);
 			system_array.Add("weapons", weapont_data);
 			system_array.Add("armors", armort_data);
 			system_array.Add("elements", element_data);
+			system_array.Add("slots", slots_data);
 			database_editor.StoreLine(JSON.Print(system_array));
 			database_editor.Close();
 		}
@@ -153,6 +161,7 @@ public class Base : Control
 			weapon_data.Add("icon", "");
 			weapon_data.Add("description", "Heals 50HP to one ally");
 			weapon_data.Add("weapon_type", 0);
+			weapon_data.Add("slot_type", 0);
 			weapon_data.Add("price", 50);
 			weapon_data.Add("element", 0);
 			weapon_stats_array.Add("hp", "0");
@@ -179,6 +188,7 @@ public class Base : Control
 			armor_data.Add("icon", "");
 			armor_data.Add("description", "Heals 50HP to one ally");
 			armor_data.Add("armor_type", 0);
+			armor_data.Add("slot_type", 0);
 			armor_data.Add("price", 50);
 			armor_stats_array.Add("hp", "0");
 			armor_stats_array.Add("mp", "0");
@@ -191,17 +201,6 @@ public class Base : Control
 			armor_data.Add("stat_list", armor_stats_array);
 			armor_array.Add("armor0", armor_data);
 			database_editor.StoreLine(JSON.Print(armor_array));
-			database_editor.Close();
-		}
-
-		if (!database_editor.FileExists("res://databases/Accesory.json"))
-		{
-			database_editor.Open("res://databases/Accesory.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary accesory_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary accesory_data = new Godot.Collections.Dictionary();
-			accesory_data.Add("name", "Ring");
-			accesory_array.Add("accesory0", accesory_data);
-			database_editor.StoreLine(JSON.Print(accesory_array));
 			database_editor.Close();
 		}
 

@@ -1247,9 +1247,9 @@ items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
 
 [node name="PriceLabel" type="Label" parent="Tabs/Weapon"]
-margin_left = 530.0
+margin_left = 510.0
 margin_top = 65.0
-margin_right = 570.0
+margin_right = 550.0
 margin_bottom = 79.0
 text = "Price"
 __meta__ = {
@@ -1325,6 +1325,25 @@ __meta__ = {
 }
 
 [node name="ElementButton" type="OptionButton" parent="Tabs/Weapon/ElementLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 118.0
+margin_bottom = 48.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="SlotLabel" type="Label" parent="Tabs/Weapon"]
+margin_left = 510.0
+margin_top = 127.0
+margin_right = 590.0
+margin_bottom = 141.0
+text = "Weapon Slot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SlotButton" type="OptionButton" parent="Tabs/Weapon/SlotLabel"]
 margin_left = 2.0
 margin_top = 24.0
 margin_right = 118.0
@@ -1545,6 +1564,25 @@ rect_min_size = Vector2( 160, 0 )
 margin_right = 160.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 184 )
+
+[node name="SlotLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 368.0
+margin_top = 128.0
+margin_right = 408.0
+margin_bottom = 142.0
+text = "Slot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SlotButton" type="OptionButton" parent="Tabs/Armor/SlotLabel"]
+margin_left = 2.0
+margin_top = 24.0
+margin_right = 118.0
+margin_bottom = 48.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
 
 [node name="StatEditor" type="WindowDialog" parent="Tabs/Armor"]
 margin_left = 152.0
