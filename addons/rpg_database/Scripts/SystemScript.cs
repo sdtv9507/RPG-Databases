@@ -188,11 +188,11 @@ private void _save_Slots()
                 case "Weapon":
                     id = "w";
                     break;
-                case "a":
+                case "Armor":
                     id = "a";
                     break;
             }
-            String text = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList").GetItemText(i);
+            String text = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList").GetItemText(i);
             id += i.ToString();
             slots_data.Add(id.ToString(), text);
         }
