@@ -212,9 +212,12 @@ margin_left = 108.0
 margin_top = -6.0
 margin_right = 242.0
 margin_bottom = 20.0
-text = "Broad Sword"
-items = [ "Broad Sword", null, false, 0, null ]
+text = "None"
+items = [ "None", null, false, 0, null ]
 selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ArmorLabel" type="Label" parent="Tabs/Character"]
 margin_left = 62.0
@@ -231,8 +234,8 @@ margin_left = 94.0
 margin_top = -6.0
 margin_right = 228.0
 margin_bottom = 20.0
-text = "Clothes"
-items = [ "Clothes", null, false, 0, null ]
+text = "None"
+items = [ "None", null, false, 0, null ]
 selected = 0
 
 [node name="AccesoryLabel" type="Label" parent="Tabs/Character"]
@@ -250,8 +253,8 @@ margin_left = 111.0
 margin_top = -6.0
 margin_right = 245.0
 margin_bottom = 20.0
-text = "Ring"
-items = [ "Ring", null, false, 0, null ]
+text = "None"
+items = [ "None", null, false, 0, null ]
 selected = 0
 
 [node name="EquipLabel" type="Label" parent="Tabs/Character"]
