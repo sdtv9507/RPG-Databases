@@ -284,6 +284,7 @@ public class Character : Control
         string systemAsText = system_editor.GetAsText();
         JSONParseResult systemParsed = JSON.Parse(systemAsText);
         Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").Clear();
         switch (index)
         {
             case 0:
