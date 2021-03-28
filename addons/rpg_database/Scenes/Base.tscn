@@ -197,65 +197,40 @@ min_value = 1.0
 max_value = 99999.0
 value = 99.0
 
-[node name="WeaponLabel" type="Label" parent="Tabs/Character"]
-margin_left = 48.0
-margin_top = 250.0
-margin_right = 141.0
-margin_bottom = 264.0
-text = "Initial Weapon"
+[node name="InitialEquipLabel" type="Label" parent="Tabs/Character"]
+margin_left = 24.0
+margin_top = 233.0
+margin_right = 134.0
+margin_bottom = 247.0
+text = "Initial Equipment"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WeaponButton" type="OptionButton" parent="Tabs/Character/WeaponLabel"]
-margin_left = 108.0
-margin_top = -6.0
-margin_right = 242.0
-margin_bottom = 20.0
-text = "Broad Sword"
-items = [ "Broad Sword", null, false, 0, null ]
-selected = 0
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Character/InitialEquipLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 238.0
+margin_bottom = 212.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ArmorLabel" type="Label" parent="Tabs/Character"]
-margin_left = 62.0
-margin_top = 300.0
-margin_right = 143.0
-margin_bottom = 314.0
-text = "Initial Armor"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="TypeContainer" type="HBoxContainer" parent="Tabs/Character/InitialEquipLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 223.0
+margin_bottom = 189.0
 
-[node name="ArmorButton" type="OptionButton" parent="Tabs/Character/ArmorLabel"]
-margin_left = 94.0
-margin_top = -6.0
-margin_right = 228.0
-margin_bottom = 20.0
-text = "Clothes"
-items = [ "Clothes", null, false, 0, null ]
-selected = 0
+[node name="TypeList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
+margin_right = 84.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 84, 0 )
 
-[node name="AccesoryLabel" type="Label" parent="Tabs/Character"]
-margin_left = 45.0
-margin_top = 350.0
-margin_right = 144.0
-margin_bottom = 364.0
-text = "Initial Accesory"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AccesoryButton" type="OptionButton" parent="Tabs/Character/AccesoryLabel"]
-margin_left = 111.0
-margin_top = -6.0
-margin_right = 245.0
-margin_bottom = 20.0
-text = "None"
-items = [ "None", null, false, 0, null ]
-selected = 0
+[node name="EquipList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
+margin_left = 88.0
+margin_right = 216.0
+margin_bottom = 182.0
 
 [node name="EquipLabel" type="Label" parent="Tabs/Character"]
 margin_left = 380.0
