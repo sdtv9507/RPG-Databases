@@ -11,6 +11,7 @@ public class Character : Control
     string charaPath = "";
     int character_selected = 0;
     Godot.Collections.Array<int> equip_id_array = new Godot.Collections.Array<int>();
+    Godot.Collections.Array<int> initial_equip_id_array = new Godot.Collections.Array<int>();
     // Called when the node enters the scene tree for the first time.
     public void _Start()
     {
@@ -109,6 +110,7 @@ public class Character : Control
             {
                 case "w":
                     int w_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    initial_equip_id_array.Add(w_id);
                     if (w_id >= 0)
                     {
                         Godot.Collections.Dictionary dataWeaponDictionary = weaponDictionary["weapon"+w_id] as Godot.Collections.Dictionary;
@@ -121,6 +123,7 @@ public class Character : Control
                     break;
                 case "a":
                     int a_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    initial_equip_id_array.Add(a_id);
                     if (a_id >= 0)
                     {
                         Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor"+a_id] as Godot.Collections.Dictionary;
@@ -176,6 +179,7 @@ public class Character : Control
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary character_data = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary etype_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary einit_data = new Godot.Collections.Dictionary();
         character_data.Add("faceImage", "res://");
         character_data.Add("charaImage", "res://");
         character_data.Add("name", "NewCharacter");
@@ -186,9 +190,12 @@ public class Character : Control
         etype_data.Add("w1", 1);
         etype_data.Add("a2", 0);
         etype_data.Add("a3", 3);
-        character_data.Add("startWeapon", 0);
-        character_data.Add("startArmor", 0);
-        character_data.Add("startAccesory", 0);
+        einit_data.Add("0", -1);
+        einit_data.Add("1", -1);
+        einit_data.Add("2", -1);
+        einit_data.Add("3", -1);
+        character_data.Add("initial_equip", einit_data);
+        character_data.Add("equip_types", etype_data);
         jsonDictionary.Add("chara" + id, character_data);
         database_editor.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
         database_editor.StoreString(JSON.Print(jsonDictionary));
@@ -219,6 +226,7 @@ public class Character : Control
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary finalData = jsonDictionary["chara" + character_selected] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary equip_type_Data = finalData["equip_types"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary initial_equip_Data = finalData["initial_equip"] as Godot.Collections.Dictionary;
 
         finalData["faceImage"] = facePath;
         finalData["charaImage"] = "";
@@ -244,9 +252,15 @@ public class Character : Control
         }
 
         finalData["equip_types"] = equip_type_Data;
-        finalData["startWeapon"] = 0;
-        finalData["startArmor"] = 0;
-        finalData["startAccesory"] = 0;
+        
+        int slot_items = GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").GetItemCount();
+        for (int i = 0; i < slot_items; i++)
+        {
+            initial_equip_Data[i.ToString()] = Convert.ToInt32(initial_equip_id_array[i]);
+        }
+
+        finalData["initial_equip"] = initial_equip_Data;
+        
         database_editor.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
         database_editor.StoreString(JSON.Print(jsonDictionary));
         database_editor.Close();
