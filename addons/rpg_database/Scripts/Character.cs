@@ -67,7 +67,6 @@ public class Character : Control
         {
             string kind = equip[0].ToString();
             string type_id = etypeDictionary[equip].ToString();
-            GD.Print(type_id);
             equip_id_array.Add(Convert.ToInt32(etypeDictionary[equip]));
             switch (kind)
             {

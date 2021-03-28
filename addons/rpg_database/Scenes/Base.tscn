@@ -298,17 +298,17 @@ margin_bottom = 180.0
 text = "Remove Type"
 
 [node name="AddEquip" type="WindowDialog" parent="Tabs/Character/EquipLabel"]
-margin_left = -255.0
+margin_left = -310.0
 margin_top = -101.0
 margin_right = 116.0
-margin_bottom = 45.0
+margin_bottom = 18.0
 window_title = "Add Equip Type"
 
 [node name="TypeLabel" type="Label" parent="Tabs/Character/EquipLabel/AddEquip"]
-margin_left = 96.0
-margin_top = 20.0
-margin_right = 136.0
-margin_bottom = 34.0
+margin_left = 21.0
+margin_top = 36.0
+margin_right = 61.0
+margin_bottom = 50.0
 text = "Type"
 
 [node name="TypeButton" type="OptionButton" parent="Tabs/Character/EquipLabel/AddEquip/TypeLabel"]
@@ -321,10 +321,10 @@ items = [ "Weapon", null, false, 0, null, "Armor", null, false, 1, null ]
 selected = 0
 
 [node name="EquipLabel" type="Label" parent="Tabs/Character/EquipLabel/AddEquip"]
-margin_left = 96.0
-margin_top = 65.0
-margin_right = 136.0
-margin_bottom = 79.0
+margin_left = 226.0
+margin_top = 36.0
+margin_right = 266.0
+margin_bottom = 50.0
 text = "Equip"
 
 [node name="EquipButton" type="OptionButton" parent="Tabs/Character/EquipLabel/AddEquip/EquipLabel"]
@@ -337,17 +337,17 @@ items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
 
 [node name="OkButton" type="Button" parent="Tabs/Character/EquipLabel/AddEquip"]
-margin_left = 76.0
-margin_top = 108.0
-margin_right = 156.0
-margin_bottom = 134.0
+margin_left = 110.0
+margin_top = 78.0
+margin_right = 190.0
+margin_bottom = 104.0
 text = "Ok"
 
 [node name="CancelButton" type="Button" parent="Tabs/Character/EquipLabel/AddEquip"]
-margin_left = 200.0
-margin_top = 108.0
-margin_right = 280.0
-margin_bottom = 134.0
+margin_left = 235.0
+margin_top = 78.0
+margin_right = 315.0
+margin_bottom = 104.0
 text = "Cancel"
 
 [node name="Class" type="Control" parent="Tabs"]
