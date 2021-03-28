@@ -64,11 +64,12 @@ public class Weapon : Control
         }
 
         newSystemDict = systemDictionary["slots"] as Godot.Collections.Dictionary;
+        int final_id = 0;
         foreach (String str in newSystemDict.Keys)
         {
             if (str[0] == 'w')
             {
-                int id = Convert.ToInt32(str.Remove(0, 1));
+                int id = Convert.ToInt32(str.Remove(0, 1)) - final_id;
                 if (id > GetNode<OptionButton>("SlotLabel/SlotButton").GetItemCount() - 1)
                 {
                     GetNode<OptionButton>("SlotLabel/SlotButton").AddItem(newSystemDict[str] as string);
@@ -77,6 +78,10 @@ public class Weapon : Control
                 {
                     GetNode<OptionButton>("SlotLabel/SlotButton").SetItemText(id, newSystemDict[str] as string);
                 }
+            }
+            else
+            {
+                final_id += 1;
             }
         }
         database_editor.Close();

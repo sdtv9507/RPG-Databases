@@ -49,6 +49,28 @@ public class Armor : Control
                 GetNode<OptionButton>("ATypeLabel/ATypeButton").SetItemText(i, newSystemDict[i.ToString()] as string);
             }
         }
+        
+        newSystemDict = systemDictionary["slots"] as Godot.Collections.Dictionary;
+        int final_id = 0;
+        foreach (String str in newSystemDict.Keys)
+        {
+            if (str[0] == 'a')
+            {
+                int id = Convert.ToInt32(str.Remove(0, 1)) - final_id;
+                if (id > GetNode<OptionButton>("SlotLabel/SlotButton").GetItemCount() - 1)
+                {
+                    GetNode<OptionButton>("SlotLabel/SlotButton").AddItem(newSystemDict[str] as string);
+                }
+                else
+                {
+                    GetNode<OptionButton>("SlotLabel/SlotButton").SetItemText(id, newSystemDict[str] as string);
+                }
+            }
+            else
+            {
+                final_id += 1;
+            }
+        }
         database_editor.Close();
         _refresh_data(0);
     }
@@ -77,6 +99,7 @@ public class Armor : Control
         }
         GetNode<TextEdit>("DescLabel/DescText").Text = newArmorDict["description"] as string;
         GetNode<OptionButton>("ATypeLabel/ATypeButton").Selected = Convert.ToInt32(newArmorDict["armor_type"]);
+        GetNode<OptionButton>("SlotLabel/SlotButton").Selected = Convert.ToInt32(newArmorDict["slot_type"]);
         GetNode<SpinBox>("PriceLabel/PriceSpin").Value = Convert.ToInt32(newArmorDict["price"]);
 
         GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").Clear();
@@ -118,6 +141,7 @@ public class Armor : Control
         armor_data.Add("icon", "");
         armor_data.Add("description", "New created armor");
         armor_data.Add("armor_type", 0);
+        armor_data.Add("slot_type", 0);
         armor_data.Add("price", 50);
         armor_stats_array.Add("hp", "0");
         armor_stats_array.Add("mp", "0");
@@ -172,6 +196,7 @@ public class Armor : Control
 		finalData["icon"] = icon_path;
 		finalData["description"] = GetNode<TextEdit>("DescLabel/DescText").Text;
         finalData["armor_type"] = GetNode<OptionButton>("ATypeLabel/ATypeButton").Selected;
+        finalData["slot_type"] = GetNode<OptionButton>("SlotLabel/SlotButton").Selected;
 		finalData["price"] = GetNode<SpinBox>("PriceLabel/PriceSpin").Value;
         int items = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").GetItemCount();
         for (int i = 0; i < items; i++)
