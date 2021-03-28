@@ -66,17 +66,19 @@ public class Character : Control
         foreach (string equip in etypeDictionary.Keys)
         {
             string kind = equip[0].ToString();
-			equip_id_array.Add(Convert.ToInt32(etypeDictionary[equip]));
+            string type_id = etypeDictionary[equip].ToString();
+            GD.Print(type_id);
+            equip_id_array.Add(Convert.ToInt32(etypeDictionary[equip]));
             switch (kind)
             {
                 case "w":
                     string w_id = equip.Remove(0, 1);
-                    equip_name = "W: " + wtypeDictionary[w_id].ToString();
+                    equip_name = "W: " + wtypeDictionary[type_id].ToString();
                     GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").AddItem(equip_name);
                     break;
                 case "a":
                     string a_id = equip.Remove(0, 1);
-                    equip_name = "A: " + atypeDictionary[a_id].ToString();
+                    equip_name = "A: " + atypeDictionary[type_id].ToString();
                     GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").AddItem(equip_name);
                     break;
             }
@@ -196,10 +198,10 @@ public class Character : Control
         for (int i = 0; i < equip_items; i++)
         {
             string kind = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetItemText(i)[0].ToString();
-			switch (kind)
+            switch (kind)
             {
                 case "W":
-					equip_type_Data["w" + i] = equip_id_array[i];
+                    equip_type_Data["w" + i] = equip_id_array[i];
                     break;
                 case "A":
                     equip_type_Data["a" + i] = equip_id_array[i];
@@ -207,7 +209,7 @@ public class Character : Control
             }
         }
 
-		finalData["equip_types"] = equip_type_Data;
+        finalData["equip_types"] = equip_type_Data;
         finalData["startWeapon"] = 0;
         finalData["startArmor"] = 0;
         finalData["startAccesory"] = 0;
@@ -222,15 +224,100 @@ public class Character : Control
         _refresh_Data(id);
     }
 
-	private void _on_CancelButton_pressed()
-	{
-		GetNode<WindowDialog>("EquipLabel/AddEquip").Hide();
-	}
+    private void _on_CancelButton_pressed()
+    {
+        GetNode<WindowDialog>("EquipLabel/AddEquip").Hide();
+    }
 
-	private void _on_AddEquipTypeButton_pressed()
-	{
-		GetNode<WindowDialog>("EquipLabel/AddEquip").PopupCentered();
-	}
+    private void _on_AddEquipTypeButton_pressed()
+    {
+        GetNode<WindowDialog>("EquipLabel/AddEquip").PopupCentered();
+
+        Godot.File system_editor = new Godot.File();
+        system_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string systemAsText = system_editor.GetAsText();
+        JSONParseResult systemParsed = JSON.Parse(systemAsText);
+        Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary wtypeDictionary = systemDictionary["weapons"] as Godot.Collections.Dictionary;
+        for (int i = 0; i < wtypeDictionary.Count; i++)
+        {
+            if (i > GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").GetItemCount() - 1)
+            {
+                GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").AddItem(wtypeDictionary[i.ToString()].ToString());
+            }
+            else
+            {
+                GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").SetItemText(i, wtypeDictionary[i.ToString()].ToString());
+            }
+        }
+
+        system_editor.Close();
+    }
+
+    private void _on_RemoveEquipTypeButton_pressed()
+    {
+        int selected = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetSelectedItems()[0];
+        GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").RemoveItem(selected);
+    }
+
+    private void _on_OkButton_pressed()
+    {
+        int kind = GetNode<OptionButton>("EquipLabel/AddEquip/TypeLabel/TypeButton").Selected;
+        int item = GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").Selected;
+        equip_id_array.Add(Convert.ToInt32(item));
+        string item_text = GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").Text;
+        switch (kind)
+        {
+            case 0:
+                GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").AddItem("W: " + item_text);
+                break;
+            case 1:
+                GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").AddItem("A: " + item_text);
+                break;
+        }
+        GetNode<WindowDialog>("EquipLabel/AddEquip").Hide();
+    }
+
+    private void _on_TypeButton_item_selected(int index)
+    {
+        Godot.File system_editor = new Godot.File();
+        system_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string systemAsText = system_editor.GetAsText();
+        JSONParseResult systemParsed = JSON.Parse(systemAsText);
+        Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
+        switch (index)
+        {
+            case 0:
+                Godot.Collections.Dictionary wtypeDictionary = systemDictionary["weapons"] as Godot.Collections.Dictionary;
+                for (int i = 0; i < wtypeDictionary.Count; i++)
+                {
+                    if (i > GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").GetItemCount() - 1)
+                    {
+                        GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").AddItem(wtypeDictionary[i.ToString()].ToString());
+                    }
+                    else
+                    {
+                        GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").SetItemText(i, wtypeDictionary[i.ToString()].ToString());
+                    }
+                }
+                break;
+            case 1:
+                Godot.Collections.Dictionary atypeDictionary = systemDictionary["armors"] as Godot.Collections.Dictionary;
+                for (int i = 0; i < atypeDictionary.Count; i++)
+                {
+                    if (i > GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").GetItemCount() - 1)
+                    {
+                        GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").AddItem(atypeDictionary[i.ToString()].ToString());
+                    }
+                    else
+                    {
+                        GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").SetItemText(i, atypeDictionary[i.ToString()].ToString());
+                    }
+                }
+                break;
+        }
+        system_editor.Close();
+    }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
     //  {
