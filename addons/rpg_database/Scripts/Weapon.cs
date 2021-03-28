@@ -62,6 +62,23 @@ public class Weapon : Control
                 GetNode<OptionButton>("WTypeLabel/WTypeButton").SetItemText(i, newSystemDict[i.ToString()] as string);
             }
         }
+
+        newSystemDict = systemDictionary["slots"] as Godot.Collections.Dictionary;
+        foreach (String str in newSystemDict.Keys)
+        {
+            if (str[0] == 'w')
+            {
+                int id = Convert.ToInt32(str.Remove(0, 1));
+                if (id > GetNode<OptionButton>("SlotLabel/SlotButton").GetItemCount() - 1)
+                {
+                    GetNode<OptionButton>("SlotLabel/SlotButton").AddItem(newSystemDict[str] as string);
+                }
+                else
+                {
+                    GetNode<OptionButton>("SlotLabel/SlotButton").SetItemText(id, newSystemDict[str] as string);
+                }
+            }
+        }
         database_editor.Close();
         _refresh_data(0);
     }
@@ -90,6 +107,7 @@ public class Weapon : Control
         }
         GetNode<TextEdit>("DescLabel/DescText").Text = newWeaponDict["description"] as string;
         GetNode<OptionButton>("WTypeLabel/WTypeButton").Selected = Convert.ToInt32(newWeaponDict["weapon_type"]);
+        GetNode<OptionButton>("SlotLabel/SlotButton").Selected = Convert.ToInt32(newWeaponDict["slot_type"]);
         GetNode<SpinBox>("PriceLabel/PriceSpin").Value = Convert.ToInt32(newWeaponDict["price"]);
         GetNode<OptionButton>("ElementLabel/ElementButton").Selected = Convert.ToInt32(newWeaponDict["element"]);
 
@@ -122,16 +140,17 @@ public class Weapon : Control
         int id = GetNode<OptionButton>("WeaponButton").GetItemCount() - 1;
         Godot.File database_editor = new Godot.File();
         database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = database_editor.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
+        string jsonAsText = database_editor.GetAsText();
+        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         database_editor.Close();
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weapon_data = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary weapon_stats_array = new Godot.Collections.Dictionary();
         weapon_data.Add("name", "NewWeapon");
         weapon_data.Add("icon", "");
         weapon_data.Add("description", "New created weapon");
         weapon_data.Add("weapon_type", 0);
+        weapon_data.Add("slot_type", 0);
         weapon_data.Add("price", 50);
         weapon_data.Add("element", 0);
         weapon_stats_array.Add("hp", "0");
@@ -144,9 +163,9 @@ public class Weapon : Control
         weapon_stats_array.Add("luk", "0");
         weapon_data.Add("stat_list", weapon_stats_array);
         jsonDictionary.Add("weapon" + id, weapon_data);
-		database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
-		database_editor.StoreLine(JSON.Print(jsonDictionary));
-		database_editor.Close();
+        database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
+        database_editor.StoreLine(JSON.Print(jsonDictionary));
+        database_editor.Close();
     }
 
     private void _on_WeaponSaveButton_pressed()
@@ -174,21 +193,22 @@ public class Weapon : Control
 
     private void _save_weapon_data()
     {
-		Godot.File database_editor = new Godot.File();
-		database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = database_editor.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
+        Godot.File database_editor = new Godot.File();
+        database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = database_editor.GetAsText();
+        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         database_editor.Close();
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary finalData = jsonDictionary["weapon"+weapon_selected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary finalData = jsonDictionary["weapon" + weapon_selected] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weaponStatFormula = finalData["stat_list"] as Godot.Collections.Dictionary;
-		finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
-		GetNode<OptionButton>("WeaponButton").SetItemText(weapon_selected, GetNode<LineEdit>("NameLabel/NameText").Text);
-		finalData["icon"] = icon_path;
-		finalData["description"] = GetNode<TextEdit>("DescLabel/DescText").Text;
+        finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
+        GetNode<OptionButton>("WeaponButton").SetItemText(weapon_selected, GetNode<LineEdit>("NameLabel/NameText").Text);
+        finalData["icon"] = icon_path;
+        finalData["description"] = GetNode<TextEdit>("DescLabel/DescText").Text;
         finalData["weapon_type"] = GetNode<OptionButton>("WTypeLabel/WTypeButton").Selected;
-		finalData["price"] = GetNode<SpinBox>("PriceLabel/PriceSpin").Value;
-		finalData["element"] = GetNode<OptionButton>("ElementLabel/ElementButton").Selected;
+        finalData["slot_type"] = GetNode<OptionButton>("SlotLabel/SlotButton").Selected;
+        finalData["price"] = GetNode<SpinBox>("PriceLabel/PriceSpin").Value;
+        finalData["element"] = GetNode<OptionButton>("ElementLabel/ElementButton").Selected;
         int items = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").GetItemCount();
         for (int i = 0; i < items; i++)
         {
@@ -197,8 +217,8 @@ public class Weapon : Control
             weaponStatFormula[stat] = formula;
         }
         database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
-		database_editor.StoreString(JSON.Print(jsonDictionary));
-		database_editor.Close();
+        database_editor.StoreString(JSON.Print(jsonDictionary));
+        database_editor.Close();
     }
 
     private void _on_StatValueList_item_activated(int index)
