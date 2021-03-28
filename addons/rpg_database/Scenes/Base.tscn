@@ -235,6 +235,50 @@ margin_bottom = 182.0
 rect_min_size = Vector2( 128, 0 )
 items = [ "None", null, false, "None", null, false, "None", null, false, "None", null, false ]
 
+[node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character/InitialEquipLabel"]
+margin_left = 109.0
+margin_top = -125.0
+margin_right = 439.0
+margin_bottom = -7.0
+size_flags_vertical = 0
+window_title = "Initial Equipment"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OkButton" type="Button" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
+margin_left = 70.0
+margin_top = 78.0
+margin_right = 150.0
+margin_bottom = 104.0
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
+margin_left = 170.0
+margin_top = 78.0
+margin_right = 250.0
+margin_bottom = 104.0
+text = "Cancel"
+
+[node name="Label" type="Label" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
+margin_left = 39.0
+margin_top = 29.0
+margin_right = 79.0
+margin_bottom = 43.0
+text = "Weapon"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange/Label"]
+margin_left = 70.0
+margin_top = -8.0
+margin_right = 226.0
+margin_bottom = 22.0
+text = "None"
+items = [ "None", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="EquipLabel" type="Label" parent="Tabs/Character"]
 margin_left = 380.0
 margin_top = 233.0
@@ -327,51 +371,6 @@ margin_bottom = 20.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
-
-[node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 123.0
-margin_top = 111.0
-margin_right = -171.0
-margin_bottom = 224.0
-window_title = "Initial Equipment"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OkButton" type="Button" parent="Tabs/Character/InitialEquipChange"]
-margin_left = 70.0
-margin_top = 78.0
-margin_right = 150.0
-margin_bottom = 104.0
-text = "Ok"
-
-[node name="CancelButton" type="Button" parent="Tabs/Character/InitialEquipChange"]
-margin_left = 170.0
-margin_top = 78.0
-margin_right = 250.0
-margin_bottom = 104.0
-text = "Cancel"
-
-[node name="Label" type="Label" parent="Tabs/Character/InitialEquipChange"]
-margin_left = 39.0
-margin_top = 29.0
-margin_right = 79.0
-margin_bottom = 43.0
-text = "Weapon"
-
-[node name="OptionButton" type="OptionButton" parent="Tabs/Character/InitialEquipChange/Label"]
-margin_left = 70.0
-margin_top = -8.0
-margin_right = 226.0
-margin_bottom = 22.0
-text = "None"
-items = [ "None", null, false, 0, null ]
-selected = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Class" type="Control" parent="Tabs"]
 visible = false
@@ -2068,6 +2067,9 @@ text = "Cancel"
 [connection signal="pressed" from="Tabs/Character/CharacterButton/AddButton" to="Tabs/Character" method="_on_AddButton_pressed"]
 [connection signal="file_selected" from="Tabs/Character/FaceLabel/FaceSearch" to="Tabs/Character" method="_on_FaceSearch_file_selected"]
 [connection signal="pressed" from="Tabs/Character/FaceLabel/Search" to="Tabs/Character" method="_on_Search_pressed"]
+[connection signal="item_activated" from="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer/EquipList" to="Tabs/Character" method="_on_EquipList_item_activated"]
+[connection signal="pressed" from="Tabs/Character/InitialEquipLabel/InitialEquipChange/OkButton" to="Tabs/Character" method="_on_OkInitialEquipButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/InitialEquipLabel/InitialEquipChange/CancelButton" to="Tabs/Character" method="_on_CancelInitialEquipButton_pressed"]
 [connection signal="pressed" from="Tabs/Character/EquipLabel/EquipContainer/EquipContainer/AddButton" to="Tabs/Character" method="_on_AddEquipTypeButton_pressed"]
 [connection signal="pressed" from="Tabs/Character/EquipLabel/EquipContainer/EquipContainer/RemoveButton" to="Tabs/Character" method="_on_RemoveEquipTypeButton_pressed"]
 [connection signal="pressed" from="Tabs/Character/EquipLabel/AddEquip/OkButton" to="Tabs/Character" method="_on_OkButton_pressed"]

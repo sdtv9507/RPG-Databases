@@ -10,7 +10,9 @@ public class Character : Control
     string facePath = "";
     string charaPath = "";
     int character_selected = 0;
+    int initial_equip_edit = -1;
     Godot.Collections.Array<int> equip_id_array = new Godot.Collections.Array<int>();
+    Godot.Collections.Array<String> equip_edit_array = new Godot.Collections.Array<String>();
     Godot.Collections.Array<int> initial_equip_id_array = new Godot.Collections.Array<int>();
     // Called when the node enters the scene tree for the first time.
     public void _Start()
@@ -97,7 +99,7 @@ public class Character : Control
         string armorAsText = armor_editor.GetAsText();
         JSONParseResult armorParsed = JSON.Parse(armorAsText);
         Godot.Collections.Dictionary armorDictionary = armorParsed.Result as Godot.Collections.Dictionary;
-        
+
         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").Clear();
         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").Clear();
         Godot.Collections.Dictionary einitDictionary = dataDictionary["initial_equip"] as Godot.Collections.Dictionary;
@@ -113,7 +115,7 @@ public class Character : Control
                     initial_equip_id_array.Add(w_id);
                     if (w_id >= 0)
                     {
-                        Godot.Collections.Dictionary dataWeaponDictionary = weaponDictionary["weapon"+w_id] as Godot.Collections.Dictionary;
+                        Godot.Collections.Dictionary dataWeaponDictionary = weaponDictionary["weapon" + w_id] as Godot.Collections.Dictionary;
                         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").AddItem(dataWeaponDictionary["name"].ToString());
                     }
                     else
@@ -126,7 +128,7 @@ public class Character : Control
                     initial_equip_id_array.Add(a_id);
                     if (a_id >= 0)
                     {
-                        Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor"+a_id] as Godot.Collections.Dictionary;
+                        Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor" + a_id] as Godot.Collections.Dictionary;
                         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").AddItem(dataArmorDictionary["name"].ToString());
                     }
                     else
@@ -252,7 +254,7 @@ public class Character : Control
         }
 
         finalData["equip_types"] = equip_type_Data;
-        
+
         int slot_items = GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").GetItemCount();
         for (int i = 0; i < slot_items; i++)
         {
@@ -260,7 +262,7 @@ public class Character : Control
         }
 
         finalData["initial_equip"] = initial_equip_Data;
-        
+
         database_editor.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
         database_editor.StoreString(JSON.Print(jsonDictionary));
         database_editor.Close();
@@ -366,6 +368,110 @@ public class Character : Control
                 break;
         }
         system_editor.Close();
+    }
+
+    private void _on_EquipList_item_activated(int index)
+    {
+        initial_equip_edit = index;
+        equip_edit_array.Add("-1");
+        GetNode<Label>("InitialEquipLabel/InitialEquipChange/Label").Text = GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").GetItemText(index);
+
+        GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").Clear();
+        GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem("None");
+        Godot.File database_editor = new Godot.File();
+        database_editor.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = database_editor.GetAsText();
+        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
+        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary dataDictionary = jsonDictionary["chara" + character_selected] as Godot.Collections.Dictionary;
+
+        Godot.File system_editor = new Godot.File();
+        system_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string systemAsText = system_editor.GetAsText();
+        JSONParseResult systemParsed = JSON.Parse(systemAsText);
+        Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary eslotsDictionary = systemDictionary["slots"] as Godot.Collections.Dictionary;
+
+        Godot.Collections.Dictionary typesDictionary = dataDictionary["equip_types"] as Godot.Collections.Dictionary;
+        if (eslotsDictionary.Contains("w" + index))
+        {
+            Godot.File weapon_editor = new Godot.File();
+            weapon_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
+            string weaponAsText = weapon_editor.GetAsText();
+            JSONParseResult weaponParsed = JSON.Parse(weaponAsText);
+            Godot.Collections.Dictionary weaponDictionary = weaponParsed.Result as Godot.Collections.Dictionary;
+
+            Godot.Collections.Array<int> weapon_array = new Godot.Collections.Array<int>();
+            foreach (string key in typesDictionary.Keys)
+            {
+                string kind = key[0].ToString();
+                if (kind == "w")
+                {
+                    weapon_array.Add(Convert.ToInt32(typesDictionary[key]));
+                }
+            }
+
+            foreach (string weapon in weaponDictionary.Keys)
+            {
+                Godot.Collections.Dictionary weapon_data = weaponDictionary[weapon] as Godot.Collections.Dictionary;
+                if (weapon_array.Contains(Convert.ToInt32(weapon_data["weapon_type"])))
+                {
+                    equip_edit_array.Add(weapon.Remove(0,6));
+                    GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem(weapon_data["name"].ToString());
+                }
+            }
+            weapon_editor.Close();
+        }
+        else if (eslotsDictionary.Contains("a" + index))
+        {
+            Godot.File armor_editor = new Godot.File();
+            armor_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+            string armorAsText = armor_editor.GetAsText();
+            JSONParseResult armorParsed = JSON.Parse(armorAsText);
+            Godot.Collections.Dictionary armorDictionary = armorParsed.Result as Godot.Collections.Dictionary;
+
+            Godot.Collections.Array<int> armor_array = new Godot.Collections.Array<int>();
+            foreach (string key in typesDictionary.Keys)
+            {
+                string kind = key[0].ToString();
+                if (kind == "a")
+                {
+                    armor_array.Add(Convert.ToInt32(typesDictionary[key]));
+                }
+            }
+
+            foreach (string armor in armorDictionary.Keys)
+            {
+                Godot.Collections.Dictionary armor_data = armorDictionary[armor] as Godot.Collections.Dictionary;
+                if (armor_array.Contains(Convert.ToInt32(armor_data["armor_type"])))
+                {
+                    equip_edit_array.Add(armor.Remove(0,5));
+                    GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem(armor_data["name"].ToString());
+                }
+            }
+            armor_editor.Close();
+        }
+        database_editor.Close();
+        system_editor.Close();
+        GetNode<WindowDialog>("InitialEquipLabel/InitialEquipChange").PopupCentered();
+    }
+
+    private void _on_CancelInitialEquipButton_pressed()
+    {
+        initial_equip_edit = -1;
+        equip_edit_array.Clear();
+        GetNode<WindowDialog>("InitialEquipLabel/InitialEquipChange").Hide();
+    }
+
+    private void _on_OkInitialEquipButton_pressed()
+    {
+        string text = GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").Text;
+        int selected = GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").Selected;
+        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").SetItemText(initial_equip_edit, text);
+        initial_equip_id_array[initial_equip_edit] = Convert.ToInt32(equip_edit_array[selected]);
+        initial_equip_edit = -1;
+        equip_edit_array.Clear();
+        GetNode<WindowDialog>("InitialEquipLabel/InitialEquipChange").Hide();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
