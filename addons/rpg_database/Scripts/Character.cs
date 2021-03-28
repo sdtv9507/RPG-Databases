@@ -59,6 +59,7 @@ public class Character : Control
         Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary wtypeDictionary = systemDictionary["weapons"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary atypeDictionary = systemDictionary["armors"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary eslotsDictionary = systemDictionary["slots"] as Godot.Collections.Dictionary;
 
         Godot.Collections.Dictionary etypeDictionary = dataDictionary["equip_types"] as Godot.Collections.Dictionary;
         GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").Clear();
@@ -83,6 +84,56 @@ public class Character : Control
             }
 
         }
+
+        Godot.File weapon_editor = new Godot.File();
+        weapon_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
+        string weaponAsText = weapon_editor.GetAsText();
+        JSONParseResult weaponParsed = JSON.Parse(weaponAsText);
+        Godot.Collections.Dictionary weaponDictionary = weaponParsed.Result as Godot.Collections.Dictionary;
+
+        Godot.File armor_editor = new Godot.File();
+        armor_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+        string armorAsText = armor_editor.GetAsText();
+        JSONParseResult armorParsed = JSON.Parse(armorAsText);
+        Godot.Collections.Dictionary armorDictionary = armorParsed.Result as Godot.Collections.Dictionary;
+        
+        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").Clear();
+        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").Clear();
+        Godot.Collections.Dictionary einitDictionary = dataDictionary["initial_equip"] as Godot.Collections.Dictionary;
+        foreach (string equip in eslotsDictionary.Keys)
+        {
+            GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").AddItem(eslotsDictionary[equip].ToString());
+            string kind = equip[0].ToString();
+            int kind_id = Convert.ToInt32(equip.Remove(0, 1));
+            switch (kind)
+            {
+                case "w":
+                    int w_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    if (w_id >= 0)
+                    {
+                        Godot.Collections.Dictionary dataWeaponDictionary = weaponDictionary["weapon"+w_id] as Godot.Collections.Dictionary;
+                        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").AddItem(dataWeaponDictionary["name"].ToString());
+                    }
+                    else
+                    {
+                        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").AddItem("None");
+                    }
+                    break;
+                case "a":
+                    int a_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    if (a_id >= 0)
+                    {
+                        Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor"+a_id] as Godot.Collections.Dictionary;
+                        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").AddItem(dataArmorDictionary["name"].ToString());
+                    }
+                    else
+                    {
+                        GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").AddItem("None");
+                    }
+                    break;
+            }
+        }
+        system_editor.Close();
         database_editor.Close();
 
         Godot.File class_editor = new Godot.File();
@@ -103,23 +154,7 @@ public class Character : Control
             }
         }
         class_editor.Close();
-
-        Godot.File weapon_editor = new Godot.File();
-        weapon_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
-        string weaponAsText = weapon_editor.GetAsText();
-        JSONParseResult weaponParsed = JSON.Parse(weaponAsText);
-        Godot.Collections.Dictionary weaponDictionary = weaponParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary dataWeaponDictionary = weaponDictionary["weapon0"] as Godot.Collections.Dictionary;
-        GetNode<OptionButton>("WeaponLabel/WeaponButton").SetItemText(0, dataWeaponDictionary["name"] as string);
         weapon_editor.Close();
-
-        Godot.File armor_editor = new Godot.File();
-        armor_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-        string armorAsText = armor_editor.GetAsText();
-        JSONParseResult armorParsed = JSON.Parse(armorAsText);
-        Godot.Collections.Dictionary armorDictionary = armorParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary dataArmorDictionary = armorDictionary["armor0"] as Godot.Collections.Dictionary;
-        GetNode<OptionButton>("ArmorLabel/ArmorButton").SetItemText(0, dataArmorDictionary["name"] as string);
         armor_editor.Close();
     }
 

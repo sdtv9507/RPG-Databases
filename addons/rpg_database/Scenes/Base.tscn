@@ -231,6 +231,7 @@ rect_min_size = Vector2( 84, 0 )
 margin_left = 88.0
 margin_right = 216.0
 margin_bottom = 182.0
+rect_min_size = Vector2( 128, 0 )
 
 [node name="EquipLabel" type="Label" parent="Tabs/Character"]
 margin_left = 380.0

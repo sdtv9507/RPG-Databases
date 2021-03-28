@@ -66,6 +66,7 @@ public class Base : Control
 			Godot.Collections.Dictionary character_array = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary character_data = new Godot.Collections.Dictionary();
 			Godot.Collections.Dictionary etype_data = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary einit_data = new Godot.Collections.Dictionary();
 			character_data.Add("faceImage", "");
 			character_data.Add("charaImage", "");
 			character_data.Add("name", "Kate");
@@ -76,9 +77,11 @@ public class Base : Control
 			etype_data.Add("w1",1);
 			etype_data.Add("a2",0);
 			etype_data.Add("a3",3);
-			character_data.Add("startWeapon", 0);
-			character_data.Add("startArmor", 0);
-			character_data.Add("startAccesory", 0);
+			einit_data.Add("0",-1);
+			einit_data.Add("1",-1);
+			einit_data.Add("2",-1);
+			einit_data.Add("3",-1);
+			character_data.Add("initial_equip", einit_data);
 			character_data.Add("equip_types", etype_data);
 			character_array.Add("chara0", character_data);
 			database_editor.StoreLine(JSON.Print(character_array));
