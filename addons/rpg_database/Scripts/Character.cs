@@ -206,7 +206,7 @@ public class Character : Control
                     break;
             }
         }
-		
+
 		finalData["equip_types"] = equip_type_Data;
         finalData["startWeapon"] = 0;
         finalData["startArmor"] = 0;
@@ -221,6 +221,16 @@ public class Character : Control
         character_selected = id;
         _refresh_Data(id);
     }
+
+	private void _on_CancelButton_pressed()
+	{
+		GetNode<WindowDialog>("EquipLabel/AddEquip").Hide();
+	}
+
+	private void _on_AddEquipTypeButton_pressed()
+	{
+		GetNode<WindowDialog>("EquipLabel/AddEquip").PopupCentered();
+	}
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
     //  {
