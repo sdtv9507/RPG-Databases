@@ -66,6 +66,7 @@ public class Character : Control
 
         Godot.Collections.Dictionary etypeDictionary = dataDictionary["equip_types"] as Godot.Collections.Dictionary;
         GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").Clear();
+        equip_id_array.Clear();
         string equip_name;
         foreach (string equip in etypeDictionary.Keys)
         {
@@ -307,6 +308,7 @@ public class Character : Control
     private void _on_RemoveEquipTypeButton_pressed()
     {
         int selected = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetSelectedItems()[0];
+        equip_edit_array.RemoveAt(selected);
         GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").RemoveItem(selected);
     }
 
