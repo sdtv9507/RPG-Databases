@@ -10,6 +10,7 @@ public class Character : Control
     string facePath = "";
     string charaPath = "";
     int character_selected = 0;
+    Godot.Collections.Array<int> equip_id_array = new Godot.Collections.Array<int>();
     // Called when the node enters the scene tree for the first time.
     public void _Start()
     {
@@ -65,16 +66,17 @@ public class Character : Control
         foreach (string equip in etypeDictionary.Keys)
         {
             string kind = equip[0].ToString();
+			equip_id_array.Add(Convert.ToInt32(etypeDictionary[equip]));
             switch (kind)
             {
                 case "w":
                     string w_id = equip.Remove(0, 1);
-                    equip_name = wtypeDictionary[w_id].ToString();
+                    equip_name = "W: " + wtypeDictionary[w_id].ToString();
                     GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").AddItem(equip_name);
                     break;
                 case "a":
                     string a_id = equip.Remove(0, 1);
-                    equip_name = atypeDictionary[a_id].ToString();
+                    equip_name = "A: " + atypeDictionary[a_id].ToString();
                     GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").AddItem(equip_name);
                     break;
             }
@@ -137,12 +139,17 @@ public class Character : Control
         database_editor.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary character_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary etype_data = new Godot.Collections.Dictionary();
         character_data.Add("faceImage", "res://");
         character_data.Add("charaImage", "res://");
         character_data.Add("name", "NewCharacter");
         character_data.Add("class", 0);
         character_data.Add("initialLevel", 1);
         character_data.Add("maxLevel", 99);
+        etype_data.Add("w0", 0);
+        etype_data.Add("w1", 1);
+        etype_data.Add("a2", 0);
+        etype_data.Add("a3", 3);
         character_data.Add("startWeapon", 0);
         character_data.Add("startArmor", 0);
         character_data.Add("startAccesory", 0);
@@ -175,6 +182,8 @@ public class Character : Control
         database_editor.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary finalData = jsonDictionary["chara" + character_selected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary equip_type_Data = finalData["equip_types"] as Godot.Collections.Dictionary;
+
         finalData["faceImage"] = facePath;
         finalData["charaImage"] = "";
         finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
@@ -182,6 +191,23 @@ public class Character : Control
         finalData["class"] = GetNode<OptionButton>("ClassLabel/ClassText").Selected;
         finalData["initialLevel"] = GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value;
         finalData["maxLevel"] = GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value;
+
+        int equip_items = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetItemCount();
+        for (int i = 0; i < equip_items; i++)
+        {
+            string kind = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetItemText(i)[0].ToString();
+			switch (kind)
+            {
+                case "W":
+					equip_type_Data["w" + i] = equip_id_array[i];
+                    break;
+                case "A":
+                    equip_type_Data["a" + i] = equip_id_array[i];
+                    break;
+            }
+        }
+		
+		finalData["equip_types"] = equip_type_Data;
         finalData["startWeapon"] = 0;
         finalData["startArmor"] = 0;
         finalData["startAccesory"] = 0;
