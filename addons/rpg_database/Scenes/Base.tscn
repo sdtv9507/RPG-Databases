@@ -305,7 +305,7 @@ margin_bottom = 189.0
 margin_right = 114.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 132 )
-items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Hat", null, false, "A: Armor", null, false, "W: Spear", null, false ]
+items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Hat", null, false ]
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
 margin_top = 136.0

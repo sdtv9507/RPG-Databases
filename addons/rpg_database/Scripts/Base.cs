@@ -11,12 +11,7 @@ public class Base : Control
 	public override void _Ready()
 	{
 		Godot.File database_editor = new Godot.File();
-		if (!database_editor.FileExists("res://databases/editor_database.json"))
-		{
-			database_editor.Open("res://databases/editor_database.json", Godot.File.ModeFlags.Write);
-			database_editor.Close();
-		}
-		
+
 		if (!database_editor.FileExists("res://databases/System.json"))
 		{
 			database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
@@ -168,7 +163,7 @@ public class Base : Control
 			Godot.Collections.Dictionary weapon_stats_array = new Godot.Collections.Dictionary();
 			weapon_data.Add("name", "Broad Sword");
 			weapon_data.Add("icon", "");
-			weapon_data.Add("description", "Heals 50HP to one ally");
+			weapon_data.Add("description", "A light and easy to use sword");
 			weapon_data.Add("weapon_type", 0);
 			weapon_data.Add("slot_type", 0);
 			weapon_data.Add("price", 50);
@@ -195,7 +190,7 @@ public class Base : Control
 			Godot.Collections.Dictionary armor_stats_array = new Godot.Collections.Dictionary();
 			armor_data.Add("name", "Clothes");
 			armor_data.Add("icon", "");
-			armor_data.Add("description", "Heals 50HP to one ally");
+			armor_data.Add("description", "Light Clothes");
 			armor_data.Add("armor_type", 0);
 			armor_data.Add("slot_type", 0);
 			armor_data.Add("price", 50);
