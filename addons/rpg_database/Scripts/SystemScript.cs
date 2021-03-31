@@ -9,11 +9,11 @@ public class SystemScript : Control
     // private string b = "text";
     private int editedField = -1;
     // Called when the node enters the scene tree for the first time.
-    public void _Start()
+    public void Start()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary statsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
@@ -55,9 +55,9 @@ public class SystemScript : Control
         foreach (string id in slotsData.Keys)
         {
             ItemList kind = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList");
-            String kind_id = id[0].ToString();
+            String kindId = id[0].ToString();
             ItemList type = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList");
-            switch (kind_id)
+            switch (kindId)
             {
                 case "w":
                     kind.AddItem("Weapon");
@@ -69,114 +69,114 @@ public class SystemScript : Control
                     break;
             }
         }
-        database_editor.Close();
+        databaseFile.Close();
     }
 
-    private void _save_Data()
+    private void SaveData()
     {
-        _save_Stats();
-        _save_Weapons();
-        _save_Armors();
-        _save_Elements();
-        _save_Slots();
+        SaveStats();
+        SaveWeapons();
+        SaveArmors();
+        SaveElements();
+        SaveSlots();
     }
-    private void _save_Stats()
+    private void SaveStats()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary statsData = new Godot.Collections.Dictionary();
 
         int statSize = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetItemCount();
         for (int i = 0; i < statSize; i++)
         {
             String text = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetItemText(i);
-            stats_data.Add(i.ToString(), text);
+            statsData.Add(i.ToString(), text);
         }
-        jsonDictionary["stats"] = stats_data;
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        database_editor.StoreString(JSON.Print(jsonDictionary));
-        database_editor.Close();
+        jsonDictionary["stats"] = statsData;
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+        databaseFile.StoreString(JSON.Print(jsonDictionary));
+        databaseFile.Close();
     }
 
-    private void _save_Weapons()
+    private void SaveWeapons()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary weapons_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary weaponsData = new Godot.Collections.Dictionary();
 
         int weaponSize = GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").GetItemCount();
         for (int i = 0; i < weaponSize; i++)
         {
             String text = GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").GetItemText(i);
-            weapons_data.Add(i.ToString(), text);
+            weaponsData.Add(i.ToString(), text);
         }
-        jsonDictionary["weapons"] = weapons_data;
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        database_editor.StoreString(JSON.Print(jsonDictionary));
-        database_editor.Close();
+        jsonDictionary["weapons"] = weaponsData;
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+        databaseFile.StoreString(JSON.Print(jsonDictionary));
+        databaseFile.Close();
     }
 
-    private void _save_Armors()
+    private void SaveArmors()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary armors_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary armorsData = new Godot.Collections.Dictionary();
 
         int armorSize = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").GetItemCount();
         for (int i = 0; i < armorSize; i++)
         {
             String text = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").GetItemText(i);
-            armors_data.Add(i.ToString(), text);
+            armorsData.Add(i.ToString(), text);
         }
-        jsonDictionary["armors"] = armors_data;
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        database_editor.StoreString(JSON.Print(jsonDictionary));
-        database_editor.Close();
+        jsonDictionary["armors"] = armorsData;
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+        databaseFile.StoreString(JSON.Print(jsonDictionary));
+        databaseFile.Close();
     }
 
-    private void _save_Elements()
+    private void SaveElements()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary elements_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary elementsData = new Godot.Collections.Dictionary();
 
         int elementSize = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").GetItemCount();
         for (int i = 0; i < elementSize; i++)
         {
             String text = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").GetItemText(i);
-            elements_data.Add(i.ToString(), text);
+            elementsData.Add(i.ToString(), text);
         }
-        jsonDictionary["elements"] = elements_data;
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        database_editor.StoreString(JSON.Print(jsonDictionary));
-        database_editor.Close();
+        jsonDictionary["elements"] = elementsData;
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+        databaseFile.StoreString(JSON.Print(jsonDictionary));
+        databaseFile.Close();
     }
 
-private void _save_Slots()
+private void SaveSlots()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary slots_data = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary slotsData = new Godot.Collections.Dictionary();
 
         int slotSize = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList").GetItemCount();
         for (int i = 0; i < slotSize; i++)
@@ -194,12 +194,12 @@ private void _save_Slots()
             }
             String text = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList").GetItemText(i);
             id += i.ToString();
-            slots_data.Add(id.ToString(), text);
+            slotsData.Add(id.ToString(), text);
         }
-        jsonDictionary["slots"] = slots_data;
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        database_editor.StoreString(JSON.Print(jsonDictionary));
-        database_editor.Close();
+        jsonDictionary["slots"] = slotsData;
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+        databaseFile.StoreString(JSON.Print(jsonDictionary));
+        databaseFile.Close();
     }
     private void _on_OKButton_pressed()
     {
@@ -222,7 +222,7 @@ private void _save_Slots()
             {
                 GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").AddItem(name);
             }
-            _save_Data();
+            SaveData();
         }
         GetNode<WindowDialog>("EditField").Hide();
         editedField = -1;
@@ -252,7 +252,7 @@ private void _save_Slots()
         if (index > -1)
         {
             GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").RemoveItem(index);
-            _save_Data();
+            SaveData();
         }
     }
 
@@ -269,7 +269,7 @@ private void _save_Slots()
         if (index > -1)
         {
             GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").RemoveItem(index);
-            _save_Data();
+            SaveData();
         }
     }
 
@@ -286,7 +286,7 @@ private void _save_Slots()
         if (index > -1)
         {
             GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").RemoveItem(index);
-            _save_Data();
+            SaveData();
         }
     }
 
@@ -303,7 +303,7 @@ private void _save_Slots()
         if (index > -1)
         {
             GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").RemoveItem(index);
-            _save_Data();
+            SaveData();
         }
     }
 
@@ -319,7 +319,7 @@ private void _save_Slots()
         {
             GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList").RemoveItem(index);
             GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList").RemoveItem(index);
-            _save_Data();
+            SaveData();
         }
     }
 
@@ -342,7 +342,7 @@ private void _save_Slots()
         }
         String name = GetNode<LineEdit>("AddSlot/NameLabel/NameEdit").Text;
         GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList").AddItem(name);
-        _save_Data();
+        SaveData();
         GetNode<WindowDialog>("AddSlot").Hide();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.

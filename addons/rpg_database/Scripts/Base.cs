@@ -224,11 +224,11 @@ public class Base : Control
 		} else if (tab == 3) {
 			GetNode<Control>("Tabs/Item").Call("Start");
 		} else if (tab == 4) {
-			GetNode<Control>("Tabs/Weapon").Call("_Start");
+			GetNode<Control>("Tabs/Weapon").Call("Start");
 		} else if (tab == 5) {
-			GetNode<Control>("Tabs/Armor").Call("_Start");
+			GetNode<Control>("Tabs/Armor").Call("Start");
 		} else if (tab == 6) {
-			GetNode<Control>("Tabs/System").Call("_Start");
+			GetNode<Control>("Tabs/System").Call("Start");
 		}
 	}
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

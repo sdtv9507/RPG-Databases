@@ -7,63 +7,64 @@ public class Armor : Control
     // private int a = 2;
     // private string b = "text";
 
-    string icon_path = "";
-    int armor_selected = 0;
-    int stat_edit = -1;
+    string iconPath = "";
+    int armorSelected = 0;
+    int statEdit = -1;
     // Called when the node enters the scene tree for the first time.
-    public void _Start()
+    public void Start()
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
 
-        database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string systemAsText = database_editor.GetAsText();
-        JSONParseResult systemParsed = JSON.Parse(systemAsText);
-        Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
-
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
-            Godot.Collections.Dictionary newArmorDict = jsonDictionary["armor" + i] as Godot.Collections.Dictionary;
+            Godot.Collections.Dictionary armorData = jsonDictionary["armor" + i] as Godot.Collections.Dictionary;
             if (i > GetNode<OptionButton>("ArmorButton").GetItemCount() - 1)
             {
-                GetNode<OptionButton>("ArmorButton").AddItem(newArmorDict["name"] as string);
+                GetNode<OptionButton>("ArmorButton").AddItem(armorData["name"] as string);
             }
             else
             {
-                GetNode<OptionButton>("ArmorButton").SetItemText(i, newArmorDict["name"] as string);
+                GetNode<OptionButton>("ArmorButton").SetItemText(i, armorData["name"] as string);
             }
         }
 
-        Godot.Collections.Dictionary newSystemDict = systemDictionary["armors"] as Godot.Collections.Dictionary;
-        for (int i = 0; i < newSystemDict.Count; i++)
+        databaseFile.Close();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        jsonAsText = databaseFile.GetAsText();
+        jsonParsed = JSON.Parse(jsonAsText);
+        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+
+        Godot.Collections.Dictionary systemData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
+        for (int i = 0; i < systemData.Count; i++)
         {
             if (i > GetNode<OptionButton>("ATypeLabel/ATypeButton").GetItemCount() - 1)
             {
-                GetNode<OptionButton>("ATypeLabel/ATypeButton").AddItem(newSystemDict[i.ToString()] as string);
+                GetNode<OptionButton>("ATypeLabel/ATypeButton").AddItem(systemData[i.ToString()] as string);
             }
             else
             {
-                GetNode<OptionButton>("ATypeLabel/ATypeButton").SetItemText(i, newSystemDict[i.ToString()] as string);
+                GetNode<OptionButton>("ATypeLabel/ATypeButton").SetItemText(i, systemData[i.ToString()] as string);
             }
         }
         
-        newSystemDict = systemDictionary["slots"] as Godot.Collections.Dictionary;
+        systemData = jsonDictionary["slots"] as Godot.Collections.Dictionary;
         int final_id = 0;
-        foreach (String str in newSystemDict.Keys)
+        foreach (String str in systemData.Keys)
         {
             if (str[0] == 'a')
             {
                 int id = Convert.ToInt32(str.Remove(0, 1)) - final_id;
                 if (id > GetNode<OptionButton>("SlotLabel/SlotButton").GetItemCount() - 1)
                 {
-                    GetNode<OptionButton>("SlotLabel/SlotButton").AddItem(newSystemDict[str] as string);
+                    GetNode<OptionButton>("SlotLabel/SlotButton").AddItem(systemData[str] as string);
                 }
                 else
                 {
-                    GetNode<OptionButton>("SlotLabel/SlotButton").SetItemText(id, newSystemDict[str] as string);
+                    GetNode<OptionButton>("SlotLabel/SlotButton").SetItemText(id, systemData[str] as string);
                 }
             }
             else
@@ -71,43 +72,43 @@ public class Armor : Control
                 final_id += 1;
             }
         }
-        database_editor.Close();
-        _refresh_data(0);
+        databaseFile.Close();
+        RefreshData(0);
     }
 
-    private void _refresh_data(int id)
+    private void RefreshData(int id)
     {
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary newArmorDict = jsonDictionary["armor" + id] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armorData = jsonDictionary["armor" + id] as Godot.Collections.Dictionary;
 
-        Godot.File system_editor = new Godot.File();
-        system_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string systemAsText = system_editor.GetAsText();
-        JSONParseResult systemParsed = JSON.Parse(systemAsText);
-        Godot.Collections.Dictionary systemDictionary = systemParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary newSystemDict = systemDictionary["stats"] as Godot.Collections.Dictionary;
+        databaseFile.Close();
+        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
+        jsonAsText = databaseFile.GetAsText();
+        jsonParsed = JSON.Parse(jsonAsText);
+        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary systemData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
 
-        GetNode<LineEdit>("NameLabel/NameText").Text = newArmorDict["name"] as string;
-        string icon = newArmorDict["icon"] as string;
+        GetNode<LineEdit>("NameLabel/NameText").Text = armorData["name"] as string;
+        string icon = armorData["icon"] as string;
         if (icon != "")
         {
-            GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(newArmorDict["icon"] as string) as Godot.Texture;
+            GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(armorData["icon"] as string) as Godot.Texture;
         }
-        GetNode<TextEdit>("DescLabel/DescText").Text = newArmorDict["description"] as string;
-        GetNode<OptionButton>("ATypeLabel/ATypeButton").Selected = Convert.ToInt32(newArmorDict["armor_type"]);
-        GetNode<OptionButton>("SlotLabel/SlotButton").Selected = Convert.ToInt32(newArmorDict["slot_type"]);
-        GetNode<SpinBox>("PriceLabel/PriceSpin").Value = Convert.ToInt32(newArmorDict["price"]);
+        GetNode<TextEdit>("DescLabel/DescText").Text = armorData["description"] as string;
+        GetNode<OptionButton>("ATypeLabel/ATypeButton").Selected = Convert.ToInt32(armorData["armor_type"]);
+        GetNode<OptionButton>("SlotLabel/SlotButton").Selected = Convert.ToInt32(armorData["slot_type"]);
+        GetNode<SpinBox>("PriceLabel/PriceSpin").Value = Convert.ToInt32(armorData["price"]);
 
         GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").Clear();
         GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").Clear();
-        for (int i = 0; i < newSystemDict.Count; i++)
+        for (int i = 0; i < systemData.Count; i++)
         {
-            string statName = newSystemDict[i.ToString()] as string;
-            Godot.Collections.Dictionary armorStatFormula = newArmorDict["stat_list"] as Godot.Collections.Dictionary;
+            string statName = systemData[i.ToString()] as string;
+            Godot.Collections.Dictionary armorStatFormula = armorData["stat_list"] as Godot.Collections.Dictionary;
             string statFormula = "";
             if (armorStatFormula.Contains(statName))
             {
@@ -121,47 +122,46 @@ public class Armor : Control
             GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").AddItem(statFormula);
         }
 
-        database_editor.Close();
-        system_editor.Close();
+        databaseFile.Close();
     }
 
     private void _on_AddArmorButton_pressed()
     {
         GetNode<OptionButton>("ArmorButton").AddItem("NewArmor");
         int id = GetNode<OptionButton>("ArmorButton").GetItemCount() - 1;
-        Godot.File database_editor = new Godot.File();
-        database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = database_editor.GetAsText();
+        Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+		string jsonAsText = databaseFile.GetAsText();
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary armor_data = new Godot.Collections.Dictionary();
-        Godot.Collections.Dictionary armor_stats_array = new Godot.Collections.Dictionary();
-        armor_data.Add("name", "NewArmor");
-        armor_data.Add("icon", "");
-        armor_data.Add("description", "New created armor");
-        armor_data.Add("armor_type", 0);
-        armor_data.Add("slot_type", 0);
-        armor_data.Add("price", 50);
-        armor_stats_array.Add("hp", "0");
-        armor_stats_array.Add("mp", "0");
-        armor_stats_array.Add("atk", "10");
-        armor_stats_array.Add("def", "2");
-        armor_stats_array.Add("int", "2");
-        armor_stats_array.Add("res", "1");
-        armor_stats_array.Add("spd", "0");
-        armor_stats_array.Add("luk", "0");
-        armor_data.Add("stat_list", armor_stats_array);
-        jsonDictionary.Add("armor" + id, armor_data);
-		database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
-		database_editor.StoreLine(JSON.Print(jsonDictionary));
-		database_editor.Close();
+        Godot.Collections.Dictionary armorData = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary armorStats = new Godot.Collections.Dictionary();
+        armorData.Add("name", "NewArmor");
+        armorData.Add("icon", "");
+        armorData.Add("description", "New created armor");
+        armorData.Add("armor_type", 0);
+        armorData.Add("slot_type", 0);
+        armorData.Add("price", 50);
+        armorStats.Add("hp", "0");
+        armorStats.Add("mp", "0");
+        armorStats.Add("atk", "10");
+        armorStats.Add("def", "2");
+        armorStats.Add("int", "2");
+        armorStats.Add("res", "1");
+        armorStats.Add("spd", "0");
+        armorStats.Add("luk", "0");
+        armorData.Add("stat_list", armorStats);
+        jsonDictionary.Add("armor" + id, armorData);
+		databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
+		databaseFile.StoreLine(JSON.Print(jsonDictionary));
+		databaseFile.Close();
     }
 
     private void _on_ArmorSaveButton_pressed()
     {
-        _save_armor_data();
-        _refresh_data(armor_selected);
+        SaveArmorData();
+        RefreshData(armorSelected);
     }
 
     private void _on_Search_pressed()
@@ -171,33 +171,33 @@ public class Armor : Control
 
     private void _on_IconSearch_file_selected(string path)
     {
-        icon_path = path;
+        iconPath = path;
         GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(path) as Godot.Texture;
     }
 
     private void _on_ArmorButton_item_selected(int id)
     {
-        armor_selected = id;
-        _refresh_data(id);
+        armorSelected = id;
+        RefreshData(id);
     }
 
-    private void _save_armor_data()
+    private void SaveArmorData()
     {
-		Godot.File database_editor = new Godot.File();
-		database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = database_editor.GetAsText();
+		Godot.File databaseFile = new Godot.File();
+		databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
+		string jsonAsText = databaseFile.GetAsText();
 		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        database_editor.Close();
+        databaseFile.Close();
 		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary finalData = jsonDictionary["armor"+armor_selected] as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary armorStatFormula = finalData["stat_list"] as Godot.Collections.Dictionary;
-		finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
-		GetNode<OptionButton>("ArmorButton").SetItemText(armor_selected, GetNode<LineEdit>("NameLabel/NameText").Text);
-		finalData["icon"] = icon_path;
-		finalData["description"] = GetNode<TextEdit>("DescLabel/DescText").Text;
-        finalData["armor_type"] = GetNode<OptionButton>("ATypeLabel/ATypeButton").Selected;
-        finalData["slot_type"] = GetNode<OptionButton>("SlotLabel/SlotButton").Selected;
-		finalData["price"] = GetNode<SpinBox>("PriceLabel/PriceSpin").Value;
+        Godot.Collections.Dictionary armorData = jsonDictionary["armor"+armorSelected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armorStatFormula = armorData["stat_list"] as Godot.Collections.Dictionary;
+		armorData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
+		GetNode<OptionButton>("ArmorButton").SetItemText(armorSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
+		armorData["icon"] = iconPath;
+		armorData["description"] = GetNode<TextEdit>("DescLabel/DescText").Text;
+        armorData["armor_type"] = GetNode<OptionButton>("ATypeLabel/ATypeButton").Selected;
+        armorData["slot_type"] = GetNode<OptionButton>("SlotLabel/SlotButton").Selected;
+		armorData["price"] = GetNode<SpinBox>("PriceLabel/PriceSpin").Value;
         int items = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").GetItemCount();
         for (int i = 0; i < items; i++)
         {
@@ -205,33 +205,33 @@ public class Armor : Control
             string formula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").GetItemText(i);
             armorStatFormula[stat] = formula;
         }
-        database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
-		database_editor.StoreString(JSON.Print(jsonDictionary));
-		database_editor.Close();
+        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
+		databaseFile.StoreString(JSON.Print(jsonDictionary));
+		databaseFile.Close();
     }
 
     private void _on_StatValueList_item_activated(int index)
     {
-        string stat_name = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").GetItemText(index);
-        string stat_formula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").GetItemText(index);
-        GetNode<Label>("StatEditor/StatLabel").Text = stat_name;
-        GetNode<LineEdit>("StatEditor/StatEdit").Text = stat_formula;
-        stat_edit = index;
+        string statName = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList").GetItemText(index);
+        string statFormula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").GetItemText(index);
+        GetNode<Label>("StatEditor/StatLabel").Text = statName;
+        GetNode<LineEdit>("StatEditor/StatEdit").Text = statFormula;
+        statEdit = index;
         GetNode<WindowDialog>("StatEditor").Show();
     }
 
     private void _on_OkButton_pressed()
     {
-        string stat_formula = GetNode<LineEdit>("StatEditor/StatEdit").Text;
-        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").SetItemText(stat_edit, stat_formula);
-        _save_armor_data();
-        stat_edit = -1;
+        string statFormula = GetNode<LineEdit>("StatEditor/StatEdit").Text;
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").SetItemText(statEdit, statFormula);
+        SaveArmorData();
+        statEdit = -1;
         GetNode<WindowDialog>("StatEditor").Hide();
     }
 
     private void _on_CancelButton_pressed()
     {
-        stat_edit = -1;
+        statEdit = -1;
         GetNode<WindowDialog>("StatEditor").Hide();
     }
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
