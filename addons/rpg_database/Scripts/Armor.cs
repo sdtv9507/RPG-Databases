@@ -14,12 +14,8 @@ public class Armor : Control
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
+        
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary armorData = jsonDictionary["armor" + i] as Godot.Collections.Dictionary;
@@ -33,12 +29,8 @@ public class Armor : Control
             }
         }
 
-        databaseFile.Close();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-
+        jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
+        
         Godot.Collections.Dictionary systemData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
         for (int i = 0; i < systemData.Count; i++)
         {
@@ -73,24 +65,15 @@ public class Armor : Control
                 final_id += 1;
             }
         }
-        databaseFile.Close();
         RefreshData(0);
     }
 
     private void RefreshData(int id)
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorData = jsonDictionary["armor" + id] as Godot.Collections.Dictionary;
 
-        databaseFile.Close();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary systemData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
 
         GetNode<LineEdit>("NameLabel/NameText").Text = armorData["name"] as string;
@@ -123,19 +106,13 @@ public class Armor : Control
             GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").AddItem(statFormula);
         }
 
-        databaseFile.Close();
     }
 
     private void _on_AddArmorButton_pressed()
     {
         GetNode<OptionButton>("ArmorButton").AddItem("NewArmor");
         int id = GetNode<OptionButton>("ArmorButton").GetItemCount() - 1;
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = databaseFile.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorData = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary armorStats = new Godot.Collections.Dictionary();
         armorData.Add("name", "NewArmor");
@@ -154,9 +131,7 @@ public class Armor : Control
         armorStats.Add("luk", "0");
         armorData.Add("stat_list", armorStats);
         jsonDictionary.Add("armor" + id, armorData);
-		databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
-		databaseFile.StoreLine(JSON.Print(jsonDictionary));
-		databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Armor", jsonDictionary);
     }
 
     private void _on_ArmorSaveButton_pressed()
@@ -184,12 +159,7 @@ public class Armor : Control
 
     private void SaveArmorData()
     {
-		Godot.File databaseFile = new Godot.File();
-		databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = databaseFile.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+		Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorData = jsonDictionary["armor"+armorSelected] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorStatFormula = armorData["stat_list"] as Godot.Collections.Dictionary;
 		armorData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
@@ -206,9 +176,7 @@ public class Armor : Control
             string formula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList").GetItemText(i);
             armorStatFormula[stat] = formula;
         }
-        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
-		databaseFile.StoreString(JSON.Print(jsonDictionary));
-		databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Armor", jsonDictionary);
     }
 
     private void _on_StatValueList_item_activated(int index)

@@ -12,18 +12,9 @@ public class Skill : Control
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-
-        databaseFile.Close();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary systemDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary systemDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
+        
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary skillData = jsonDictionary["skill" + i] as Godot.Collections.Dictionary;
@@ -49,17 +40,12 @@ public class Skill : Control
                 GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").SetItemText(i, systemData[i.ToString()] as string);
             }
         }
-        databaseFile.Close();
         RefreshData(0);
     }
 
     private void RefreshData(int id)
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary skillData = jsonDictionary["skill" + id] as Godot.Collections.Dictionary;
         GetNode<LineEdit>("NameLabel/NameText").Text = skillData["name"] as string;
         string icon = skillData["icon"] as string;
@@ -78,7 +64,6 @@ public class Skill : Control
         GetNode<OptionButton>("DamageLabel/DTypeLabel/DTypeButton").Selected = Convert.ToInt32(skillData["damage_type"]);
         GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").Selected = Convert.ToInt32(skillData["element"]);
         GetNode<LineEdit>("DamageLabel/DFormulaLabel/FormulaText").Text = skillData["formula"] as string;
-        databaseFile.Close();
     }
 
     private void _on_Search_pressed()
@@ -96,12 +81,7 @@ public class Skill : Control
     {
         GetNode<OptionButton>("SkillButton").AddItem("NewSkill");
         int id = GetNode<OptionButton>("SkillButton").GetItemCount() - 1;
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary skillData = new Godot.Collections.Dictionary();
         skillData.Add("name", "NewSkill");
         skillData.Add("icon", "");
@@ -117,9 +97,7 @@ public class Skill : Control
         skillData.Add("element", 0);
         skillData.Add("formula", "atk * 4 - def * 2");
         jsonDictionary.Add("skill" + id, skillData);
-        databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreLine(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Skill", jsonDictionary);
     }
 
     private void _on_SkillSaveButton_pressed()
@@ -129,12 +107,7 @@ public class Skill : Control
     }
     private void SaveSkillData()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary skillData = jsonDictionary["skill" + skillSelected] as Godot.Collections.Dictionary;
         skillData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
         GetNode<OptionButton>("SkillButton").SetItemText(skillSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
@@ -150,9 +123,7 @@ public class Skill : Control
         skillData["damage_type"] = GetNode<OptionButton>("DamageLabel/DTypeLabel/DTypeButton").Selected;
         skillData["element"] = GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").Selected;
         skillData["formula"] = GetNode<LineEdit>("DamageLabel/DFormulaLabel/FormulaText").Text;
-        databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Skill", jsonDictionary);
     }
 
     private void _on_SkillButton_item_selected(int id)

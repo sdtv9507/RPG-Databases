@@ -12,11 +12,7 @@ public class Item : Control
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
-        Godot.File databaseFile = new Godot.File();
-		databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = databaseFile.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
         
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
@@ -29,11 +25,7 @@ public class Item : Control
             }
         }
         
-        databaseFile.Close();
-		databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-		jsonAsText = databaseFile.GetAsText();
-		jsonParsed = JSON.Parse(jsonAsText);
-		jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+		jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         
         Godot.Collections.Dictionary systemData = jsonDictionary["elements"] as Godot.Collections.Dictionary;
         for (int i = 0; i < systemData.Count; i++)
@@ -45,17 +37,12 @@ public class Item : Control
                 GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").SetItemText(i, systemData[i.ToString()] as string);
             }
         }
-        databaseFile.Close();
         RefreshData(0);
     }
 
     private void RefreshData(int id)
     {
-        Godot.File databaseFile = new Godot.File();
-		databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = databaseFile.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary itemData = jsonDictionary["item"+id] as Godot.Collections.Dictionary;
         GetNode<LineEdit>("NameLabel/NameText").Text = itemData["name"] as string;
         string icon = itemData["icon"] as string;
@@ -74,7 +61,6 @@ public class Item : Control
         GetNode<OptionButton>("DamageLabel/DTypeLabel/DTypeButton").Selected = Convert.ToInt32(itemData["damage_type"]);
         GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").Selected = Convert.ToInt32(itemData["element"]);
         GetNode<LineEdit>("DamageLabel/DFormulaLabel/FormulaText").Text = itemData["formula"] as string;
-        databaseFile.Close();
     }
     
     private void _on_Search_pressed()
@@ -91,13 +77,8 @@ public class Item : Control
     {
         GetNode<OptionButton>("ItemButton").AddItem("NewItem");
         int id = GetNode<OptionButton>("ItemButton").GetItemCount() - 1;
-        Godot.File databaseFile = new Godot.File();
-		databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = databaseFile.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-		Godot.Collections.Dictionary itemData = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary itemData = new Godot.Collections.Dictionary();
 		itemData.Add("name", "NewItem");
 		itemData.Add("icon", "");
 		itemData.Add("description", "New created item");
@@ -112,9 +93,7 @@ public class Item : Control
 		itemData.Add("element", 0);
 		itemData.Add("formula", "10");
 		jsonDictionary.Add("item" + id, itemData);
-		databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Write);
-		databaseFile.StoreLine(JSON.Print(jsonDictionary));
-		databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Item", jsonDictionary);
     }
 
     private void _on_ItemSaveButton_pressed()
@@ -124,12 +103,7 @@ public class Item : Control
     }
     private void SaveItemData()
     {
-		Godot.File databaseFile = new Godot.File();
-		databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Read);
-		string jsonAsText = databaseFile.GetAsText();
-		JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-		Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+		Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary itemData = jsonDictionary["item"+itemSelected] as Godot.Collections.Dictionary;
 		itemData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
 		GetNode<OptionButton>("ItemButton").SetItemText(itemSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
@@ -145,9 +119,7 @@ public class Item : Control
 		itemData["damage_type"] = GetNode<OptionButton>("DamageLabel/DTypeLabel/DTypeButton").Selected;
 		itemData["element"] = GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").Selected;
 		itemData["formula"] = GetNode<LineEdit>("DamageLabel/DFormulaLabel/FormulaText").Text;
-        databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Write);
-		databaseFile.StoreString(JSON.Print(jsonDictionary));
-		databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Item", jsonDictionary);
     }
 
     private void _on_ItemButton_item_selected(int id)

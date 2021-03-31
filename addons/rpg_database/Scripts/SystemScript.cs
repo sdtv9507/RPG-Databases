@@ -11,11 +11,7 @@ public class SystemScript : Control
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary statsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weaponsData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorsData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
@@ -69,7 +65,6 @@ public class SystemScript : Control
                     break;
             }
         }
-        databaseFile.Close();
     }
 
     private void SaveData()
@@ -82,12 +77,7 @@ public class SystemScript : Control
     }
     private void SaveStats()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary statsData = new Godot.Collections.Dictionary();
 
         int statSize = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").GetItemCount();
@@ -97,19 +87,12 @@ public class SystemScript : Control
             statsData.Add(i.ToString(), text);
         }
         jsonDictionary["stats"] = statsData;
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
     }
 
     private void SaveWeapons()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary weaponsData = new Godot.Collections.Dictionary();
 
         int weaponSize = GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").GetItemCount();
@@ -119,19 +102,12 @@ public class SystemScript : Control
             weaponsData.Add(i.ToString(), text);
         }
         jsonDictionary["weapons"] = weaponsData;
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
     }
 
     private void SaveArmors()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary armorsData = new Godot.Collections.Dictionary();
 
         int armorSize = GetNode<ItemList>("ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList").GetItemCount();
@@ -141,19 +117,12 @@ public class SystemScript : Control
             armorsData.Add(i.ToString(), text);
         }
         jsonDictionary["armors"] = armorsData;
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
     }
 
     private void SaveElements()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary elementsData = new Godot.Collections.Dictionary();
 
         int elementSize = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").GetItemCount();
@@ -163,19 +132,12 @@ public class SystemScript : Control
             elementsData.Add(i.ToString(), text);
         }
         jsonDictionary["elements"] = elementsData;
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
     }
 
 private void SaveSlots()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary slotsData = new Godot.Collections.Dictionary();
 
         int slotSize = GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList").GetItemCount();
@@ -197,9 +159,7 @@ private void SaveSlots()
             slotsData.Add(id.ToString(), text);
         }
         jsonDictionary["slots"] = slotsData;
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
     }
     private void _on_OKButton_pressed()
     {
