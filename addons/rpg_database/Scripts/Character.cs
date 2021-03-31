@@ -15,7 +15,7 @@ public class Character : Control
     Godot.Collections.Array<String> equipEditArray = new Godot.Collections.Array<String>();
     Godot.Collections.Array<int> initialEquipIdArray = new Godot.Collections.Array<int>();
     // Called when the node enters the scene tree for the first time.
-    public void _Start()
+    public void Start()
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
@@ -35,9 +35,9 @@ public class Character : Control
             }
         }
         databaseFile.Close();
-        _refresh_Data(0);
+        RefreshData(0);
     }
-    public void _refresh_Data(int id)
+    public void RefreshData(int id)
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
@@ -163,8 +163,8 @@ public class Character : Control
 
     public void _on_CharaSaveButton_pressed()
     {
-        _save_character_values();
-        _refresh_Data(characterSelected);
+        SaveCharacterData();
+        RefreshData(characterSelected);
     }
 
     private void _on_AddButton_pressed()
@@ -209,14 +209,14 @@ public class Character : Control
     private void _on_FaceSearch_file_selected(string file)
     {
         facePath = file;
-        _set_face_image(file);
+        SetFaceImage(file);
     }
 
-    private void _set_face_image(string path)
+    private void SetFaceImage(string path)
     {
         GetNode<Sprite>("FaceLabel/FaceSprite").Texture = GD.Load(path) as Godot.Texture;
     }
-    public void _save_character_values()
+    public void SaveCharacterData()
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
@@ -224,17 +224,17 @@ public class Character : Control
         JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
         databaseFile.Close();
         Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary finalData = jsonDictionary["chara" + characterSelected] as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary equipTypeData = finalData["equip_types"] as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary initialEquipData = finalData["initial_equip"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary charaData = jsonDictionary["chara" + characterSelected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary equipTypeData = charaData["equip_types"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary initialEquipData = charaData["initial_equip"] as Godot.Collections.Dictionary;
 
-        finalData["faceImage"] = facePath;
-        finalData["charaImage"] = "";
-        finalData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
+        charaData["faceImage"] = facePath;
+        charaData["charaImage"] = "";
+        charaData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
         GetNode<OptionButton>("CharacterButton").SetItemText(characterSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
-        finalData["class"] = GetNode<OptionButton>("ClassLabel/ClassText").Selected;
-        finalData["initialLevel"] = GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value;
-        finalData["maxLevel"] = GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value;
+        charaData["class"] = GetNode<OptionButton>("ClassLabel/ClassText").Selected;
+        charaData["initialLevel"] = GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value;
+        charaData["maxLevel"] = GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value;
 
         int equip_items = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetItemCount();
         for (int i = 0; i < equip_items; i++)
@@ -251,7 +251,7 @@ public class Character : Control
             }
         }
 
-        finalData["equip_types"] = equipTypeData;
+        charaData["equip_types"] = equipTypeData;
 
         int slot_items = GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").GetItemCount();
         for (int i = 0; i < slot_items; i++)
@@ -259,7 +259,7 @@ public class Character : Control
             initialEquipData[i.ToString()] = Convert.ToInt32(initialEquipIdArray[i]);
         }
 
-        finalData["initial_equip"] = initialEquipData;
+        charaData["initial_equip"] = initialEquipData;
 
         databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
         databaseFile.StoreString(JSON.Print(jsonDictionary));
@@ -269,7 +269,7 @@ public class Character : Control
     private void _on_CharacterButton_item_selected(int id)
     {
         characterSelected = id;
-        _refresh_Data(id);
+        RefreshData(id);
     }
 
     private void _on_CancelButton_pressed()

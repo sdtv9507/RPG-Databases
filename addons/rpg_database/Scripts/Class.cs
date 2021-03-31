@@ -12,7 +12,7 @@ public class Class : Control
     int statEdit = -1;
     Godot.Collections.Array<String> skillListArray = new Godot.Collections.Array<String>();
     // Called when the node enters the scene tree for the first time.
-    public void _Start()
+    public void Start()
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Class.json", Godot.File.ModeFlags.Read);
@@ -33,10 +33,10 @@ public class Class : Control
             }
         }
         databaseFile.Close();
-        _refresh_data(0);
+        RefreshData(0);
     }
 
-    public void _refresh_data(int id)
+    public void RefreshData(int id)
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Class.json", Godot.File.ModeFlags.Read);
@@ -122,11 +122,11 @@ public class Class : Control
 
     private void _on_ClassSaveButton_pressed()
     {
-        _save_class_data();
-        _refresh_data(classSelected);
+        SaveClassData();
+        RefreshData(classSelected);
     }
 
-    private void _save_class_data()
+    private void SaveClassData()
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Class.json", Godot.File.ModeFlags.Read);
@@ -199,7 +199,7 @@ public class Class : Control
     private void _on_ClassButton_item_selected(int id)
     {
         classSelected = id;
-        _refresh_data(id);
+        RefreshData(id);
     }
 
     private void _on_AddSkillButton_pressed()
@@ -274,7 +274,7 @@ public class Class : Control
     {
         string statFormula = GetNode<LineEdit>("StatEditor/StatEdit").Text;
         GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList").SetItemText(statEdit, statFormula);
-        _save_class_data();
+        SaveClassData();
         statEdit = -1;
         GetNode<WindowDialog>("StatEditor").Hide();
     }

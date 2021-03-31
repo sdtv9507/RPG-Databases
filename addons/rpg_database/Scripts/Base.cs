@@ -10,204 +10,205 @@ public class Base : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Godot.File database_editor = new Godot.File();
+		Godot.File databaseFile = new Godot.File();
 
-		if (!database_editor.FileExists("res://databases/System.json"))
+		if (!databaseFile.FileExists("res://databases/System.json"))
 		{
-			database_editor.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary system_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary stats_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary weapont_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary armort_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary element_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary slots_data = new Godot.Collections.Dictionary();
-			stats_data.Add("0", "hp");
-			stats_data.Add("1", "mp");
-			stats_data.Add("2", "atk");
-			stats_data.Add("3", "def");
-			stats_data.Add("4", "int");
-			stats_data.Add("5", "res");
-			stats_data.Add("6", "spd");
-			stats_data.Add("7", "luk");
-			weapont_data.Add("0","Sword");
-			weapont_data.Add("1","Spear");
-			weapont_data.Add("2","Axe");
-			weapont_data.Add("3","Staff");
-			armort_data.Add("0","Armor");
-			armort_data.Add("1","Robe");
-			armort_data.Add("2","Shield");
-			armort_data.Add("3","Hat");
-			armort_data.Add("4","Accessory");
-			element_data.Add("0","Physical");
-			element_data.Add("1","Fire");
-			element_data.Add("2","Ice");
-			element_data.Add("3","Wind");
-			slots_data.Add("w0","Weapon");
-			slots_data.Add("a1","Head");
-			slots_data.Add("a2","Body");
-			slots_data.Add("a3","Accessory");
-			system_array.Add("stats", stats_data);
-			system_array.Add("weapons", weapont_data);
-			system_array.Add("armors", armort_data);
-			system_array.Add("elements", element_data);
-			system_array.Add("slots", slots_data);
-			database_editor.StoreLine(JSON.Print(system_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary systemList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary statsData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary weaponTypeData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary armorTypeData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary elementData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary slotsData = new Godot.Collections.Dictionary();
+			statsData.Add("0", "hp");
+			statsData.Add("1", "mp");
+			statsData.Add("2", "atk");
+			statsData.Add("3", "def");
+			statsData.Add("4", "int");
+			statsData.Add("5", "res");
+			statsData.Add("6", "spd");
+			statsData.Add("7", "luk");
+			weaponTypeData.Add("0","Sword");
+			weaponTypeData.Add("1","Spear");
+			weaponTypeData.Add("2","Axe");
+			weaponTypeData.Add("3","Staff");
+			armorTypeData.Add("0","Armor");
+			armorTypeData.Add("1","Robe");
+			armorTypeData.Add("2","Shield");
+			armorTypeData.Add("3","Hat");
+			armorTypeData.Add("4","Accessory");
+			elementData.Add("0","Physical");
+			elementData.Add("1","Fire");
+			elementData.Add("2","Ice");
+			elementData.Add("3","Wind");
+			slotsData.Add("w0","Weapon");
+			slotsData.Add("a1","Head");
+			slotsData.Add("a2","Body");
+			slotsData.Add("a3","Accessory");
+			systemList.Add("stats", statsData);
+			systemList.Add("weapons", weaponTypeData);
+			systemList.Add("armors", armorTypeData);
+			systemList.Add("elements", elementData);
+			systemList.Add("slots", slotsData);
+			databaseFile.StoreLine(JSON.Print(systemList));
+			databaseFile.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Character.json"))
+		if (!databaseFile.FileExists("res://databases/Character.json"))
 		{
-			database_editor.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary character_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary character_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary etype_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary einit_data = new Godot.Collections.Dictionary();
-			character_data.Add("faceImage", "");
-			character_data.Add("charaImage", "");
-			character_data.Add("name", "Kate");
-			character_data.Add("class", 0);
-			character_data.Add("initialLevel", 1);
-			character_data.Add("maxLevel", 99);
-			etype_data.Add("w0",0);
-			etype_data.Add("w1",1);
-			etype_data.Add("a2",0);
-			etype_data.Add("a3",3);
-			einit_data.Add("0",-1);
-			einit_data.Add("1",-1);
-			einit_data.Add("2",-1);
-			einit_data.Add("3",-1);
-			character_data.Add("initial_equip", einit_data);
-			character_data.Add("equip_types", etype_data);
-			character_array.Add("chara0", character_data);
-			database_editor.StoreLine(JSON.Print(character_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary characterList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary characterData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary equipTypeData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary initialEquipData = new Godot.Collections.Dictionary();
+			characterData.Add("faceImage", "");
+			characterData.Add("charaImage", "");
+			characterData.Add("name", "Kate");
+			characterData.Add("class", 0);
+			characterData.Add("initialLevel", 1);
+			characterData.Add("maxLevel", 99);
+			equipTypeData.Add("w0",0);
+			equipTypeData.Add("w1",1);
+			equipTypeData.Add("a2",0);
+			equipTypeData.Add("a3",3);
+			initialEquipData.Add("0",-1);
+			initialEquipData.Add("1",-1);
+			initialEquipData.Add("2",-1);
+			initialEquipData.Add("3",-1);
+			characterData.Add("initial_equip", initialEquipData);
+			characterData.Add("equip_types", equipTypeData);
+			characterList.Add("chara0", characterData);
+			databaseFile.StoreLine(JSON.Print(characterList));
+			databaseFile.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Skill.json"))
+		if (!databaseFile.FileExists("res://databases/Skill.json"))
 		{
-			database_editor.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary skill_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary skill_data = new Godot.Collections.Dictionary();
-			skill_data.Add("name", "Double Attack");
-			skill_data.Add("icon", "");
-			skill_data.Add("description", "Attacks an enemy twice");
-			skill_data.Add("skill_type", 0);
-			skill_data.Add("mp_cost", 4);
-			skill_data.Add("tp_cost", 2);
-			skill_data.Add("target", 1);
-			skill_data.Add("usable", 1);
-			skill_data.Add("success", 95);
-			skill_data.Add("hit_type", 1);
-			skill_data.Add("damage_type", 1);
-			skill_data.Add("element", 0);
-			skill_data.Add("formula", "atk * 4 - def * 2");
-			skill_array.Add("skill0", skill_data);
-			database_editor.StoreLine(JSON.Print(skill_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary skillList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary skillData = new Godot.Collections.Dictionary();
+			skillData.Add("name", "Double Attack");
+			skillData.Add("icon", "");
+			skillData.Add("description", "Attacks an enemy twice");
+			skillData.Add("skill_type", 0);
+			skillData.Add("mp_cost", 4);
+			skillData.Add("tp_cost", 2);
+			skillData.Add("target", 1);
+			skillData.Add("usable", 1);
+			skillData.Add("success", 95);
+			skillData.Add("hit_type", 1);
+			skillData.Add("damage_type", 1);
+			skillData.Add("element", 0);
+			skillData.Add("formula", "atk * 4 - def * 2");
+			skillList.Add("skill0", skillData);
+			databaseFile.StoreLine(JSON.Print(skillList));
+			databaseFile.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Class.json"))
+		if (!databaseFile.FileExists("res://databases/Class.json"))
 		{
-			database_editor.Open("res://databases/Class.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary class_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary class_stats_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary skill_list_array = new Godot.Collections.Dictionary();
-			class_data.Add("name", "Warrior");
-			class_data.Add("icon", "");
-			class_data.Add("experience", "level * 30");
-			class_stats_array.Add("hp", "level * 25 + 10");
-			class_stats_array.Add("mp", "level * 15 + 5");
-			class_stats_array.Add("atk", "level * 5 + 3");
-			class_stats_array.Add("def", "level * 5 + 3");
-			class_stats_array.Add("int", "level * 5 + 3");
-			class_stats_array.Add("res", "level * 5 + 3");
-			class_stats_array.Add("spd", "level * 5 + 3");
-			class_stats_array.Add("luk", "level * 5 + 3");
-			skill_list_array.Add(0, 5);
-			class_data.Add("skill_list", skill_list_array);
-			class_data.Add("stat_list", class_stats_array);
-			class_array.Add("class0", class_data);
-			database_editor.StoreLine(JSON.Print(class_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/Class.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary classList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary classData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary classStats = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary skillList = new Godot.Collections.Dictionary();
+			classData.Add("name", "Warrior");
+			classData.Add("icon", "");
+			classData.Add("experience", "level * 30");
+			classStats.Add("hp", "level * 25 + 10");
+			classStats.Add("mp", "level * 15 + 5");
+			classStats.Add("atk", "level * 5 + 3");
+			classStats.Add("def", "level * 5 + 3");
+			classStats.Add("int", "level * 5 + 3");
+			classStats.Add("res", "level * 5 + 3");
+			classStats.Add("spd", "level * 5 + 3");
+			classStats.Add("luk", "level * 5 + 3");
+			skillList.Add(0, 5);
+			classData.Add("skill_list", skillList);
+			classData.Add("stat_list", classStats);
+			classList.Add("class0", classData);
+			databaseFile.StoreLine(JSON.Print(classList));
+			databaseFile.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Item.json"))
+		if (!databaseFile.FileExists("res://databases/Item.json"))
 		{
-			database_editor.Open("res://databases/Item.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary item_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary item_data = new Godot.Collections.Dictionary();
-			item_data.Add("name", "Potion");
-			item_data.Add("icon", "");
-			item_data.Add("description", "Heals 50HP to one ally");
-			item_data.Add("item_type", 0);
-			item_data.Add("price", 50);
-			item_data.Add("consumable", 0);
-			item_data.Add("target", 7);
-			item_data.Add("usable", 0);
-			item_data.Add("success", 100);
-			item_data.Add("hit_type", 0);
-			item_data.Add("damage_type", 3);
-			item_data.Add("element", 0);
-			item_data.Add("formula", "50");
-			item_array.Add("item0", item_data);
-			database_editor.StoreLine(JSON.Print(item_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/Item.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary itemList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary itemData = new Godot.Collections.Dictionary();
+			itemData.Add("name", "Potion");
+			itemData.Add("icon", "");
+			itemData.Add("description", "Heals 50HP to one ally");
+			itemData.Add("item_type", 0);
+			itemData.Add("price", 50);
+			itemData.Add("consumable", 0);
+			itemData.Add("target", 7);
+			itemData.Add("usable", 0);
+			itemData.Add("success", 100);
+			itemData.Add("hit_type", 0);
+			itemData.Add("damage_type", 3);
+			itemData.Add("element", 0);
+			itemData.Add("formula", "50");
+			itemList.Add("item0", itemData);
+			databaseFile.StoreLine(JSON.Print(itemList));
+			databaseFile.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Weapon.json"))
+		if (!databaseFile.FileExists("res://databases/Weapon.json"))
 		{
-			database_editor.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary weapon_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary weapon_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary weapon_stats_array = new Godot.Collections.Dictionary();
-			weapon_data.Add("name", "Broad Sword");
-			weapon_data.Add("icon", "");
-			weapon_data.Add("description", "A light and easy to use sword");
-			weapon_data.Add("weapon_type", 0);
-			weapon_data.Add("slot_type", 0);
-			weapon_data.Add("price", 50);
-			weapon_data.Add("element", 0);
-			weapon_stats_array.Add("hp", "0");
-			weapon_stats_array.Add("mp", "0");
-			weapon_stats_array.Add("atk", "10");
-			weapon_stats_array.Add("def", "2");
-			weapon_stats_array.Add("int", "2");
-			weapon_stats_array.Add("res", "1");
-			weapon_stats_array.Add("spd", "0");
-			weapon_stats_array.Add("luk", "0");
-			weapon_data.Add("stat_list", weapon_stats_array);
-			weapon_array.Add("weapon0", weapon_data);
-			database_editor.StoreLine(JSON.Print(weapon_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary weaponList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary weaponData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary weaponStats = new Godot.Collections.Dictionary();
+			weaponData.Add("name", "Broad Sword");
+			weaponData.Add("icon", "");
+			weaponData.Add("description", "A light and easy to use sword");
+			weaponData.Add("weapon_type", 0);
+			weaponData.Add("slot_type", 0);
+			weaponData.Add("price", 50);
+			weaponData.Add("element", 0);
+			weaponStats.Add("hp", "0");
+			weaponStats.Add("mp", "0");
+			weaponStats.Add("atk", "10");
+			weaponStats.Add("def", "2");
+			weaponStats.Add("int", "2");
+			weaponStats.Add("res", "1");
+			weaponStats.Add("spd", "0");
+			weaponStats.Add("luk", "0");
+			weaponData.Add("stat_list", weaponStats);
+			weaponList.Add("weapon0", weaponData);
+			databaseFile.StoreLine(JSON.Print(weaponList));
+			databaseFile.Close();
 		}
 
-		if (!database_editor.FileExists("res://databases/Armor.json"))
+		if (!databaseFile.FileExists("res://databases/Armor.json"))
 		{
-			database_editor.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
-			Godot.Collections.Dictionary armor_array = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary armor_data = new Godot.Collections.Dictionary();
-			Godot.Collections.Dictionary armor_stats_array = new Godot.Collections.Dictionary();
-			armor_data.Add("name", "Clothes");
-			armor_data.Add("icon", "");
-			armor_data.Add("description", "Light Clothes");
-			armor_data.Add("armor_type", 0);
-			armor_data.Add("slot_type", 0);
-			armor_data.Add("price", 50);
-			armor_stats_array.Add("hp", "0");
-			armor_stats_array.Add("mp", "0");
-			armor_stats_array.Add("atk", "10");
-			armor_stats_array.Add("def", "2");
-			armor_stats_array.Add("int", "2");
-			armor_stats_array.Add("res", "1");
-			armor_stats_array.Add("spd", "0");
-			armor_stats_array.Add("luk", "0");
-			armor_data.Add("stat_list", armor_stats_array);
-			armor_array.Add("armor0", armor_data);
-			database_editor.StoreLine(JSON.Print(armor_array));
-			database_editor.Close();
+			databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary armorList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary armorData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary armorStats = new Godot.Collections.Dictionary();
+			armorData.Add("name", "Clothes");
+			armorData.Add("icon", "");
+			armorData.Add("description", "Light Clothes");
+			armorData.Add("armor_type", 0);
+			armorData.Add("slot_type", 0);
+			armorData.Add("price", 50);
+			armorStats.Add("hp", "0");
+			armorStats.Add("mp", "0");
+			armorStats.Add("atk", "10");
+			armorStats.Add("def", "2");
+			armorStats.Add("int", "2");
+			armorStats.Add("res", "1");
+			armorStats.Add("spd", "0");
+			armorStats.Add("luk", "0");
+			armorData.Add("stat_list", armorStats);
+			armorList.Add("armor0", armorData);
+			databaseFile.StoreLine(JSON.Print(armorList));
+			databaseFile.Close();
 		}
 
+		databaseFile.Close();
 		GetNode<Control>("Tabs/Character").Call("_Start");
 	}
 
@@ -215,13 +216,13 @@ public class Base : Control
 	{
 		if (tab == 0) 
 		{
-			GetNode<Control>("Tabs/Character").Call("_Start");
+			GetNode<Control>("Tabs/Character").Call("Start");
 		} else if (tab == 1) {
-			GetNode<Control>("Tabs/Class").Call("_Start");
+			GetNode<Control>("Tabs/Class").Call("Start");
 		} else if (tab == 2) {
-			GetNode<Control>("Tabs/Skill").Call("_Start");
+			GetNode<Control>("Tabs/Skill").Call("Start");
 		} else if (tab == 3) {
-			GetNode<Control>("Tabs/Item").Call("_Start");
+			GetNode<Control>("Tabs/Item").Call("Start");
 		} else if (tab == 4) {
 			GetNode<Control>("Tabs/Weapon").Call("_Start");
 		} else if (tab == 5) {

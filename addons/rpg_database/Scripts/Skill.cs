@@ -10,7 +10,7 @@ public class Skill : Control
     string iconPath = "";
     int skillSelected = 0;
     // Called when the node enters the scene tree for the first time.
-    public void _Start()
+    public void Start()
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
@@ -50,10 +50,10 @@ public class Skill : Control
             }
         }
         databaseFile.Close();
-        _refresh_data(0);
+        RefreshData(0);
     }
 
-    private void _refresh_data(int id)
+    private void RefreshData(int id)
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
@@ -124,10 +124,10 @@ public class Skill : Control
 
     private void _on_SkillSaveButton_pressed()
     {
-        _save_skill_data();
-        _refresh_data(skillSelected);
+        SaveSkillData();
+        RefreshData(skillSelected);
     }
-    private void _save_skill_data()
+    private void SaveSkillData()
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/Skill.json", Godot.File.ModeFlags.Read);
@@ -158,7 +158,7 @@ public class Skill : Control
     private void _on_SkillButton_item_selected(int id)
     {
         skillSelected = id;
-        _refresh_data(id);
+        RefreshData(id);
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
