@@ -2015,6 +2015,38 @@ margin_right = 412.0
 margin_bottom = 142.0
 window_title = "Add Equipment Slot"
 
+[node name="OkButton" type="Button" parent="Tabs/System/AddSlot"]
+margin_left = 96.0
+margin_top = 112.0
+margin_right = 180.0
+margin_bottom = 136.0
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="Tabs/System/AddSlot"]
+margin_left = 206.0
+margin_top = 112.0
+margin_right = 290.0
+margin_bottom = 136.0
+text = "Cancel"
+
+[node name="NameLabel" type="Label" parent="Tabs/System/AddSlot"]
+margin_left = 48.0
+margin_top = 78.0
+margin_right = 88.0
+margin_bottom = 92.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameEdit" type="LineEdit" parent="Tabs/System/AddSlot/NameLabel"]
+margin_left = 47.0
+margin_top = -6.0
+margin_right = 239.0
+margin_bottom = 22.0
+placeholder_text = "Slot Name"
+caret_blink = true
+
 [node name="TypeLabel" type="Label" parent="Tabs/System/AddSlot"]
 margin_left = 48.0
 margin_top = 24.0
@@ -2031,35 +2063,6 @@ text = "Weapon"
 align = 1
 items = [ "Weapon", null, false, 0, null, "Armor", null, false, 1, null ]
 selected = 0
-
-[node name="NameLabel" type="Label" parent="Tabs/System/AddSlot"]
-margin_left = 48.0
-margin_top = 78.0
-margin_right = 88.0
-margin_bottom = 92.0
-text = "Name"
-
-[node name="NameEdit" type="LineEdit" parent="Tabs/System/AddSlot/NameLabel"]
-margin_left = 47.0
-margin_top = -6.0
-margin_right = 239.0
-margin_bottom = 22.0
-placeholder_text = "Slot Name"
-caret_blink = true
-
-[node name="OkButton" type="Button" parent="Tabs/System/AddSlot"]
-margin_left = 96.0
-margin_top = 112.0
-margin_right = 180.0
-margin_bottom = 136.0
-text = "Ok"
-
-[node name="CancelButton" type="Button" parent="Tabs/System/AddSlot"]
-margin_left = 206.0
-margin_top = 112.0
-margin_right = 290.0
-margin_bottom = 136.0
-text = "Cancel"
 
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
