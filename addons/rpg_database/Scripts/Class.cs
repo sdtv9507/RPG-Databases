@@ -72,7 +72,7 @@ public class Class : Control
         for (int i = 0; i < systemStatsData.Count; i++)
         {
             string statName = systemStatsData[i.ToString()] as string;
-            Godot.Collections.Dictionary classStatFormula = systemStatsData["stat_list"] as Godot.Collections.Dictionary;
+            Godot.Collections.Dictionary classStatFormula = classData["stat_list"] as Godot.Collections.Dictionary;
             string statFormula = "";
             if (classStatFormula.Contains(statName))
             {
