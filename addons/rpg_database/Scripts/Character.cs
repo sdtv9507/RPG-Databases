@@ -248,6 +248,7 @@ public class Character : Control
         charaData["initialLevel"] = GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value;
         charaData["maxLevel"] = GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value;
 
+        equipTypeData.Clear();
         int equip_items = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetItemCount();
         for (int i = 0; i < equip_items; i++)
         {
