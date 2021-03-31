@@ -107,7 +107,6 @@ public class Character : Control
         initialEquipIdArray.Clear();
         foreach (string equip in equipSlotsDictionary.Keys)
         {
-            GD.Print(equip);
             GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").AddItem(equipSlotsDictionary[equip].ToString());
             string kind = equip[0].ToString();
             int kind_id = Convert.ToInt32(equip.Remove(0, 1));
@@ -116,7 +115,7 @@ public class Character : Control
             {
                 case "w":
                     int w_id = -1;
-                    if (kind_id > initialEquipData.Keys.Count)
+                    if (kind_id < initialEquipData.Keys.Count)
                     {
                         w_id = Convert.ToInt32(initialEquipData[kind_id.ToString()]);
                     }
