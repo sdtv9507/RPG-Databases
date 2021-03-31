@@ -209,7 +209,7 @@ public class Base : Control
 		}
 
 		databaseFile.Close();
-		GetNode<Control>("Tabs/Character").Call("_Start");
+		GetNode<Control>("Tabs/Character").Call("Start");
 	}
 
 	private void _on_Tabs_tab_changed(int tab)
