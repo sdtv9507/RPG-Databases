@@ -212,6 +212,24 @@ public class Base : Control
 		GetNode<Control>("Tabs/Character").Call("Start");
 	}
 
+	public Godot.Collections.Dictionary ReadData(String file)
+	{
+		Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/"+file+".json", Godot.File.ModeFlags.Read);
+        string jsonAsText = databaseFile.GetAsText();
+        databaseFile.Close();
+        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
+		return jsonParsed.Result as Godot.Collections.Dictionary;
+	}
+
+	public void StoreData(String file, Godot.Collections.Dictionary save)
+	{
+		Godot.File databaseFile = new Godot.File();
+        databaseFile.Open("res://databases/"+file+".json", Godot.File.ModeFlags.Write);
+        databaseFile.StoreString(JSON.Print(save));
+        databaseFile.Close();
+	}
+
 	private void _on_Tabs_tab_changed(int tab)
 	{
 		if (tab == 0) 

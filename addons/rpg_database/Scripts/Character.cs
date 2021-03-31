@@ -17,11 +17,7 @@ public class Character : Control
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary charaData = jsonDictionary["chara" + i] as Godot.Collections.Dictionary;
@@ -34,16 +30,11 @@ public class Character : Control
                 GetNode<OptionButton>("CharacterButton").SetItemText(i, charaData["name"].ToString());
             }
         }
-        databaseFile.Close();
         RefreshData(0);
     }
     public void RefreshData(int id)
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary charaData = jsonDictionary["chara" + id] as Godot.Collections.Dictionary;
         GetNode<OptionButton>("CharacterButton").SetItemText(id, charaData["name"].ToString());
         GetNode<LineEdit>("NameLabel/NameText").Text = charaData["name"].ToString();
@@ -55,11 +46,7 @@ public class Character : Control
         GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value = Convert.ToInt32(charaData["initialLevel"]);
         GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value = Convert.ToInt32(charaData["maxLevel"]);
 
-        databaseFile.Close();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary wtypeDictionary = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary atypeDictionary = jsonDictionary["armors"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary equipSlotsDictionary = jsonDictionary["slots"] as Godot.Collections.Dictionary;
@@ -89,17 +76,8 @@ public class Character : Control
 
         }
 
-        databaseFile.Close();
-        databaseFile.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary weaponList = jsonParsed.Result as Godot.Collections.Dictionary;
-
-        databaseFile.Close();
-        databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary armorList = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary weaponList = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armorList = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
 
         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").Clear();
         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").Clear();
@@ -152,11 +130,7 @@ public class Character : Control
             }
         }
         
-        databaseFile.Close();
-        databaseFile.Open("res://databases/Class.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Class") as Godot.Collections.Dictionary;
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary classData = jsonDictionary["class" + i] as Godot.Collections.Dictionary;
@@ -169,8 +143,6 @@ public class Character : Control
                 GetNode<OptionButton>("ClassLabel/ClassText").SetItemText(i, classData["name"].ToString());
             }
         }
-
-        databaseFile.Close();
     }
 
     public void _on_CharaSaveButton_pressed()
@@ -183,12 +155,7 @@ public class Character : Control
     {
         GetNode<OptionButton>("CharacterButton").AddItem("NewCharacter");
         int id = GetNode<OptionButton>("CharacterButton").GetItemCount() - 1;
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary characterData = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary etypeData = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary einitData = new Godot.Collections.Dictionary();
@@ -209,9 +176,7 @@ public class Character : Control
         characterData.Add("initial_equip", einitData);
         characterData.Add("equip_types", etypeData);
         jsonDictionary.Add("chara" + id, characterData);
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Character", jsonDictionary);
     }
     private void _on_Search_pressed()
     {
@@ -230,12 +195,7 @@ public class Character : Control
     }
     public void SaveCharacterData()
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        databaseFile.Close();
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary charaData = jsonDictionary["chara" + characterSelected] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary equipTypeData = charaData["equip_types"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary initialEquipData = charaData["initial_equip"] as Godot.Collections.Dictionary;
@@ -274,9 +234,7 @@ public class Character : Control
 
         charaData["initial_equip"] = initialEquipData;
 
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(jsonDictionary));
-        databaseFile.Close();
+        this.GetParent().GetParent().Call("StoreData", "Character", jsonDictionary);
     }
 
     private void _on_CharacterButton_item_selected(int id)
@@ -294,11 +252,7 @@ public class Character : Control
     {
         GetNode<WindowDialog>("EquipLabel/AddEquip").PopupCentered();
 
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary wtypeData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
         for (int i = 0; i < wtypeData .Count; i++)
         {
@@ -311,8 +265,6 @@ public class Character : Control
                 GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").SetItemText(i, wtypeData[i.ToString()].ToString());
             }
         }
-
-        databaseFile.Close();
     }
 
     private void _on_RemoveEquipTypeButton_pressed()
@@ -342,11 +294,7 @@ public class Character : Control
 
     private void _on_TypeButton_item_selected(int index)
     {
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").Clear();
         switch (index)
         {
@@ -379,7 +327,6 @@ public class Character : Control
                 }
                 break;
         }
-        databaseFile.Close();
     }
 
     private void _on_EquipList_item_activated(int index)
@@ -390,29 +337,17 @@ public class Character : Control
 
         GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").Clear();
         GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem("None");
-        Godot.File databaseFile = new Godot.File();
-        databaseFile.Open("res://databases/Character.json", Godot.File.ModeFlags.Read);
-        string jsonAsText = databaseFile.GetAsText();
-        JSONParseResult jsonParsed = JSON.Parse(jsonAsText);
-        Godot.Collections.Dictionary jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary charaData = jsonDictionary["chara" + characterSelected] as Godot.Collections.Dictionary;
 
-        databaseFile.Close();
-        databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Read);
-        jsonAsText = databaseFile.GetAsText();
-        jsonParsed = JSON.Parse(jsonAsText);
-        jsonDictionary = jsonParsed.Result as Godot.Collections.Dictionary;
+        jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary slotsData = jsonDictionary["slots"] as Godot.Collections.Dictionary;
 
         Godot.Collections.Dictionary equipTypesData = charaData["equip_types"] as Godot.Collections.Dictionary;
         if (slotsData.Contains("w" + index))
         {
-            databaseFile.Close();
-            databaseFile.Open("res://databases/Weapon.json", Godot.File.ModeFlags.Read);
-            jsonAsText = databaseFile.GetAsText();
-            jsonParsed = JSON.Parse(jsonAsText);
-            Godot.Collections.Dictionary weaponList = jsonParsed.Result as Godot.Collections.Dictionary;
-
+            Godot.Collections.Dictionary weaponList = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
+        
             Godot.Collections.Array<int> weaponArray = new Godot.Collections.Array<int>();
             foreach (string key in equipTypesData.Keys)
             {
@@ -432,16 +367,11 @@ public class Character : Control
                     GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem(weaponData["name"].ToString());
                 }
             }
-            databaseFile.Close();
         }
         else if (slotsData.Contains("a" + index))
         {
-            databaseFile.Close();
-            databaseFile.Open("res://databases/Armor.json", Godot.File.ModeFlags.Read);
-            jsonAsText = databaseFile.GetAsText();
-            jsonParsed = JSON.Parse(jsonAsText);
-            Godot.Collections.Dictionary armorList = jsonParsed.Result as Godot.Collections.Dictionary;
-
+            Godot.Collections.Dictionary armorList = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
+        
             Godot.Collections.Array<int> armorArray = new Godot.Collections.Array<int>();
             foreach (string key in equipTypesData.Keys)
             {
@@ -461,7 +391,6 @@ public class Character : Control
                     GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem(armorData["name"].ToString());
                 }
             }
-            databaseFile.Close();
         }
         GetNode<WindowDialog>("InitialEquipLabel/InitialEquipChange").PopupCentered();
     }
