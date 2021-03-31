@@ -104,15 +104,22 @@ public class Character : Control
         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").Clear();
         GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").Clear();
         Godot.Collections.Dictionary einitDictionary = charaData["initial_equip"] as Godot.Collections.Dictionary;
+        initialEquipIdArray.Clear();
         foreach (string equip in eslotsDictionary.Keys)
         {
             GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").AddItem(eslotsDictionary[equip].ToString());
             string kind = equip[0].ToString();
             int kind_id = Convert.ToInt32(equip.Remove(0, 1));
+            
             switch (kind)
             {
                 case "w":
-                    int w_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    int w_id = -1;
+                    if (kind_id > einitDictionary.Keys.Count)
+                    {
+                        w_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    }
+                    
                     initialEquipIdArray.Add(w_id);
                     if (w_id >= 0)
                     {
@@ -125,7 +132,12 @@ public class Character : Control
                     }
                     break;
                 case "a":
-                    int a_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    int a_id = -1;
+                    if (kind_id < einitDictionary.Keys.Count)
+                    {
+                        a_id = Convert.ToInt32(einitDictionary[kind_id.ToString()]);
+                    }
+                    
                     initialEquipIdArray.Add(a_id);
                     if (a_id >= 0)
                     {
@@ -139,7 +151,7 @@ public class Character : Control
                     break;
             }
         }
-
+        
         databaseFile.Close();
         databaseFile.Open("res://databases/Class.json", Godot.File.ModeFlags.Read);
         jsonAsText = databaseFile.GetAsText();
