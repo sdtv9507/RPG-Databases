@@ -317,7 +317,7 @@ public class Character : Control
     private void _on_RemoveEquipTypeButton_pressed()
     {
         int selected = GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").GetSelectedItems()[0];
-        equipEditArray.RemoveAt(selected);
+        equipIdArray.RemoveAt(selected);
         GetNode<ItemList>("EquipLabel/EquipContainer/EquipContainer/EquipList").RemoveItem(selected);
     }
 
