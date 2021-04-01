@@ -38,9 +38,5 @@ public class database : EditorPlugin
         return "Database";
     }
 
-    public override Texture GetPluginIcon()
-    {
-        return (Godot.Texture)ResourceLoader.Load("res://addons/rpg_database/icon.png");
-    }
 }
 #endif
