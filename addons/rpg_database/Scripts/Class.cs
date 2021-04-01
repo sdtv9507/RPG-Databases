@@ -71,6 +71,7 @@ public class Class : Control
 
         GetNode<ItemList>("SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList").Clear();
         GetNode<ItemList>("SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList").Clear();
+        skillListArray.Clear();
         foreach (string element in classSkillList.Keys)
         {
             skillListArray.Add(element);

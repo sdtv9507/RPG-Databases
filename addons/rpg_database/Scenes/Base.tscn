@@ -159,7 +159,7 @@ margin_top = -6.0
 margin_right = 185.0
 margin_bottom = 20.0
 text = "Warrior"
-items = [ "Warrior", null, false, 0, null ]
+items = [ "Warrior", null, false, 0, null, "NewClass", null, false, 1, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
