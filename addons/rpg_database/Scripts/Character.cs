@@ -88,7 +88,7 @@ public class Character : Control
             GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/TypeList").AddItem(equipSlotsDictionary[equip].ToString());
             string kind = equip[0].ToString();
             int kind_id = Convert.ToInt32(equip.Remove(0, 1));
-            
+
             switch (kind)
             {
                 case "w":
@@ -97,7 +97,7 @@ public class Character : Control
                     {
                         w_id = Convert.ToInt32(initialEquipData[kind_id.ToString()]);
                     }
-                    
+
                     initialEquipIdArray.Add(w_id);
                     if (w_id >= 0)
                     {
@@ -115,7 +115,7 @@ public class Character : Control
                     {
                         a_id = Convert.ToInt32(initialEquipData[kind_id.ToString()]);
                     }
-                    
+
                     initialEquipIdArray.Add(a_id);
                     if (a_id >= 0)
                     {
@@ -129,7 +129,7 @@ public class Character : Control
                     break;
             }
         }
-        
+
         jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Class") as Godot.Collections.Dictionary;
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
@@ -178,6 +178,36 @@ public class Character : Control
         jsonDictionary.Add("chara" + id, characterData);
         this.GetParent().GetParent().Call("StoreData", "Character", jsonDictionary);
     }
+
+    private void _on_RemoveCharacterButton_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int chara = characterSelected;
+            while (chara < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["chara"+chara] = jsonDictionary["chara"+(chara+1)];
+                chara += 1;
+            }
+            jsonDictionary.Remove("chara"+chara);
+            this.GetParent().GetParent().Call("StoreData", "Character", jsonDictionary);
+            GetNode<OptionButton>("CharacterButton").RemoveItem(characterSelected);
+            if (characterSelected == 0)
+            {
+                GetNode<OptionButton>("CharacterButton").Select(characterSelected+1);
+                characterSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("CharacterButton").Select(characterSelected-1);
+                characterSelected -= 1;
+            }
+            GetNode<OptionButton>("CharacterButton").Select(characterSelected);
+            RefreshData(characterSelected);
+        }
+    }
+
     private void _on_Search_pressed()
     {
         GetNode<FileDialog>("FaceLabel/FaceSearch").PopupCentered();
@@ -254,7 +284,7 @@ public class Character : Control
 
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary wtypeData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
-        for (int i = 0; i < wtypeData .Count; i++)
+        for (int i = 0; i < wtypeData.Count; i++)
         {
             if (i > GetNode<OptionButton>("EquipLabel/AddEquip/EquipLabel/EquipButton").GetItemCount() - 1)
             {
@@ -347,7 +377,7 @@ public class Character : Control
         if (slotsData.Contains("w" + index))
         {
             Godot.Collections.Dictionary weaponList = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
-        
+
             Godot.Collections.Array<int> weaponArray = new Godot.Collections.Array<int>();
             foreach (string key in equipTypesData.Keys)
             {
@@ -363,7 +393,7 @@ public class Character : Control
                 Godot.Collections.Dictionary weaponData = weaponList[weapon] as Godot.Collections.Dictionary;
                 if (weaponArray.Contains(Convert.ToInt32(weaponData["weapon_type"])))
                 {
-                    equipEditArray.Add(weapon.Remove(0,6));
+                    equipEditArray.Add(weapon.Remove(0, 6));
                     GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem(weaponData["name"].ToString());
                 }
             }
@@ -371,7 +401,7 @@ public class Character : Control
         else if (slotsData.Contains("a" + index))
         {
             Godot.Collections.Dictionary armorList = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
-        
+
             Godot.Collections.Array<int> armorArray = new Godot.Collections.Array<int>();
             foreach (string key in equipTypesData.Keys)
             {
@@ -387,7 +417,7 @@ public class Character : Control
                 Godot.Collections.Dictionary armorData = armorList[armor] as Godot.Collections.Dictionary;
                 if (armorArray.Contains(Convert.ToInt32(armorData["armor_type"])))
                 {
-                    equipEditArray.Add(armor.Remove(0,5));
+                    equipEditArray.Add(armor.Remove(0, 5));
                     GetNode<OptionButton>("InitialEquipLabel/InitialEquipChange/Label/OptionButton").AddItem(armorData["name"].ToString());
                 }
             }

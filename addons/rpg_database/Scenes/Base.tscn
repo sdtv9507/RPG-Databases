@@ -94,6 +94,12 @@ margin_right = 166.0
 margin_bottom = 24.0
 text = "+"
 
+[node name="RemoveButton" type="Button" parent="Tabs/Character/CharacterButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+
 [node name="FaceLabel" type="Label" parent="Tabs/Character"]
 margin_left = 62.0
 margin_top = 46.0
@@ -411,6 +417,12 @@ margin_left = 142.0
 margin_right = 166.0
 margin_bottom = 24.0
 text = "+"
+
+[node name="RemoveClass" type="Button" parent="Tabs/Class/ClassButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
 
 [node name="NameLabel" type="Label" parent="Tabs/Class"]
 margin_left = 24.0
@@ -2073,6 +2085,7 @@ selected = 0
 [connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Character/CharacterButton" to="Tabs/Character" method="_on_CharacterButton_item_selected"]
 [connection signal="pressed" from="Tabs/Character/CharacterButton/AddButton" to="Tabs/Character" method="_on_AddButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/CharacterButton/RemoveButton" to="Tabs/Character" method="_on_RemoveCharacterButton_pressed"]
 [connection signal="file_selected" from="Tabs/Character/FaceLabel/FaceSearch" to="Tabs/Character" method="_on_FaceSearch_file_selected"]
 [connection signal="pressed" from="Tabs/Character/FaceLabel/Search" to="Tabs/Character" method="_on_Search_pressed"]
 [connection signal="item_activated" from="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer/EquipList" to="Tabs/Character" method="_on_EquipList_item_activated"]
@@ -2086,6 +2099,7 @@ selected = 0
 [connection signal="pressed" from="Tabs/Class/ClassSaveButton" to="Tabs/Class" method="_on_ClassSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Class/ClassButton" to="Tabs/Class" method="_on_ClassButton_item_selected"]
 [connection signal="pressed" from="Tabs/Class/ClassButton/AddClass" to="Tabs/Class" method="_on_AddClass_pressed"]
+[connection signal="pressed" from="Tabs/Class/ClassButton/RemoveClass" to="Tabs/Class" method="_on_RemoveClass_pressed"]
 [connection signal="pressed" from="Tabs/Class/IconLabel/Search" to="Tabs/Class" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Class/IconLabel/IconSearch" to="Tabs/Class" method="_on_IconSearch_file_selected"]
 [connection signal="item_selected" from="Tabs/Class/SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList" to="Tabs/Class" method="_on_SkillList_item_selected"]

@@ -165,6 +165,34 @@ public class Class : Control
         this.GetParent().GetParent().Call("StoreData", "Class", jsonDictionary);
     }
 
+    private void _on_RemoveClass_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Class") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int classId = classSelected;
+            while (classId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["class"+classId] = jsonDictionary["class"+(classId+1)];
+                classId+= 1;
+            }
+            jsonDictionary.Remove("class"+classId);
+            this.GetParent().GetParent().Call("StoreData", "Class", jsonDictionary);
+            GetNode<OptionButton>("ClassButton").RemoveItem(classSelected);
+            if (classSelected == 0)
+            {
+                GetNode<OptionButton>("ClassButton").Select(classSelected+1);
+                classSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("ClassButton").Select(classSelected-1);
+                classSelected -= 1;
+            }
+            GetNode<OptionButton>("ClassButton").Select(classSelected);
+            RefreshData(classSelected);
+        }
+    }
     private void _on_ClassButton_item_selected(int id)
     {
         classSelected = id;
