@@ -78,7 +78,7 @@ public class Weapon : Control
                 final_id += 1;
             }
         }
-        RefreshData(0);
+        RefreshData(weaponSelected);
     }
 
     private void RefreshData(int id)

@@ -30,7 +30,7 @@ public class Character : Control
                 GetNode<OptionButton>("CharacterButton").SetItemText(i, charaData["name"].ToString());
             }
         }
-        RefreshData(0);
+        RefreshData(characterSelected);
     }
     public void RefreshData(int id)
     {

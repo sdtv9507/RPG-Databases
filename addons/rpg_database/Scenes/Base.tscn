@@ -1234,6 +1234,9 @@ margin_bottom = 30.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DFormulaLabel" type="Label" parent="Tabs/Item/DamageLabel"]
 margin_left = 6.0

@@ -37,7 +37,7 @@ public class Item : Control
                 GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").SetItemText(i, systemData[i.ToString()] as string);
             }
         }
-        RefreshData(0);
+        RefreshData(itemSelected);
     }
 
     private void RefreshData(int id)

@@ -65,7 +65,7 @@ public class Armor : Control
                 final_id += 1;
             }
         }
-        RefreshData(0);
+        RefreshData(armorSelected);
     }
 
     private void RefreshData(int id)

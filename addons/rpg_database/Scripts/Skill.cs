@@ -40,7 +40,7 @@ public class Skill : Control
                 GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").SetItemText(i, systemData[i.ToString()] as string);
             }
         }
-        RefreshData(0);
+        RefreshData(skillSelected);
     }
 
     private void RefreshData(int id)

@@ -28,7 +28,7 @@ public class Class : Control
                 GetNode<OptionButton>("ClassButton").SetItemText(i, classData["name"] as string);
             }
         }
-        RefreshData(0);
+        RefreshData(classSelected);
     }
 
     public void RefreshData(int id)
