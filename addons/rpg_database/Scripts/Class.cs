@@ -81,6 +81,7 @@ public class Class : Control
             GetNode<ItemList>("SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList").AddItem(level);
         }
 
+        GetNode<OptionButton>("SkillLabel/AddSkill/SkillLabel/OptionButton").Clear();
         foreach (string element in jsonDictionary.Keys)
         {
             Godot.Collections.Dictionary skillData = jsonDictionary[element] as Godot.Collections.Dictionary;

@@ -530,18 +530,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SkillLabel" type="Label" parent="Tabs/Class/SkillLabel/AddSkill"]
-margin_left = 18.0
-margin_top = 18.0
-margin_right = 58.0
-margin_bottom = 32.0
-text = "Skill"
+[node name="OkButton" type="Button" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 96.0
+margin_top = 94.0
+margin_right = 180.0
+margin_bottom = 118.0
+text = "Accept"
 
-[node name="OptionButton" type="OptionButton" parent="Tabs/Class/SkillLabel/AddSkill/SkillLabel"]
-margin_left = 36.0
-margin_top = -6.0
-margin_right = 330.0
-margin_bottom = 18.0
+[node name="CancelButton" type="Button" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 200.0
+margin_top = 94.0
+margin_right = 284.0
+margin_bottom = 118.0
+text = "Cancel"
 
 [node name="LevelLabel" type="Label" parent="Tabs/Class/SkillLabel/AddSkill"]
 margin_left = 18.0
@@ -556,19 +557,18 @@ margin_top = -6.0
 margin_right = 138.0
 margin_bottom = 18.0
 
-[node name="OkButton" type="Button" parent="Tabs/Class/SkillLabel/AddSkill"]
-margin_left = 96.0
-margin_top = 94.0
-margin_right = 180.0
-margin_bottom = 118.0
-text = "Accept"
+[node name="SkillLabel" type="Label" parent="Tabs/Class/SkillLabel/AddSkill"]
+margin_left = 18.0
+margin_top = 18.0
+margin_right = 58.0
+margin_bottom = 32.0
+text = "Skill"
 
-[node name="CancelButton" type="Button" parent="Tabs/Class/SkillLabel/AddSkill"]
-margin_left = 200.0
-margin_top = 94.0
-margin_right = 284.0
-margin_bottom = 118.0
-text = "Cancel"
+[node name="OptionButton" type="OptionButton" parent="Tabs/Class/SkillLabel/AddSkill/SkillLabel"]
+margin_left = 36.0
+margin_top = -6.0
+margin_right = 330.0
+margin_bottom = 18.0
 
 [node name="AddSkillButton" type="Button" parent="Tabs/Class/SkillLabel"]
 margin_left = 72.0
