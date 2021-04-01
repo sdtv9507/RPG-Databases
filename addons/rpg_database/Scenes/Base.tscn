@@ -719,6 +719,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RemoveSkill" type="Button" parent="Tabs/Skill/SkillButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+
 [node name="NameLabel" type="Label" parent="Tabs/Skill"]
 margin_left = 24.0
 margin_top = 65.0
@@ -1011,6 +1017,12 @@ margin_right = 164.0
 margin_bottom = 24.0
 text = "+"
 
+[node name="RemoveItem" type="Button" parent="Tabs/Item/ItemButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+
 [node name="NameLabel" type="Label" parent="Tabs/Item"]
 margin_left = 24.0
 margin_top = 65.0
@@ -1301,6 +1313,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RemoveWeapon" type="Button" parent="Tabs/Weapon/WeaponButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+
 [node name="NameLabel" type="Label" parent="Tabs/Weapon"]
 margin_left = 24.0
 margin_top = 65.0
@@ -1553,6 +1571,15 @@ margin_left = 138.0
 margin_right = 162.0
 margin_bottom = 24.0
 text = "+"
+
+[node name="RemoveArmor" type="Button" parent="Tabs/Armor/ArmorButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NameLabel" type="Label" parent="Tabs/Armor"]
 margin_left = 24.0
@@ -2114,16 +2141,19 @@ selected = 0
 [connection signal="pressed" from="Tabs/Skill/SkillSaveButton" to="Tabs/Skill" method="_on_SkillSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Skill/SkillButton" to="Tabs/Skill" method="_on_SkillButton_item_selected"]
 [connection signal="pressed" from="Tabs/Skill/SkillButton/AddSkill" to="Tabs/Skill" method="_on_AddSkill_pressed"]
+[connection signal="pressed" from="Tabs/Skill/SkillButton/RemoveSkill" to="Tabs/Skill" method="_on_RemoveSkill_pressed"]
 [connection signal="pressed" from="Tabs/Skill/IconLabel/Search" to="Tabs/Skill" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Skill/IconLabel/IconSearch" to="Tabs/Skill" method="_on_IconSearch_file_selected"]
 [connection signal="pressed" from="Tabs/Item/ItemSaveButton" to="Tabs/Item" method="_on_ItemSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Item/ItemButton" to="Tabs/Item" method="_on_ItemButton_item_selected"]
 [connection signal="pressed" from="Tabs/Item/ItemButton/AddItem" to="Tabs/Item" method="_on_AddItem_pressed"]
+[connection signal="pressed" from="Tabs/Item/ItemButton/RemoveItem" to="Tabs/Item" method="_on_RemoveItem_pressed"]
 [connection signal="pressed" from="Tabs/Item/IconLabel/Search" to="Tabs/Item" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Item/IconLabel/IconSearch" to="Tabs/Item" method="_on_IconSearch_file_selected"]
 [connection signal="pressed" from="Tabs/Weapon/WeaponSaveButton" to="Tabs/Weapon" method="_on_WeaponSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Weapon/WeaponButton" to="Tabs/Weapon" method="_on_WeaponButton_item_selected"]
 [connection signal="pressed" from="Tabs/Weapon/WeaponButton/AddWeaponButton" to="Tabs/Weapon" method="_on_AddWeaponButton_pressed"]
+[connection signal="pressed" from="Tabs/Weapon/WeaponButton/RemoveWeapon" to="Tabs/Weapon" method="_on_RemoveWeapon_pressed"]
 [connection signal="pressed" from="Tabs/Weapon/IconLabel/Search" to="Tabs/Weapon" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Weapon/IconLabel/IconSearch" to="Tabs/Weapon" method="_on_IconSearch_file_selected"]
 [connection signal="item_activated" from="Tabs/Weapon/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Weapon" method="_on_StatValueList_item_activated"]
@@ -2132,6 +2162,7 @@ selected = 0
 [connection signal="pressed" from="Tabs/Armor/ArmorSaveButton" to="Tabs/Armor" method="_on_ArmorSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Armor/ArmorButton" to="Tabs/Armor" method="_on_ArmorButton_item_selected"]
 [connection signal="pressed" from="Tabs/Armor/ArmorButton/AddArmorButton" to="Tabs/Armor" method="_on_AddArmorButton_pressed"]
+[connection signal="pressed" from="Tabs/Armor/ArmorButton/RemoveArmor" to="Tabs/Armor" method="_on_RemoveArmor_pressed"]
 [connection signal="pressed" from="Tabs/Armor/IconLabel/Search" to="Tabs/Armor" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Armor/IconLabel/IconSearch" to="Tabs/Armor" method="_on_IconSearch_file_selected"]
 [connection signal="item_activated" from="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Armor" method="_on_StatValueList_item_activated"]

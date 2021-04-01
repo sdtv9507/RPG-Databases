@@ -134,6 +134,35 @@ public class Armor : Control
         this.GetParent().GetParent().Call("StoreData", "Armor", jsonDictionary);
     }
 
+    private void _on_RemoveArmor_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int armorId = armorSelected;
+            while (armorId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["armor" + armorId] = jsonDictionary["armor" + (armorId + 1)];
+                armorId += 1;
+            }
+            jsonDictionary.Remove("armor" + armorId);
+            this.GetParent().GetParent().Call("StoreData", "Armor", jsonDictionary);
+            GetNode<OptionButton>("ArmorButton").RemoveItem(armorSelected);
+            if (armorSelected == 0)
+            {
+                GetNode<OptionButton>("ArmorButton").Select(armorSelected + 1);
+                armorSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("ArmorButton").Select(armorSelected - 1);
+                armorSelected -= 1;
+            }
+            GetNode<OptionButton>("ArmorButton").Select(armorSelected);
+            RefreshData(armorSelected);
+        }
+    }
+
     private void _on_ArmorSaveButton_pressed()
     {
         SaveArmorData();

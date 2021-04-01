@@ -149,6 +149,35 @@ public class Weapon : Control
         this.GetParent().GetParent().Call("StoreData", "Weapon", jsonDictionary);
     }
 
+    private void _on_RemoveWeapon_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int weaponId = weaponSelected;
+            while (weaponId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["weapon" + weaponId] = jsonDictionary["weapon" + (weaponId + 1)];
+                weaponId += 1;
+            }
+            jsonDictionary.Remove("weapon" + weaponId);
+            this.GetParent().GetParent().Call("StoreData", "Weapon", jsonDictionary);
+            GetNode<OptionButton>("WeaponButton").RemoveItem(weaponSelected);
+            if (weaponSelected == 0)
+            {
+                GetNode<OptionButton>("WeaponButton").Select(weaponSelected + 1);
+                weaponSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("WeaponButton").Select(weaponSelected - 1);
+                weaponSelected -= 1;
+            }
+            GetNode<OptionButton>("WeaponButton").Select(weaponSelected);
+            RefreshData(weaponSelected);
+        }
+    }
+
     private void _on_WeaponSaveButton_pressed()
     {
         SaveWeaponData();

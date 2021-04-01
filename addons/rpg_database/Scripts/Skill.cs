@@ -14,7 +14,7 @@ public class Skill : Control
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary systemDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
-        
+
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary skillData = jsonDictionary["skill" + i] as Godot.Collections.Dictionary;
@@ -98,6 +98,35 @@ public class Skill : Control
         skillData.Add("formula", "atk * 4 - def * 2");
         jsonDictionary.Add("skill" + id, skillData);
         this.GetParent().GetParent().Call("StoreData", "Skill", jsonDictionary);
+    }
+
+    private void _on_RemoveSkill_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int skillId = skillSelected;
+            while (skillId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["skill" + skillId] = jsonDictionary["skill" + (skillId + 1)];
+                skillId += 1;
+            }
+            jsonDictionary.Remove("skill" + skillId);
+            this.GetParent().GetParent().Call("StoreData", "Skill", jsonDictionary);
+            GetNode<OptionButton>("SkillButton").RemoveItem(skillSelected);
+            if (skillSelected == 0)
+            {
+                GetNode<OptionButton>("SkillButton").Select(skillSelected + 1);
+                skillSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("SkillButton").Select(skillSelected - 1);
+                skillSelected -= 1;
+            }
+            GetNode<OptionButton>("SkillButton").Select(skillSelected);
+            RefreshData(skillSelected);
+        }
     }
 
     private void _on_SkillSaveButton_pressed()

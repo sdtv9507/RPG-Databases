@@ -96,6 +96,35 @@ public class Item : Control
         this.GetParent().GetParent().Call("StoreData", "Item", jsonDictionary);
     }
 
+    private void _on_RemoveItem_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int itemId = itemSelected;
+            while (itemId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["item" + itemId] = jsonDictionary["item" + (itemId + 1)];
+                itemId += 1;
+            }
+            jsonDictionary.Remove("item" + itemId);
+            this.GetParent().GetParent().Call("StoreData", "Item", jsonDictionary);
+            GetNode<OptionButton>("ItemButton").RemoveItem(itemSelected);
+            if (itemSelected == 0)
+            {
+                GetNode<OptionButton>("ItemButton").Select(itemSelected + 1);
+                itemSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("ItemButton").Select(itemSelected - 1);
+                itemSelected -= 1;
+            }
+            GetNode<OptionButton>("ItemButton").Select(itemSelected);
+            RefreshData(itemSelected);
+        }
+    }
+
     private void _on_ItemSaveButton_pressed()
     {
         SaveItemData();
