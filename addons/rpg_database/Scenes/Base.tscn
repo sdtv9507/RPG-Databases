@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -26,6 +26,9 @@ size = Vector2( 32, 32 )
 
 [sub_resource type="ImageTexture" id=6]
 size = Vector2( 32, 32 )
+
+[sub_resource type="ImageTexture" id=7]
+size = Vector2( 128, 128 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -1777,6 +1780,197 @@ margin_top = 60.0
 margin_right = 271.0
 margin_bottom = 80.0
 text = "Cancel"
+
+[node name="Enemy" type="Control" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="EnemySaveButton" type="Button" parent="Tabs/Enemy"]
+margin_left = 269.0
+margin_top = 415.0
+margin_right = 359.0
+margin_bottom = 445.0
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyButton" type="OptionButton" parent="Tabs/Enemy"]
+margin_left = 253.0
+margin_top = 13.0
+margin_right = 389.0
+margin_bottom = 37.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddEnemy" type="Button" parent="Tabs/Enemy/EnemyButton"]
+margin_left = 142.0
+margin_right = 166.0
+margin_bottom = 24.0
+text = "+"
+
+[node name="RemoveEnemy" type="Button" parent="Tabs/Enemy/EnemyButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+
+[node name="NameLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 24.0
+margin_top = 65.0
+margin_right = 64.0
+margin_bottom = 79.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name Line" type="LineEdit" parent="Tabs/Enemy/NameLabel"]
+margin_left = 57.0
+margin_top = -6.0
+margin_right = 173.0
+margin_bottom = 20.0
+
+[node name="GraphicLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 24.0
+margin_top = 105.0
+margin_right = 73.0
+margin_bottom = 119.0
+text = "Graphic"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SearchGraphic" type="Button" parent="Tabs/Enemy/GraphicLabel"]
+margin_left = 65.0
+margin_top = -4.0
+margin_right = 89.0
+margin_bottom = 16.0
+text = "..."
+
+[node name="Graphic" type="Sprite" parent="Tabs/Enemy/GraphicLabel"]
+position = Vector2( 69, 84 )
+texture = SubResource( 7 )
+
+[node name="StatsLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 210.0
+margin_top = 65.0
+margin_right = 250.0
+margin_bottom = 79.0
+text = "Stats"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsContainer" type="PanelContainer" parent="Tabs/Enemy/StatsLabel"]
+margin_left = 7.0
+margin_top = 20.0
+margin_right = 281.0
+margin_bottom = 314.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DataContainer" type="HBoxContainer" parent="Tabs/Enemy/StatsLabel/StatsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 267.0
+margin_bottom = 287.0
+
+[node name="StatList" type="ItemList" parent="Tabs/Enemy/StatsLabel/StatsContainer/DataContainer"]
+margin_right = 96.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="FormulaList" type="ItemList" parent="Tabs/Enemy/StatsLabel/StatsContainer/DataContainer"]
+margin_left = 100.0
+margin_right = 260.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 160, 0 )
+
+[node name="DropsLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 24.0
+margin_top = 264.0
+margin_right = 64.0
+margin_bottom = 278.0
+text = "Drops"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DropsContainer" type="PanelContainer" parent="Tabs/Enemy/DropsLabel"]
+margin_left = 7.0
+margin_top = 16.0
+margin_right = 163.0
+margin_bottom = 172.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Enemy/DropsLabel/DropsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 149.0
+margin_bottom = 151.0
+
+[node name="DropsList" type="ItemList" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
+margin_right = 142.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 0, 96 )
+
+[node name="AddDrop" type="Button" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
+margin_top = 100.0
+margin_right = 142.0
+margin_bottom = 120.0
+text = "Add Drop"
+
+[node name="RemoveDrop" type="Button" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 142.0
+margin_bottom = 144.0
+text = "Remove Drop"
+
+[node name="ExpLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 510.0
+margin_top = 65.0
+margin_right = 580.0
+margin_bottom = 79.0
+text = "Experience"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExpSpin" type="SpinBox" parent="Tabs/Enemy/ExpLabel"]
+margin_left = 6.0
+margin_top = 20.0
+margin_right = 102.0
+margin_bottom = 44.0
+max_value = 1e+07
+
+[node name="GoldLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 510.0
+margin_top = 124.0
+margin_right = 550.0
+margin_bottom = 138.0
+text = "Gold"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoldSpin" type="SpinBox" parent="Tabs/Enemy/GoldLabel"]
+margin_left = 6.0
+margin_top = 20.0
+margin_right = 102.0
+margin_bottom = 44.0
 
 [node name="System" type="Control" parent="Tabs"]
 visible = false
