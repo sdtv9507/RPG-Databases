@@ -57,6 +57,7 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1782,7 +1783,6 @@ margin_bottom = 80.0
 text = "Cancel"
 
 [node name="Enemy" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1858,13 +1858,13 @@ margin_bottom = 16.0
 text = "..."
 
 [node name="Graphic" type="Sprite" parent="Tabs/Enemy/GraphicLabel"]
-position = Vector2( 69, 84 )
+position = Vector2( 69, 83 )
 texture = SubResource( 7 )
 
 [node name="StatsLabel" type="Label" parent="Tabs/Enemy"]
-margin_left = 210.0
+margin_left = 230.0
 margin_top = 65.0
-margin_right = 250.0
+margin_right = 270.0
 margin_bottom = 79.0
 text = "Stats"
 __meta__ = {
@@ -1910,8 +1910,8 @@ __meta__ = {
 [node name="DropsContainer" type="PanelContainer" parent="Tabs/Enemy/DropsLabel"]
 margin_left = 7.0
 margin_top = 16.0
-margin_right = 163.0
-margin_bottom = 172.0
+margin_right = 204.0
+margin_bottom = 174.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1919,30 +1919,40 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Enemy/DropsLabel/DropsContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 149.0
+margin_right = 195.0
 margin_bottom = 151.0
 
-[node name="DropsList" type="ItemList" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
-margin_right = 142.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
+margin_right = 188.0
 margin_bottom = 96.0
-rect_min_size = Vector2( 0, 96 )
+
+[node name="DropsList" type="ItemList" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer/HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 128, 96 )
+
+[node name="ChanceList" type="ItemList" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer/HBoxContainer"]
+margin_left = 132.0
+margin_right = 188.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 56, 0 )
 
 [node name="AddDrop" type="Button" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
 margin_top = 100.0
-margin_right = 142.0
+margin_right = 188.0
 margin_bottom = 120.0
 text = "Add Drop"
 
 [node name="RemoveDrop" type="Button" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
 margin_top = 124.0
-margin_right = 142.0
+margin_right = 188.0
 margin_bottom = 144.0
 text = "Remove Drop"
 
 [node name="ExpLabel" type="Label" parent="Tabs/Enemy"]
-margin_left = 510.0
+margin_left = 520.0
 margin_top = 65.0
-margin_right = 580.0
+margin_right = 590.0
 margin_bottom = 79.0
 text = "Experience"
 __meta__ = {
@@ -1957,9 +1967,9 @@ margin_bottom = 44.0
 max_value = 1e+07
 
 [node name="GoldLabel" type="Label" parent="Tabs/Enemy"]
-margin_left = 510.0
+margin_left = 520.0
 margin_top = 124.0
-margin_right = 550.0
+margin_right = 560.0
 margin_bottom = 138.0
 text = "Gold"
 __meta__ = {

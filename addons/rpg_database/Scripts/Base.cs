@@ -208,6 +208,33 @@ public class Base : Control
 			databaseFile.Close();
 		}
 
+		if (!databaseFile.FileExists("res://databases/Enemy.json"))
+		{
+			databaseFile.Open("res://databases/Enemy.json", Godot.File.ModeFlags.Write);
+			Godot.Collections.Dictionary enemyList = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary enemyData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary statsData = new Godot.Collections.Dictionary();
+			Godot.Collections.Dictionary dropData = new Godot.Collections.Dictionary();
+			enemyData.Add("name", "Slime");
+			enemyData.Add("graphicImage", "");
+			statsData.Add("hp", "150");
+			statsData.Add("mp", "50");
+			statsData.Add("atk", "18");
+			statsData.Add("def", "16");
+			statsData.Add("int", "8");
+			statsData.Add("res", "4");
+			statsData.Add("spd", "12");
+			statsData.Add("luk", "10");
+			dropData.Add("i0",80);
+			enemyData.Add("experience", 6);
+			enemyData.Add("money", 50);
+			enemyData.Add("stat_list", statsData);
+			enemyData.Add("equip_types", dropData);
+			enemyList.Add("enemy0", enemyData);
+			databaseFile.StoreLine(JSON.Print(enemyList));
+			databaseFile.Close();
+		}
+
 		databaseFile.Close();
 		GetNode<Control>("Tabs/Character").Call("Start");
 	}
