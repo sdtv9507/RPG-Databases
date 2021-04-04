@@ -9,7 +9,7 @@ public class Enemy : Control
     string graphicsPath = "";
     int enemySelected = 0;
     int statEdit = -1;
-    Godot.Collections.Array<int> dropIdArray = new Godot.Collections.Array<int>();
+    Godot.Collections.Array<String> dropIdArray = new Godot.Collections.Array<String>();
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
@@ -78,21 +78,18 @@ public class Enemy : Control
             switch (kind)
             {
                 case "i":
-                    int i_id = 0;
-                    dropIdArray.Add(i_id);
-                    Godot.Collections.Dictionary itemData = itemList["item" + i_id] as Godot.Collections.Dictionary;
+                    dropIdArray.Add(drop);
+                    Godot.Collections.Dictionary itemData = itemList["item" + kind_id] as Godot.Collections.Dictionary;
                     GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").AddItem(itemData["name"].ToString());
                     break;
                 case "w":
-                    int w_id = 0;
-                    dropIdArray.Add(w_id);
-                    Godot.Collections.Dictionary weaponData = weaponList["weapon" + w_id] as Godot.Collections.Dictionary;
+                    dropIdArray.Add(drop);
+                    Godot.Collections.Dictionary weaponData = weaponList["weapon" + kind_id] as Godot.Collections.Dictionary;
                     GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").AddItem(weaponData["name"].ToString());
                     break;
                 case "a":
-                    int a_id = 0;
-                    dropIdArray.Add(a_id);
-                    Godot.Collections.Dictionary armorData = armorList["armor" + a_id] as Godot.Collections.Dictionary;
+                    dropIdArray.Add(drop);
+                    Godot.Collections.Dictionary armorData = armorList["armor" + kind_id] as Godot.Collections.Dictionary;
                     GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").AddItem(armorData["name"].ToString());
                     break;
             }
@@ -138,20 +135,20 @@ public class Enemy : Control
             int enemyId = enemySelected;
             while (enemyId < jsonDictionary.Keys.Count - 1)
             {
-                jsonDictionary["Enemy"+enemyId] = jsonDictionary["Enemy"+(enemyId+1)];
-                enemyId+= 1;
+                jsonDictionary["Enemy" + enemyId] = jsonDictionary["Enemy" + (enemyId + 1)];
+                enemyId += 1;
             }
-            jsonDictionary.Remove("Enemy"+enemyId);
+            jsonDictionary.Remove("Enemy" + enemyId);
             this.GetParent().GetParent().Call("StoreData", "Enemy", jsonDictionary);
             GetNode<OptionButton>("EnemyButton").RemoveItem(enemySelected);
             if (enemySelected == 0)
             {
-                GetNode<OptionButton>("EnemyButton").Select(enemySelected+1);
+                GetNode<OptionButton>("EnemyButton").Select(enemySelected + 1);
                 enemySelected += 1;
             }
             else
             {
-                GetNode<OptionButton>("EnemyButton").Select(enemySelected-1);
+                GetNode<OptionButton>("EnemyButton").Select(enemySelected - 1);
                 enemySelected -= 1;
             }
             GetNode<OptionButton>("EnemyButton").Select(enemySelected);
@@ -171,7 +168,7 @@ public class Enemy : Control
     }
 
     private void _on_FormulaList_item_activated(int index)
-    {   
+    {
         string statName = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatList").GetItemText(index);
         string statFormula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaList").GetItemText(index);
         GetNode<Label>("Stat").Text = statName;
@@ -193,6 +190,121 @@ public class Enemy : Control
     {
         statEdit = -1;
         GetNode<WindowDialog>("StatsEdit").Hide();
+    }
+
+    private void _on_AddDrop_pressed()
+    {
+        GetNode<OptionButton>("DropEdit/Type/OptionButton").Select(0);
+        Godot.Collections.Dictionary itemData = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
+
+        for (int i = 0; i < itemData.Count; i++)
+        {
+            Godot.Collections.Dictionary itemName = itemData["item" + i.ToString()] as Godot.Collections.Dictionary;
+            if (i > GetNode<OptionButton>("DropEdit/Drop/OptionButton").GetItemCount() - 1)
+            {
+                GetNode<OptionButton>("DropEdit/Drop/OptionButton").AddItem(itemName["name"].ToString());
+            }
+            else
+            {
+                GetNode<OptionButton>("DropEdit/Drop/OptionButton").SetItemText(i, itemName["name"].ToString());
+            }
+        }
+        GetNode<WindowDialog>("DropEdit").PopupCentered();
+    }
+
+    private void _on_RemoveDrop_pressed()
+    {
+
+    }
+
+    private void _on_DropType_item_selected(int index)
+    {
+        Godot.Collections.Dictionary itemData = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary weaponData = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armorData = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("DropEdit/Drop/OptionButton").Clear();
+        switch (index)
+        {
+            case 0:
+                for (int i = 0; i < itemData.Count; i++)
+                {
+                    Godot.Collections.Dictionary itemName = itemData["item" + i.ToString()] as Godot.Collections.Dictionary;
+                    if (i > GetNode<OptionButton>("DropEdit/Drop/OptionButton").GetItemCount() - 1)
+                    {
+                        GetNode<OptionButton>("DropEdit/Drop/OptionButton").AddItem(itemName["name"].ToString());
+                    }
+                    else
+                    {
+                        GetNode<OptionButton>("DropEdit/Drop/OptionButton").SetItemText(i, itemName["name"].ToString());
+                    }
+                }
+                break;
+            case 1:
+                for (int i = 0; i < weaponData.Count; i++)
+                {
+                    Godot.Collections.Dictionary weaponName = weaponData["weapon" + i.ToString()] as Godot.Collections.Dictionary;
+                    if (i > GetNode<OptionButton>("DropEdit/Drop/OptionButton").GetItemCount() - 1)
+                    {
+                        GetNode<OptionButton>("DropEdit/Drop/OptionButton").AddItem(weaponName["name"].ToString());
+                    }
+                    else
+                    {
+                        GetNode<OptionButton>("DropEdit/Drop/OptionButton").SetItemText(i, weaponName["name"].ToString());
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < armorData.Count; i++)
+                {
+                    Godot.Collections.Dictionary armorName = armorData["armor" + i.ToString()] as Godot.Collections.Dictionary;
+                    if (i > GetNode<OptionButton>("DropEdit/Drop/OptionButton").GetItemCount() - 1)
+                    {
+                        GetNode<OptionButton>("DropEdit/Drop/OptionButton").AddItem(armorName["name"].ToString());
+                    }
+                    else
+                    {
+                        GetNode<OptionButton>("DropEdit/Drop/OptionButton").SetItemText(i, armorName["name"].ToString());
+                    }
+                }
+                break;
+        }
+    }
+
+    private void _on_DropEditOkButton_pressed()
+    {
+        Godot.Collections.Dictionary itemList = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary weaponList = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary armorList = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
+        
+        int id = GetNode<OptionButton>("DropEdit/Type/OptionButton").GetSelectedId();
+        int selected_id = GetNode<OptionButton>("DropEdit/Drop/OptionButton").GetSelectedId();
+        int chance = Convert.ToInt32(GetNode<SpinBox>("DropEdit/Chance/SpinBox").Value);
+
+        switch (id)
+        {
+            case 0:
+                dropIdArray.Add("i" + selected_id);
+                Godot.Collections.Dictionary itemData = itemList["item" + selected_id] as Godot.Collections.Dictionary;
+                GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").AddItem(itemData["name"].ToString());
+                break;
+            case 1:
+                dropIdArray.Add("w" + selected_id);
+                Godot.Collections.Dictionary weaponData = weaponList["weapon" + selected_id] as Godot.Collections.Dictionary;
+                GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").AddItem(weaponData["name"].ToString());
+                break;
+            case 2:
+                dropIdArray.Add("a" + selected_id);
+                Godot.Collections.Dictionary armorData = armorList["armor" + selected_id] as Godot.Collections.Dictionary;
+                GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").AddItem(armorData["name"].ToString());
+                break;
+        }
+        GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/ChanceList").AddItem(chance.ToString());
+        GetNode<WindowDialog>("DropEdit").Hide();
+    }
+
+    private void _on_DropEditCancelButton_pressed()
+    {
+        GetNode<WindowDialog>("DropEdit").Hide();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)

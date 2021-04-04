@@ -58,7 +58,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1784,6 +1783,7 @@ margin_bottom = 80.0
 text = "Cancel"
 
 [node name="Enemy" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1987,7 +1987,7 @@ margin_bottom = 44.0
 [node name="EnemyGraphic" type="FileDialog" parent="Tabs/Enemy"]
 margin_right = 627.0
 margin_bottom = 282.0
-window_title = "Open a File"
+window_title = "Abrir un Archivo"
 mode = 0
 
 [node name="StatsEdit" type="WindowDialog" parent="Tabs/Enemy"]
@@ -2023,6 +2023,77 @@ margin_top = 80.0
 margin_right = 317.0
 margin_bottom = 104.0
 text = "Cancel"
+
+[node name="DropEdit" type="WindowDialog" parent="Tabs/Enemy"]
+margin_left = 100.0
+margin_top = 82.0
+margin_right = 532.0
+margin_bottom = 247.0
+
+[node name="OkButton" type="Button" parent="Tabs/Enemy/DropEdit"]
+margin_left = 120.0
+margin_top = 128.0
+margin_right = 200.0
+margin_bottom = 152.0
+text = "Confirm"
+
+[node name="CancelButton" type="Button" parent="Tabs/Enemy/DropEdit"]
+margin_left = 240.0
+margin_top = 128.0
+margin_right = 320.0
+margin_bottom = 152.0
+text = "Cancel"
+
+[node name="Chance" type="Label" parent="Tabs/Enemy/DropEdit"]
+margin_left = 242.0
+margin_top = 76.0
+margin_right = 288.0
+margin_bottom = 90.0
+text = "Chance"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Tabs/Enemy/DropEdit/Chance"]
+margin_left = 59.0
+margin_top = -6.0
+margin_right = 160.0
+margin_bottom = 18.0
+
+[node name="Drop" type="Label" parent="Tabs/Enemy/DropEdit"]
+margin_left = 22.0
+margin_top = 76.0
+margin_right = 62.0
+margin_bottom = 90.0
+text = "Drop"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Enemy/DropEdit/Drop"]
+margin_left = 54.0
+margin_top = -7.0
+margin_right = 191.0
+margin_bottom = 19.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="Type" type="Label" parent="Tabs/Enemy/DropEdit"]
+margin_left = 118.0
+margin_top = 30.0
+margin_right = 158.0
+margin_bottom = 44.0
+text = "Type"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Enemy/DropEdit/Type"]
+margin_left = 54.0
+margin_top = -7.0
+margin_right = 191.0
+margin_bottom = 19.0
+text = "Item"
+items = [ "Item", null, false, 0, null, "Weapon", null, false, 1, null, "Armor", null, false, 2, null ]
+selected = 0
 
 [node name="System" type="Control" parent="Tabs"]
 visible = false
@@ -2417,7 +2488,15 @@ selected = 0
 [connection signal="pressed" from="Tabs/Enemy/EnemyButton/AddEnemy" to="Tabs/Enemy" method="_on_AddEnemy_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/EnemyButton/RemoveEnemy" to="Tabs/Enemy" method="_on_RemoveEnemy_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/GraphicLabel/SearchGraphic" to="Tabs/Enemy" method="_on_SearchGraphic_pressed"]
+[connection signal="item_activated" from="Tabs/Enemy/StatsLabel/StatsContainer/DataContainer/FormulaList" to="Tabs/Enemy" method="_on_FormulaList_item_activated"]
+[connection signal="pressed" from="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer/AddDrop" to="Tabs/Enemy" method="_on_AddDrop_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer/RemoveDrop" to="Tabs/Enemy" method="_on_RemoveDrop_pressed"]
 [connection signal="file_selected" from="Tabs/Enemy/EnemyGraphic" to="Tabs/Enemy" method="_on_EnemyGraphic_file_selected"]
+[connection signal="pressed" from="Tabs/Enemy/StatsEdit/OkButton" to="Tabs/Enemy" method="_on_EnemyStatEditorOkButton_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/StatsEdit/CancelButton" to="Tabs/Enemy" method="_on_EnemyStatEditorCancelButton_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/DropEdit/OkButton" to="Tabs/Enemy" method="_on_DropEditOkButton_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/DropEdit/CancelButton" to="Tabs/Enemy" method="_on_DropEditCancelButton_pressed"]
+[connection signal="item_selected" from="Tabs/Enemy/DropEdit/Type/OptionButton" to="Tabs/Enemy" method="_on_DropType_item_selected"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
