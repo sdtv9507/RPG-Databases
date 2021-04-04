@@ -1990,6 +1990,40 @@ margin_bottom = 282.0
 window_title = "Open a File"
 mode = 0
 
+[node name="StatsEdit" type="WindowDialog" parent="Tabs/Enemy"]
+margin_left = 75.0
+margin_top = 98.0
+margin_right = 508.0
+margin_bottom = 211.0
+window_title = "Stat Edit"
+
+[node name="Stat" type="Label" parent="Tabs/Enemy/StatsEdit"]
+margin_left = 36.0
+margin_top = 34.0
+margin_right = 76.0
+margin_bottom = 48.0
+text = "HP"
+
+[node name="Formula" type="LineEdit" parent="Tabs/Enemy/StatsEdit"]
+margin_left = 74.0
+margin_top = 28.0
+margin_right = 388.0
+margin_bottom = 52.0
+
+[node name="OkButton" type="Button" parent="Tabs/Enemy/StatsEdit"]
+margin_left = 107.0
+margin_top = 80.0
+margin_right = 187.0
+margin_bottom = 104.0
+text = "Confirm"
+
+[node name="CancelButton" type="Button" parent="Tabs/Enemy/StatsEdit"]
+margin_left = 237.0
+margin_top = 80.0
+margin_right = 317.0
+margin_bottom = 104.0
+text = "Cancel"
+
 [node name="System" type="Control" parent="Tabs"]
 visible = false
 anchor_right = 1.0

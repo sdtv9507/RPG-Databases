@@ -8,6 +8,7 @@ public class Enemy : Control
     // private string b = "text";
     string graphicsPath = "";
     int enemySelected = 0;
+    int statEdit = -1;
     Godot.Collections.Array<int> dropIdArray = new Godot.Collections.Array<int>();
     // Called when the node enters the scene tree for the first time.
     public void Start()
@@ -167,6 +168,31 @@ public class Enemy : Control
     {
         graphicsPath = path;
         GetNode<Sprite>("GraphicLabel/Graphic").Texture = GD.Load(path) as Godot.Texture;
+    }
+
+    private void _on_FormulaList_item_activated(int index)
+    {   
+        string statName = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatList").GetItemText(index);
+        string statFormula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaList").GetItemText(index);
+        GetNode<Label>("Stat").Text = statName;
+        GetNode<LineEdit>("Formula").Text = statFormula;
+        statEdit = index;
+        GetNode<WindowDialog>("StatsEdit").PopupCentered();
+    }
+
+    private void _on_EnemyStatEditorOkButton_pressed()
+    {
+        string statFormula = GetNode<LineEdit>("Formula").Text;
+        GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaList").SetItemText(statEdit, statFormula);
+        //SaveEnemyData();
+        statEdit = -1;
+        GetNode<WindowDialog>("StatsEdit").Hide();
+    }
+
+    private void _on_EnemyStatEditorCancelButton_pressed()
+    {
+        statEdit = -1;
+        GetNode<WindowDialog>("StatsEdit").Hide();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
