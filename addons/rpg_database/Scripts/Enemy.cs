@@ -157,6 +157,17 @@ public class Enemy : Control
             RefreshData(enemySelected);
         }
     }
+
+    private void _on_SearchGraphic_pressed()
+    {
+        GetNode<FileDialog>("EnemyGraphic").PopupCentered();
+    }
+
+    private void _on_EnemyGraphic_file_selected(String path)
+    {
+        graphicsPath = path;
+        GetNode<Sprite>("GraphicLabel/Graphic").Texture = GD.Load(path) as Godot.Texture;
+    }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
     //  {

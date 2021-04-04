@@ -58,6 +58,7 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1783,7 +1784,6 @@ margin_bottom = 80.0
 text = "Cancel"
 
 [node name="Enemy" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1983,6 +1983,12 @@ margin_left = 6.0
 margin_top = 20.0
 margin_right = 102.0
 margin_bottom = 44.0
+
+[node name="EnemyGraphic" type="FileDialog" parent="Tabs/Enemy"]
+margin_right = 627.0
+margin_bottom = 282.0
+window_title = "Open a File"
+mode = 0
 
 [node name="System" type="Control" parent="Tabs"]
 visible = false
@@ -2374,6 +2380,10 @@ selected = 0
 [connection signal="item_activated" from="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Armor" method="_on_StatValueList_item_activated"]
 [connection signal="pressed" from="Tabs/Armor/StatEditor/OkButton" to="Tabs/Armor" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="Tabs/Armor/StatEditor/CancelButton" to="Tabs/Armor" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/EnemyButton/AddEnemy" to="Tabs/Enemy" method="_on_AddEnemy_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/EnemyButton/RemoveEnemy" to="Tabs/Enemy" method="_on_RemoveEnemy_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/GraphicLabel/SearchGraphic" to="Tabs/Enemy" method="_on_SearchGraphic_pressed"]
+[connection signal="file_selected" from="Tabs/Enemy/EnemyGraphic" to="Tabs/Enemy" method="_on_EnemyGraphic_file_selected"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
