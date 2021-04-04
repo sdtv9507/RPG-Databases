@@ -32,7 +32,7 @@ public class Enemy : Control
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Enemy") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary enemyData = jsonDictionary["enemy" + id] as Godot.Collections.Dictionary;
-        
+
         jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary systemStatsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary itemList = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
@@ -66,7 +66,7 @@ public class Enemy : Control
         }
 
         Godot.Collections.Dictionary dropList = enemyData["drop_list"] as Godot.Collections.Dictionary;
-        
+
         GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").Clear();
         GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/ChanceList").Clear();
         dropIdArray.Clear();
@@ -74,8 +74,6 @@ public class Enemy : Control
         {
             string kind = drop[0].ToString();
             string kind_id = drop.Remove(0, 1);
-            //string drop_id = dropList[drop].ToString();
-            //dropIdArray.Add(Convert.ToInt32(dropList[drop]));
             switch (kind)
             {
                 case "i":
@@ -102,9 +100,66 @@ public class Enemy : Control
         GetNode<SpinBox>("ExpLabel/ExpSpin").Value = Convert.ToInt32(enemyData["experience"]);
         GetNode<SpinBox>("GoldLabel/GoldSpin").Value = Convert.ToInt32(enemyData["money"]);
     }
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+
+    private void _on_AddEnemy_pressed()
+    {
+        GetNode<OptionButton>("EnemyButton").AddItem("NewEnemy");
+        int id = GetNode<OptionButton>("EnemyButton").GetItemCount() - 1;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Enemy") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary enemyData = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary statsData = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary dropData = new Godot.Collections.Dictionary();
+
+        enemyData.Add("name", "Slime");
+        enemyData.Add("graphicImage", "");
+        statsData.Add("hp", "150");
+        statsData.Add("mp", "50");
+        statsData.Add("atk", "18");
+        statsData.Add("def", "16");
+        statsData.Add("int", "8");
+        statsData.Add("res", "4");
+        statsData.Add("spd", "12");
+        statsData.Add("luk", "10");
+        dropData.Add("i0", 80);
+        enemyData.Add("experience", 6);
+        enemyData.Add("money", 50);
+        enemyData.Add("stat_list", statsData);
+        enemyData.Add("drop_list", dropData);
+        jsonDictionary.Add("enemy" + id, enemyData);
+        this.GetParent().GetParent().Call("StoreData", "Enemy", jsonDictionary);
+    }
+
+    private void _on_RemoveEnemy_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Enemy") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int enemyId = enemySelected;
+            while (enemyId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["Enemy"+enemyId] = jsonDictionary["Enemy"+(enemyId+1)];
+                enemyId+= 1;
+            }
+            jsonDictionary.Remove("Enemy"+enemyId);
+            this.GetParent().GetParent().Call("StoreData", "Enemy", jsonDictionary);
+            GetNode<OptionButton>("EnemyButton").RemoveItem(enemySelected);
+            if (enemySelected == 0)
+            {
+                GetNode<OptionButton>("EnemyButton").Select(enemySelected+1);
+                enemySelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("EnemyButton").Select(enemySelected-1);
+                enemySelected -= 1;
+            }
+            GetNode<OptionButton>("EnemyButton").Select(enemySelected);
+            RefreshData(enemySelected);
+        }
+    }
+    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //  public override void _Process(float delta)
+    //  {
+    //      
+    //  }
 }
