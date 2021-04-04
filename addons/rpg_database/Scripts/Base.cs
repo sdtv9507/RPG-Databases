@@ -229,7 +229,7 @@ public class Base : Control
 			enemyData.Add("experience", 6);
 			enemyData.Add("money", 50);
 			enemyData.Add("stat_list", statsData);
-			enemyData.Add("equip_types", dropData);
+			enemyData.Add("drop_list", dropData);
 			enemyList.Add("enemy0", enemyData);
 			databaseFile.StoreLine(JSON.Print(enemyList));
 			databaseFile.Close();
@@ -273,6 +273,8 @@ public class Base : Control
 		} else if (tab == 5) {
 			GetNode<Control>("Tabs/Armor").Call("Start");
 		} else if (tab == 6) {
+			GetNode<Control>("Tabs/Enemy").Call("Start");
+		} else if (tab == 7) {
 			GetNode<Control>("Tabs/System").Call("Start");
 		}
 	}

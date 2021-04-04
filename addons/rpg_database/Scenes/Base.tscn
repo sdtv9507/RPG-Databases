@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://addons/rpg_database/Scripts/Item.cs" type="Script" id=6]
 [ext_resource path="res://addons/rpg_database/Scripts/Weapon.cs" type="Script" id=7]
 [ext_resource path="res://addons/rpg_database/Scripts/Armor.cs" type="Script" id=8]
+[ext_resource path="res://addons/rpg_database/Scripts/Enemy.cs" type="Script" id=9]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -57,7 +58,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Control" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1783,12 +1783,14 @@ margin_bottom = 80.0
 text = "Cancel"
 
 [node name="Enemy" type="Control" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+script = ExtResource( 9 )
 
 [node name="EnemySaveButton" type="Button" parent="Tabs/Enemy"]
 margin_left = 269.0
@@ -1834,7 +1836,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name Line" type="LineEdit" parent="Tabs/Enemy/NameLabel"]
+[node name="NameLine" type="LineEdit" parent="Tabs/Enemy/NameLabel"]
 margin_left = 57.0
 margin_top = -6.0
 margin_right = 173.0
