@@ -2485,6 +2485,7 @@ selected = 0
 [connection signal="item_activated" from="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Armor" method="_on_StatValueList_item_activated"]
 [connection signal="pressed" from="Tabs/Armor/StatEditor/OkButton" to="Tabs/Armor" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="Tabs/Armor/StatEditor/CancelButton" to="Tabs/Armor" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="Tabs/Enemy/EnemySaveButton" to="Tabs/Enemy" method="_on_EnemySaveButton_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/EnemyButton/AddEnemy" to="Tabs/Enemy" method="_on_AddEnemy_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/EnemyButton/RemoveEnemy" to="Tabs/Enemy" method="_on_RemoveEnemy_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/GraphicLabel/SearchGraphic" to="Tabs/Enemy" method="_on_SearchGraphic_pressed"]

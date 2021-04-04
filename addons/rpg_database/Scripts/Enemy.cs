@@ -44,6 +44,7 @@ public class Enemy : Control
         string graphic = enemyData["graphicImage"] as string;
         if (graphic != "")
         {
+            graphicsPath = enemyData["graphicImage"] as string;
             GetNode<Sprite>("GraphicLabel/Graphic").Texture = GD.Load(enemyData["graphicImage"] as string) as Godot.Texture;
         }
 
@@ -171,17 +172,17 @@ public class Enemy : Control
     {
         string statName = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatList").GetItemText(index);
         string statFormula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaList").GetItemText(index);
-        GetNode<Label>("Stat").Text = statName;
-        GetNode<LineEdit>("Formula").Text = statFormula;
+        GetNode<Label>("StatsEdit/Stat").Text = statName;
+        GetNode<LineEdit>("StatsEdit/Formula").Text = statFormula;
         statEdit = index;
         GetNode<WindowDialog>("StatsEdit").PopupCentered();
     }
 
     private void _on_EnemyStatEditorOkButton_pressed()
     {
-        string statFormula = GetNode<LineEdit>("Formula").Text;
+        string statFormula = GetNode<LineEdit>("StatsEdit/Formula").Text;
         GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaList").SetItemText(statEdit, statFormula);
-        //SaveEnemyData();
+        SaveEnemyData();
         statEdit = -1;
         GetNode<WindowDialog>("StatsEdit").Hide();
     }
@@ -305,6 +306,41 @@ public class Enemy : Control
     private void _on_DropEditCancelButton_pressed()
     {
         GetNode<WindowDialog>("DropEdit").Hide();
+    }
+
+    private void _on_EnemySaveButton_pressed()
+    {
+        SaveEnemyData();
+        RefreshData(enemySelected);
+    }
+
+    private void SaveEnemyData()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Enemy") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary enemyData = jsonDictionary["enemy" + enemySelected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary statsData = enemyData["stat_list"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary dropsData = enemyData["drop_list"] as Godot.Collections.Dictionary;
+        enemyData["name"] = GetNode<LineEdit>("NameLabel/NameLine").Text;
+        enemyData["graphicImage"] = graphicsPath;
+        int items = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatList").GetItemCount();
+        for (int i = 0; i < items; i++)
+        {
+            string stat = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/StatList").GetItemText(i);
+            string formula = GetNode<ItemList>("StatsLabel/StatsContainer/DataContainer/FormulaList").GetItemText(i);
+            statsData[stat] = formula;
+        }
+        items = GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").GetItemCount();
+        for (int i = 0; i < items; i++)
+        {
+            string id = dropIdArray[i];
+            string chance = GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/ChanceList").GetItemText(i);
+            dropsData[id] = chance;
+        }
+        enemyData["experience"] = GetNode<SpinBox>("ExpLabel/ExpSpin").Value;
+        enemyData["money"] = GetNode<SpinBox>("GoldLabel/GoldSpin").Value;
+        enemyData["stat_list"] = statsData;
+        enemyData["drop_list"] = dropsData;
+        this.GetParent().GetParent().Call("StoreData", "Enemy", jsonDictionary);
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)

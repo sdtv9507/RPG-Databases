@@ -41,6 +41,7 @@ public class Character : Control
         string face = charaData["faceImage"].ToString();
         if (face != "")
         {
+            facePath = charaData["faceImage"].ToString();
             GetNode<Sprite>("FaceLabel/FaceSprite").Texture = GD.Load(charaData["faceImage"].ToString()) as Godot.Texture;
         }
         GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value = Convert.ToInt32(charaData["initialLevel"]);
