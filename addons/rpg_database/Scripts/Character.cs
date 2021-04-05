@@ -44,6 +44,14 @@ public class Character : Control
             facePath = charaData["faceImage"].ToString();
             GetNode<Sprite>("FaceLabel/FaceSprite").Texture = GD.Load(charaData["faceImage"].ToString()) as Godot.Texture;
         }
+        if (charaData.Contains("description"))
+        {
+            GetNode<TextEdit>("DescLabel/DescText").Text = charaData["description"].ToString();
+        }
+        else
+        {
+            GetNode<TextEdit>("DescLabel/DescText").Text = "";
+        }
         GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value = Convert.ToInt32(charaData["initialLevel"]);
         GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value = Convert.ToInt32(charaData["maxLevel"]);
 
@@ -164,6 +172,7 @@ public class Character : Control
         characterData.Add("charaImage", "res://");
         characterData.Add("name", "NewCharacter");
         characterData.Add("class", 0);
+        characterData.Add("description", "");
         characterData.Add("initialLevel", 1);
         characterData.Add("maxLevel", 99);
         etypeData.Add("w0", 0);
@@ -236,6 +245,7 @@ public class Character : Control
         charaData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
         GetNode<OptionButton>("CharacterButton").SetItemText(characterSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
         charaData["class"] = GetNode<OptionButton>("ClassLabel/ClassText").Selected;
+        charaData["description"] = GetNode<TextEdit>("DescLabel/DescText").Text;
         charaData["initialLevel"] = GetNode<SpinBox>("InitLevelLabel/InitLevelText").Value;
         charaData["maxLevel"] = GetNode<SpinBox>("MaxLevelLabel/MaxLevelText").Value;
 

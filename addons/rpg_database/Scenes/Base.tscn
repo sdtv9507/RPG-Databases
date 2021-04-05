@@ -156,12 +156,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DescLabel" type="Label" parent="Tabs/Character"]
+margin_left = 183.0
+margin_top = 87.0
+margin_right = 257.0
+margin_bottom = 101.0
+text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescText" type="TextEdit" parent="Tabs/Character/DescLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 357.0
+margin_bottom = 84.0
+
 [node name="ClassLabel" type="Label" parent="Tabs/Character"]
 margin_left = 315.0
 margin_top = 198.0
 margin_right = 355.0
 margin_bottom = 212.0
 text = "Class"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ClassText" type="OptionButton" parent="Tabs/Character/ClassLabel"]
 margin_left = 53.0
@@ -176,11 +195,14 @@ __meta__ = {
 }
 
 [node name="InitLevelLabel" type="Label" parent="Tabs/Character"]
-margin_left = 312.0
-margin_top = 57.0
-margin_right = 387.0
-margin_bottom = 71.0
+margin_left = 187.0
+margin_top = 59.0
+margin_right = 262.0
+margin_bottom = 73.0
 text = "Initial Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="InitLevelText" type="SpinBox" parent="Tabs/Character/InitLevelLabel"]
 margin_left = 90.0
@@ -194,10 +216,10 @@ __meta__ = {
 }
 
 [node name="MaxLevelLabel" type="Label" parent="Tabs/Character"]
-margin_left = 320.0
-margin_top = 96.0
-margin_right = 384.0
-margin_bottom = 110.0
+margin_left = 391.0
+margin_top = 58.0
+margin_right = 455.0
+margin_bottom = 72.0
 text = "Max Level"
 
 [node name="MaxLevelText" type="SpinBox" parent="Tabs/Character/MaxLevelLabel"]

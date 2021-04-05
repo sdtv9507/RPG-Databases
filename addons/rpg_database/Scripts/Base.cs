@@ -66,6 +66,7 @@ public class Base : Control
 			characterData.Add("charaImage", "");
 			characterData.Add("name", "Kate");
 			characterData.Add("class", 0);
+			characterData.Add("description", "");
 			characterData.Add("initialLevel", 1);
 			characterData.Add("maxLevel", 99);
 			equipTypeData.Add("w0",0);
