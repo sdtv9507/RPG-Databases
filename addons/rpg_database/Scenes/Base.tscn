@@ -60,6 +60,7 @@ __meta__ = {
 }
 
 [node name="Character" type="Container" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -2543,7 +2544,6 @@ margin_right = 12.0
 margin_bottom = 20.0
 
 [node name="System" type="Container" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -2565,8 +2565,8 @@ __meta__ = {
 [node name="StatsContainer" type="PanelContainer" parent="Tabs/System/StatsLabel"]
 margin_left = 8.0
 margin_top = 16.0
-margin_right = 136.0
-margin_bottom = 230.0
+margin_right = 164.0
+margin_bottom = 232.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2574,30 +2574,30 @@ __meta__ = {
 [node name="StatsBoxContainer" type="VBoxContainer" parent="Tabs/System/StatsLabel/StatsContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 121.0
+margin_right = 149.0
 margin_bottom = 209.0
 
 [node name="StatsList" type="ItemList" parent="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer"]
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 0, 154 )
 
 [node name="AddStat" type="Button" parent="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer"]
 margin_top = 158.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 178.0
 text = "Add Stat"
 
 [node name="RemoveStat" type="Button" parent="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer"]
 margin_top = 182.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 202.0
 text = "Remove Stat"
 
 [node name="WeaponTypesLabel" type="Label" parent="Tabs/System"]
-margin_left = 162.0
+margin_left = 190.0
 margin_top = 16.0
-margin_right = 255.0
+margin_right = 283.0
 margin_bottom = 30.0
 text = "Weapon Types"
 __meta__ = {
@@ -2607,7 +2607,7 @@ __meta__ = {
 [node name="WeaponTypesContainer" type="PanelContainer" parent="Tabs/System/WeaponTypesLabel"]
 margin_left = 8.0
 margin_top = 16.0
-margin_right = 136.0
+margin_right = 164.0
 margin_bottom = 232.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2616,30 +2616,30 @@ __meta__ = {
 [node name="WpBoxContainer" type="VBoxContainer" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 121.0
+margin_right = 149.0
 margin_bottom = 209.0
 
 [node name="WeaponList" type="ItemList" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer"]
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 0, 154 )
 
 [node name="AddWeapon" type="Button" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer"]
 margin_top = 158.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 178.0
 text = "Add Type"
 
 [node name="RemoveWeapon" type="Button" parent="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer"]
 margin_top = 182.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 202.0
 text = "Remove Type"
 
 [node name="ArmorTypesLabel" type="Label" parent="Tabs/System"]
-margin_left = 312.0
+margin_left = 368.0
 margin_top = 16.0
-margin_right = 393.0
+margin_right = 449.0
 margin_bottom = 30.0
 text = "Armor Types"
 __meta__ = {
@@ -2649,37 +2649,40 @@ __meta__ = {
 [node name="ArmorTypesContainer" type="PanelContainer" parent="Tabs/System/ArmorTypesLabel"]
 margin_left = 8.0
 margin_top = 16.0
-margin_right = 136.0
+margin_right = 164.0
 margin_bottom = 232.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ArBoxContainer" type="VBoxContainer" parent="Tabs/System/ArmorTypesLabel/ArmorTypesContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 121.0
+margin_right = 149.0
 margin_bottom = 209.0
 
 [node name="ArmorList" type="ItemList" parent="Tabs/System/ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer"]
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 0, 154 )
 
 [node name="AddArmor" type="Button" parent="Tabs/System/ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer"]
 margin_top = 158.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 178.0
 text = "Add Type"
 
 [node name="RemoveArmor" type="Button" parent="Tabs/System/ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer"]
 margin_top = 182.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 202.0
 text = "Remove Type"
 
 [node name="ElementLabel" type="Label" parent="Tabs/System"]
-margin_left = 462.0
-margin_top = 18.0
-margin_right = 515.0
-margin_bottom = 32.0
+margin_left = 546.0
+margin_top = 16.0
+margin_right = 606.0
+margin_bottom = 30.0
 text = "Elements"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2688,7 +2691,7 @@ __meta__ = {
 [node name="ElementContainer" type="PanelContainer" parent="Tabs/System/ElementLabel"]
 margin_left = 8.0
 margin_top = 16.0
-margin_right = 136.0
+margin_right = 164.0
 margin_bottom = 232.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2697,25 +2700,64 @@ __meta__ = {
 [node name="EleBoxContainer" type="VBoxContainer" parent="Tabs/System/ElementLabel/ElementContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 121.0
+margin_right = 149.0
 margin_bottom = 209.0
 
 [node name="ElementList" type="ItemList" parent="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer"]
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 154.0
 rect_min_size = Vector2( 0, 154 )
 
 [node name="AddElement" type="Button" parent="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer"]
 margin_top = 158.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 178.0
 text = "Add Element"
 
 [node name="RemoveElement" type="Button" parent="Tabs/System/ElementLabel/ElementContainer/EleBoxContainer"]
 margin_top = 182.0
-margin_right = 114.0
+margin_right = 142.0
 margin_bottom = 202.0
 text = "Remove Elem"
+
+[node name="SkillTypesLabel" type="Label" parent="Tabs/System"]
+margin_left = 724.0
+margin_top = 16.0
+margin_right = 791.0
+margin_bottom = 30.0
+text = "Skill Types"
+
+[node name="SkillTypeContainer" type="PanelContainer" parent="Tabs/System/SkillTypesLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 164.0
+margin_bottom = 232.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/System/SkillTypesLabel/SkillTypeContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 149.0
+margin_bottom = 209.0
+
+[node name="SkillTypeList" type="ItemList" parent="Tabs/System/SkillTypesLabel/SkillTypeContainer/VBoxContainer"]
+margin_right = 142.0
+margin_bottom = 154.0
+size_flags_vertical = 3
+
+[node name="AddSkillType" type="Button" parent="Tabs/System/SkillTypesLabel/SkillTypeContainer/VBoxContainer"]
+margin_top = 158.0
+margin_right = 142.0
+margin_bottom = 178.0
+text = "Add Type"
+
+[node name="RemoveSKillType" type="Button" parent="Tabs/System/SkillTypesLabel/SkillTypeContainer/VBoxContainer"]
+margin_top = 182.0
+margin_right = 142.0
+margin_bottom = 202.0
+text = "Remove Type"
 
 [node name="EquipmentLabel" type="Label" parent="Tabs/System"]
 margin_left = 12.0
