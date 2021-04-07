@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://addons/rpg_database/Scripts/Weapon.cs" type="Script" id=7]
 [ext_resource path="res://addons/rpg_database/Scripts/Armor.cs" type="Script" id=8]
 [ext_resource path="res://addons/rpg_database/Scripts/Enemy.cs" type="Script" id=9]
+[ext_resource path="res://addons/rpg_database/Scripts/States.cs" type="Script" id=10]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -32,6 +33,7 @@ size = Vector2( 32, 32 )
 size = Vector2( 128, 128 )
 
 [node name="Control" type="WindowDialog"]
+visible = true
 margin_right = 960.0
 margin_bottom = 540.0
 window_title = "Database Manager"
@@ -2308,6 +2310,33 @@ margin_bottom = 19.0
 text = "Item"
 items = [ "Item", null, false, 0, null, "Weapon", null, false, 1, null, "Armor", null, false, 2, null ]
 selected = 0
+
+[node name="States" type="Container" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 10 )
+
+[node name="SaveStates" type="Button" parent="Tabs/States"]
+margin_right = 12.0
+margin_bottom = 20.0
+
+[node name="Effects" type="Container" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="SaveEffects" type="Button" parent="Tabs/Effects"]
+margin_right = 12.0
+margin_bottom = 20.0
 
 [node name="System" type="Control" parent="Tabs"]
 visible = false

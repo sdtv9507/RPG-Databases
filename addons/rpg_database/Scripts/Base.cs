@@ -276,6 +276,10 @@ public class Base : Control
 		} else if (tab == 6) {
 			GetNode<Control>("Tabs/Enemy").Call("Start");
 		} else if (tab == 7) {
+			GetNode<Control>("Tabs/States").Call("Start");
+		} else if (tab == 8) {
+			GetNode<Control>("Tabs/Effects").Call("Start");
+		} else if (tab == 9) {
 			GetNode<Control>("Tabs/System").Call("Start");
 		}
 	}
