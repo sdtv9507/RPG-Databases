@@ -41,9 +41,9 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_top = -0.00208333
+anchor_right = 1.0
 anchor_bottom = -0.00208333
 margin_top = 32.125
-margin_right = 960.0
 margin_bottom = 540.125
 color = Color( 0.133333, 0.137255, 0.141176, 1 )
 __meta__ = {
@@ -51,23 +51,20 @@ __meta__ = {
 }
 
 [node name="Tabs" type="TabContainer" parent="."]
-margin_right = 960.0
+anchor_right = 1.0
 margin_bottom = 36.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Character" type="Control" parent="Tabs"]
+[node name="Character" type="Container" parent="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_right = -3.99994
+margin_bottom = 504.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CharaSaveButton" type="Button" parent="Tabs/Character"]
 margin_left = 451.0
@@ -332,6 +329,9 @@ margin_left = 8.0
 margin_top = 16.0
 margin_right = 136.0
 margin_bottom = 212.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="EquipContainer" type="VBoxContainer" parent="Tabs/Character/EquipLabel/EquipContainer"]
 margin_left = 7.0
@@ -409,6 +409,60 @@ margin_bottom = 20.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
+
+[node name="EffectLabel" type="Label" parent="Tabs/Character"]
+margin_left = 590.0
+margin_top = 58.0
+margin_right = 632.0
+margin_bottom = 72.0
+text = "Effects"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Character/EffectLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 336.0
+margin_bottom = 402.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Character/EffectLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 321.0
+margin_bottom = 379.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
+margin_right = 314.0
+margin_bottom = 324.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 214.0
+margin_bottom = 324.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EffectValues" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 218.0
+margin_right = 314.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="AddButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 328.0
+margin_right = 314.0
+margin_bottom = 348.0
+text = "Add Effect"
+
+[node name="RemoveButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 352.0
+margin_right = 314.0
+margin_bottom = 372.0
+text = "Remove Effect"
 
 [node name="Class" type="Control" parent="Tabs"]
 visible = false
