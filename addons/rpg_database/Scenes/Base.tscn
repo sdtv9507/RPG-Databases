@@ -1852,7 +1852,7 @@ margin_right = 314.0
 margin_bottom = 370.0
 text = "Remove Effect"
 
-[node name="Armor" type="Control" parent="Tabs"]
+[node name="Armor" type="Container" parent="Tabs"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1863,16 +1863,16 @@ margin_bottom = -4.0
 script = ExtResource( 8 )
 
 [node name="ArmorSaveButton" type="Button" parent="Tabs/Armor"]
-margin_left = 286.0
-margin_top = 416.0
-margin_right = 376.0
-margin_bottom = 446.0
+margin_left = 451.0
+margin_top = 463.0
+margin_right = 541.0
+margin_bottom = 493.0
 text = "Save"
 
 [node name="ArmorButton" type="OptionButton" parent="Tabs/Armor"]
-margin_left = 253.0
+margin_left = 412.0
 margin_top = 13.0
-margin_right = 389.0
+margin_right = 548.0
 margin_bottom = 37.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
@@ -1977,9 +1977,9 @@ items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
 
 [node name="PriceLabel" type="Label" parent="Tabs/Armor"]
-margin_left = 530.0
+margin_left = 500.0
 margin_top = 65.0
-margin_right = 570.0
+margin_right = 540.0
 margin_bottom = 79.0
 text = "Price"
 __meta__ = {
@@ -2097,7 +2097,57 @@ margin_right = 271.0
 margin_bottom = 80.0
 text = "Cancel"
 
-[node name="Enemy" type="Control" parent="Tabs"]
+[node name="EffectLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 600.0
+margin_top = 65.0
+margin_right = 642.0
+margin_bottom = 79.0
+text = "Effects"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Armor/EffectLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 350.0
+margin_bottom = 414.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Armor/EffectLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 335.0
+margin_bottom = 391.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
+margin_right = 328.0
+margin_bottom = 336.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 228.0
+margin_bottom = 336.0
+size_flags_horizontal = 3
+
+[node name="EffectValues" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 232.0
+margin_right = 328.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="AddEffect" type="Button" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 340.0
+margin_right = 328.0
+margin_bottom = 360.0
+text = "Add Effect"
+
+[node name="RemoveEffect" type="Button" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 364.0
+margin_right = 328.0
+margin_bottom = 384.0
+text = "Remove Effect"
+
+[node name="Enemy" type="Container" parent="Tabs"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2108,19 +2158,19 @@ margin_bottom = -4.0
 script = ExtResource( 9 )
 
 [node name="EnemySaveButton" type="Button" parent="Tabs/Enemy"]
-margin_left = 269.0
-margin_top = 415.0
-margin_right = 359.0
-margin_bottom = 445.0
+margin_left = 451.0
+margin_top = 463.0
+margin_right = 541.0
+margin_bottom = 493.0
 text = "Save"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="EnemyButton" type="OptionButton" parent="Tabs/Enemy"]
-margin_left = 253.0
+margin_left = 412.0
 margin_top = 13.0
-margin_right = 389.0
+margin_right = 548.0
 margin_bottom = 37.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
@@ -2269,9 +2319,9 @@ margin_bottom = 144.0
 text = "Remove Drop"
 
 [node name="ExpLabel" type="Label" parent="Tabs/Enemy"]
-margin_left = 520.0
+margin_left = 510.0
 margin_top = 65.0
-margin_right = 590.0
+margin_right = 580.0
 margin_bottom = 79.0
 text = "Experience"
 __meta__ = {
@@ -2286,9 +2336,9 @@ margin_bottom = 44.0
 max_value = 1e+07
 
 [node name="GoldLabel" type="Label" parent="Tabs/Enemy"]
-margin_left = 520.0
+margin_left = 510.0
 margin_top = 124.0
-margin_right = 560.0
+margin_right = 550.0
 margin_bottom = 138.0
 text = "Gold"
 __meta__ = {
@@ -2413,6 +2463,56 @@ margin_bottom = 19.0
 text = "Item"
 items = [ "Item", null, false, 0, null, "Weapon", null, false, 1, null, "Armor", null, false, 2, null ]
 selected = 0
+
+[node name="EffectLabel" type="Label" parent="Tabs/Enemy"]
+margin_left = 610.0
+margin_top = 65.0
+margin_right = 652.0
+margin_bottom = 79.0
+text = "Effects"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Enemy/EffectLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 336.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Enemy/EffectLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 321.0
+margin_bottom = 377.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer"]
+margin_right = 314.0
+margin_bottom = 322.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 214.0
+margin_bottom = 322.0
+size_flags_horizontal = 3
+
+[node name="EffectValues" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 218.0
+margin_right = 314.0
+margin_bottom = 322.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="AddEffect" type="Button" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 326.0
+margin_right = 314.0
+margin_bottom = 346.0
+text = "Add Effect"
+
+[node name="RemoveEffect" type="Button" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 350.0
+margin_right = 314.0
+margin_bottom = 370.0
+text = "Remove Effect"
 
 [node name="States" type="Container" parent="Tabs"]
 visible = false
