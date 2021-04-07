@@ -7,36 +7,41 @@ public class database : EditorPlugin
 {
     PackedScene MainPanel = (PackedScene)ResourceLoader.Load("res://addons/rpg_database/Scenes/Base.tscn");
     Control instanced_scene;
+    bool show = false;
+    Button button = new Button();
     public override void _Ready()
     {
-        instanced_scene = (Control)MainPanel.Instance();
-        GetEditorInterface().GetEditorViewport().AddChild(instanced_scene);
-        MakeVisible(false);
     }
 
+    public override void _EnterTree()
+    {   
+        instanced_scene = (Control)MainPanel.Instance();
+        button.Text = "Database";
+        button.Connect("pressed",this,"_on_button_pressed");
+        AddControlToContainer(0, button);
+        AddChild(instanced_scene);
+    }
     public override void _ExitTree()
     {
+        RemoveChild(instanced_scene);
+        RemoveControlFromContainer(0, button);
         if (instanced_scene != null) {
             instanced_scene.QueueFree();
         }
     }
 
-    public override bool HasMainScreen()
+    public void _on_button_pressed()
     {
-        return true;
-    }
-
-    public override void MakeVisible(bool visible)
-    {
-        if (instanced_scene != null) {
-            instanced_scene.Visible = visible;
+        if (show == false)
+        {
+            Vector2 pos = new Vector2(150, 150);
+            instanced_scene.SetPosition(pos);
+            instanced_scene.Show();
+        }
+        else
+        {
+            instanced_scene.Hide();
         }
     }
-
-    public override string GetPluginName() 
-    {
-        return "Database";
-    }
-
 }
 #endif

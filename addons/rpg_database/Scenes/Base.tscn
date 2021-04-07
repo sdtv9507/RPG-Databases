@@ -31,13 +31,12 @@ size = Vector2( 32, 32 )
 [sub_resource type="ImageTexture" id=7]
 size = Vector2( 128, 128 )
 
-[node name="Control" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Control" type="WindowDialog"]
+margin_right = 960.0
+margin_bottom = 540.0
+window_title = "Database Manager"
+resizable = true
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_top = -0.00208333
@@ -150,6 +149,8 @@ margin_top = -6.0
 margin_right = 185.0
 margin_bottom = 20.0
 text = "Kate"
+caret_blink = true
+caret_blink_speed = 0.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -527,6 +528,8 @@ margin_left = 54.0
 margin_top = -5.0
 margin_right = 141.0
 margin_bottom = 19.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="IconLabel" type="Label" parent="Tabs/Class"]
 margin_left = 200.0
@@ -573,6 +576,8 @@ margin_top = -6.0
 margin_right = 260.0
 margin_bottom = 18.0
 text = "level * 30"
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="SkillLabel" type="Label" parent="Tabs/Class"]
 margin_left = 346.0
@@ -752,6 +757,8 @@ margin_left = 103.0
 margin_top = 17.0
 margin_right = 360.0
 margin_bottom = 41.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="OkButton" type="Button" parent="Tabs/Class/StatEditor"]
 margin_left = 96.0
@@ -879,6 +886,8 @@ margin_left = 44.0
 margin_top = -6.0
 margin_right = 160.0
 margin_bottom = 20.0
+caret_blink = true
+caret_blink_speed = 0.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1114,6 +1123,8 @@ __meta__ = {
 margin_top = 20.0
 margin_right = 215.0
 margin_bottom = 46.0
+caret_blink = true
+caret_blink_speed = 0.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1229,6 +1240,8 @@ margin_left = 44.0
 margin_top = -6.0
 margin_right = 160.0
 margin_bottom = 20.0
+caret_blink = true
+caret_blink_speed = 0.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1462,6 +1475,8 @@ text = "Formula"
 margin_top = 20.0
 margin_right = 215.0
 margin_bottom = 46.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="Weapon" type="Control" parent="Tabs"]
 visible = false
@@ -1525,6 +1540,8 @@ margin_left = 44.0
 margin_top = -6.0
 margin_right = 160.0
 margin_bottom = 20.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="IconLabel" type="Label" parent="Tabs/Weapon"]
 margin_left = 230.0
@@ -1713,6 +1730,8 @@ margin_left = 103.0
 margin_top = 17.0
 margin_right = 360.0
 margin_bottom = 41.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="OkButton" type="Button" parent="Tabs/Weapon/StatEditor"]
 margin_left = 96.0
@@ -1787,6 +1806,8 @@ margin_left = 44.0
 margin_top = -6.0
 margin_right = 160.0
 margin_bottom = 20.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="IconLabel" type="Label" parent="Tabs/Armor"]
 margin_left = 230.0
@@ -1954,6 +1975,8 @@ margin_left = 103.0
 margin_top = 17.0
 margin_right = 360.0
 margin_bottom = 41.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="OkButton" type="Button" parent="Tabs/Armor/StatEditor"]
 margin_left = 96.0
@@ -2028,6 +2051,8 @@ margin_left = 57.0
 margin_top = -6.0
 margin_right = 173.0
 margin_bottom = 20.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="GraphicLabel" type="Label" parent="Tabs/Enemy"]
 margin_left = 24.0
@@ -2196,6 +2221,8 @@ margin_left = 74.0
 margin_top = 28.0
 margin_right = 388.0
 margin_bottom = 52.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="OkButton" type="Button" parent="Tabs/Enemy/StatsEdit"]
 margin_left = 107.0
@@ -2534,6 +2561,8 @@ margin_left = 80.0
 margin_top = 18.0
 margin_right = 359.0
 margin_bottom = 42.0
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="FieldLabel" type="Label" parent="Tabs/System/EditField"]
 margin_left = 10.0
@@ -2592,6 +2621,7 @@ margin_right = 239.0
 margin_bottom = 22.0
 placeholder_text = "Slot Name"
 caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="TypeLabel" type="Label" parent="Tabs/System/AddSlot"]
 margin_left = 48.0
