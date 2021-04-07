@@ -40,6 +40,19 @@ public class Skill : Control
                 GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").SetItemText(i, systemData[i.ToString()] as string);
             }
         }
+
+        systemData = systemDictionary["skills"] as Godot.Collections.Dictionary;
+        for (int i = 0; i < systemData.Count; i++)
+        {
+            if (i > GetNode<OptionButton>("SkillTypeLabel/SkillTypeButton").GetItemCount() - 1)
+            {
+                GetNode<OptionButton>("SkillTypeLabel/SkillTypeButton").AddItem(systemData[i.ToString()] as string);
+            }
+            else
+            {
+                GetNode<OptionButton>("SkillTypeLabel/SkillTypeButton").SetItemText(i, systemData[i.ToString()] as string);
+            }
+        }
         RefreshData(skillSelected);
     }
 

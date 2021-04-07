@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[Tool]
 public class Enemy : Control
 {
     // Declare member variables here. Examples:
