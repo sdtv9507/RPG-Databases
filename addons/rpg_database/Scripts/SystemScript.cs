@@ -17,6 +17,20 @@ public class SystemScript : Control
         Godot.Collections.Dictionary armorsData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary elementsData = jsonDictionary["elements"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary slotsData = jsonDictionary["slots"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary skillsData;
+
+        if (jsonDictionary.Contains("skills"))
+        {
+            skillsData = jsonDictionary["skills"] as Godot.Collections.Dictionary;
+        }
+        else
+        {
+            skillsData = new Godot.Collections.Dictionary();
+            skillsData.Add("0", "Skills");
+            skillsData.Add("1", "Magic");
+            jsonDictionary["skills"] = skillsData;
+            this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
+        }
 
         GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList").Clear();
         GetNode<ItemList>("WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList").Clear();
@@ -24,6 +38,8 @@ public class SystemScript : Control
         GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").Clear();
         GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList").Clear();
         GetNode<ItemList>("EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList").Clear();
+        GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList").Clear();
+
         for (int i = 0; i < statsData.Count; i++)
         {
             ItemList item = GetNode<ItemList>("StatsLabel/StatsContainer/StatsBoxContainer/StatsList");
@@ -46,6 +62,12 @@ public class SystemScript : Control
         {
             ItemList item = GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList");
             item.AddItem((elementsData[i.ToString()]).ToString());
+        }
+        
+        for (int i = 0; i < skillsData.Count; i++)
+        {
+            ItemList item = GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList");
+            item.AddItem((skillsData[i.ToString()]).ToString());
         }
 
         foreach (string id in slotsData.Keys)
@@ -74,6 +96,7 @@ public class SystemScript : Control
         SaveArmors();
         SaveElements();
         SaveSlots();
+        SaveSkills();
     }
     private void SaveStats()
     {
@@ -135,7 +158,22 @@ public class SystemScript : Control
         this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
     }
 
-private void SaveSlots()
+    private void SaveSkills()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary skillsData = new Godot.Collections.Dictionary();
+
+        int skillSize = GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList").GetItemCount();
+        for (int i = 0; i < skillSize; i++)
+        {
+            String text = GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList").GetItemText(i);
+            skillsData.Add(i.ToString(), text);
+        }
+        jsonDictionary["skills"] = skillsData;
+        this.GetParent().GetParent().Call("StoreData", "System", jsonDictionary);
+    }
+
+    private void SaveSlots()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary slotsData = new Godot.Collections.Dictionary();
@@ -181,6 +219,10 @@ private void SaveSlots()
             else if (editedField == 3)
             {
                 GetNode<ItemList>("ElementLabel/ElementContainer/EleBoxContainer/ElementList").AddItem(name);
+            }
+            else if (editedField == 4)
+            {
+                GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList").AddItem(name);
             }
             SaveData();
         }
@@ -267,6 +309,22 @@ private void SaveSlots()
         }
     }
 
+    private void _on_AddSkillType_pressed()
+    {
+        editedField = 4;
+        GetNode<WindowDialog>("EditField").WindowTitle = "Add Skill Type";
+        GetNode<WindowDialog>("EditField").PopupCentered(new Vector2(392, 95));
+    }
+
+    private void _on_RemoveSKillType_pressed()
+    {
+        int index = GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList").GetSelectedItems()[0];
+        if (index > -1)
+        {
+            GetNode<ItemList>("SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList").RemoveItem(index);
+            SaveData();
+        }
+    }
     private void _on_AddSet_pressed()
     {
         GetNode<WindowDialog>("AddSlot").PopupCentered();

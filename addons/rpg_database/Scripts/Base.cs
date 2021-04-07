@@ -21,6 +21,7 @@ public class Base : Control
             Godot.Collections.Dictionary armorTypeData = new Godot.Collections.Dictionary();
             Godot.Collections.Dictionary elementData = new Godot.Collections.Dictionary();
             Godot.Collections.Dictionary slotsData = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary skillTypeData = new Godot.Collections.Dictionary();
             statsData.Add("0", "hp");
             statsData.Add("1", "mp");
             statsData.Add("2", "atk");
@@ -46,11 +47,14 @@ public class Base : Control
             slotsData.Add("a1", "Head");
             slotsData.Add("a2", "Body");
             slotsData.Add("a3", "Accessory");
+			skillTypeData.Add("0", "Skills");
+			skillTypeData.Add("1", "Magic");
             systemList.Add("stats", statsData);
             systemList.Add("weapons", weaponTypeData);
             systemList.Add("armors", armorTypeData);
             systemList.Add("elements", elementData);
             systemList.Add("slots", slotsData);
+            systemList.Add("skills", skillTypeData);
             databaseFile.StoreLine(JSON.Print(systemList));
             databaseFile.Close();
         }
