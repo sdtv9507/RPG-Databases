@@ -245,7 +245,22 @@ public class Base : Control
             databaseFile.Open("res://databases/State.json", Godot.File.ModeFlags.Write);
             Godot.Collections.Dictionary stateList = new Godot.Collections.Dictionary();
             Godot.Collections.Dictionary stateData = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary eraseCondition = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary messages = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary customEraseConditions = new Godot.Collections.Dictionary();
 			stateData.Add("name", "Death");
+			stateData.Add("icon", "");
+			stateData.Add("restriction", 4);
+			stateData.Add("priority", 100);
+            eraseCondition.Add("turns_min", 0);
+            eraseCondition.Add("turns_max", 0);
+            eraseCondition.Add("erase_damage", 0);
+            eraseCondition.Add("erase_setps", 0);
+			stateData.Add("erase_condition", eraseCondition);
+            messages.Add("0", "");
+			stateData.Add("messages", messages);
+            customEraseConditions.Add("0", "");
+			stateData.Add("custom_erase_conditions", customEraseConditions);
 
             stateList.Add("state0", stateData);
             databaseFile.StoreLine(JSON.Print(stateList));
