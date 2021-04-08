@@ -256,7 +256,7 @@ public class Base : Control
             eraseCondition.Add("turns_max", 0);
             eraseCondition.Add("erase_damage", 0);
             eraseCondition.Add("erase_setps", 0);
-			stateData.Add("erase_condition", eraseCondition);
+			stateData.Add("erase_conditions", eraseCondition);
             messages.Add("0", "");
 			stateData.Add("messages", messages);
             customEraseConditions.Add("0", "");

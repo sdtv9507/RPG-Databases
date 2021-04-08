@@ -2739,7 +2739,7 @@ margin_top = 7.0
 margin_right = 218.0
 margin_bottom = 349.0
 
-[node name="ItemList" type="ItemList" parent="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer"]
+[node name="EraseConditions" type="ItemList" parent="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer"]
 margin_right = 211.0
 margin_bottom = 294.0
 size_flags_vertical = 3
