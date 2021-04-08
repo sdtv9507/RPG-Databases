@@ -10,6 +10,7 @@ public class States : Container
 
     string iconPath = "";
     int stateSelected = 0;
+    int add_string = -1;
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
@@ -40,6 +41,7 @@ public class States : Container
         string icon = stateData["icon"] as string;
         if (icon != "")
         {
+            iconPath = stateData["icon"].ToString();
             GetNode<Sprite>("IconLabel/Sprite").Texture = GD.Load(stateData["icon"] as string) as Godot.Texture;
         }
         GetNode<OptionButton>("RestrictionLabel/RestrictionOption").Selected = Convert.ToInt32(stateData["restriction"]);
@@ -56,6 +58,70 @@ public class States : Container
         {
             GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").AddItem(condition);
         }
+    }
+
+    private void _on_SearchState_pressed()
+    {
+        GetNode<FileDialog>("IconLabel/SearchDialog").PopupCentered();
+    }
+
+    private void _on_SearchStateIconDialog_file_selected(String path)
+    {
+        iconPath = path;
+        GetNode<Sprite>("IconLabel/Sprite").Texture = GD.Load(path) as Godot.Texture;
+    }
+
+    private void _on_AddCustomStateCondition_pressed()
+    {
+        add_string = 0;
+        GetNode<WindowDialog>("AddString").WindowTitle = "Custom State Erase Formula";
+        GetNode<WindowDialog>("AddString").PopupCentered();
+    }
+
+    private void _on_RemoveCustomStateCondition_pressed()
+    {
+        int selected = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetSelectedItems()[0];
+        if (selected > -1)
+        {
+            GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").RemoveItem(selected);
+        }
+    }
+
+    private void _on_AddStateMessage_pressed()
+    {
+        add_string = 1;
+        GetNode<WindowDialog>("AddString").WindowTitle = "State Message";
+        GetNode<WindowDialog>("AddString").PopupCentered();
+    }
+
+    private void _on_RemoveStateMessage_pressed()
+    {
+        int selected = GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").GetSelectedItems()[0];
+        if (selected > -1)
+        {
+            GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").RemoveItem(selected);
+        }
+    }
+
+    private void _on_ConfirmAddString_pressed()
+    {
+        String text = GetNode<LineEdit>("AddString/LineEdit").Text;
+        if (add_string == 0)
+        {
+            GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").AddItem(text);
+        }
+        else if (add_string == 1)
+        {
+            GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").AddItem(text);
+        }
+        add_string = -1;
+        GetNode<WindowDialog>("AddString").Hide();
+    }
+
+    private void _on_CancelAddString_pressed()
+    {
+        add_string = -1;
+        GetNode<WindowDialog>("AddString").Hide();
     }
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)

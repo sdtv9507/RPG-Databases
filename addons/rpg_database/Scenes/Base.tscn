@@ -2851,6 +2851,50 @@ margin_right = 314.0
 margin_bottom = 370.0
 text = "Remove Effect"
 
+[node name="AddString" type="WindowDialog" parent="Tabs/States"]
+margin_right = 480.0
+margin_bottom = 135.0
+
+[node name="LineEdit" type="LineEdit" parent="Tabs/States/AddString"]
+margin_left = 33.0
+margin_top = 32.0
+margin_right = 454.0
+margin_bottom = 56.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/States/AddString"]
+anchor_right = 1.0
+margin_top = 90.0
+margin_bottom = 130.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/States/AddString/CenterContainer"]
+margin_left = 137.0
+margin_top = 7.0
+margin_right = 343.0
+margin_bottom = 31.0
+custom_constants/separation = 36
+
+[node name="Confirm" type="Button" parent="Tabs/States/AddString/CenterContainer/HBoxContainer"]
+margin_right = 80.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 80, 24 )
+text = "Confirm"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cancel" type="Button" parent="Tabs/States/AddString/CenterContainer/HBoxContainer"]
+margin_left = 116.0
+margin_right = 206.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 90, 0 )
+text = "Cancel"
+
 [node name="Effects" type="Container" parent="Tabs"]
 visible = false
 anchor_right = 1.0
@@ -3397,6 +3441,14 @@ selected = 0
 [connection signal="pressed" from="Tabs/Enemy/DropEdit/OkButton" to="Tabs/Enemy" method="_on_DropEditOkButton_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/DropEdit/CancelButton" to="Tabs/Enemy" method="_on_DropEditCancelButton_pressed"]
 [connection signal="item_selected" from="Tabs/Enemy/DropEdit/Type/OptionButton" to="Tabs/Enemy" method="_on_DropType_item_selected"]
+[connection signal="pressed" from="Tabs/States/IconLabel/Search" to="Tabs/States" method="_on_SearchState_pressed"]
+[connection signal="file_selected" from="Tabs/States/IconLabel/SearchDialog" to="Tabs/States" method="_on_SearchStateIconDialog_file_selected"]
+[connection signal="pressed" from="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer/AddCondition" to="Tabs/States" method="_on_AddCustomStateCondition_pressed"]
+[connection signal="pressed" from="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer/RemoveCondition" to="Tabs/States" method="_on_RemoveCustomStateCondition_pressed"]
+[connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/AddMessage" to="Tabs/States" method="_on_AddStateMessage_pressed"]
+[connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/RemoveMessage" to="Tabs/States" method="_on_RemoveStateMessage_pressed"]
+[connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Confirm" to="Tabs/States" method="_on_ConfirmAddString_pressed"]
+[connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Cancel" to="Tabs/States" method="_on_CancelAddString_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
