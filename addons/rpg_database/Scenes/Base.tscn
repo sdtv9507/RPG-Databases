@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://addons/rpg_database/Scripts/Base.cs" type="Script" id=1]
 [ext_resource path="res://addons/rpg_database/Scripts/Character.cs" type="Script" id=2]
@@ -32,6 +32,9 @@ size = Vector2( 32, 32 )
 
 [sub_resource type="ImageTexture" id=7]
 size = Vector2( 128, 128 )
+
+[sub_resource type="ImageTexture" id=8]
+size = Vector2( 32, 32 )
 
 [node name="Control" type="WindowDialog"]
 visible = true
@@ -176,7 +179,6 @@ margin_left = 8.0
 margin_top = 20.0
 margin_right = 357.0
 margin_bottom = 88.0
-text = "aakvncalkvnsadi"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2528,8 +2530,326 @@ margin_bottom = -4.0
 script = ExtResource( 10 )
 
 [node name="SaveStates" type="Button" parent="Tabs/States"]
-margin_right = 12.0
+margin_left = 451.0
+margin_top = 463.0
+margin_right = 541.0
+margin_bottom = 493.0
+text = "Save"
+
+[node name="StateButton" type="OptionButton" parent="Tabs/States"]
+margin_left = 412.0
+margin_top = 13.0
+margin_right = 548.0
+margin_bottom = 37.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
+selected = 0
+
+[node name="AddState" type="Button" parent="Tabs/States/StateButton"]
+margin_left = 142.0
+margin_right = 166.0
+margin_bottom = 24.0
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemoveState" type="Button" parent="Tabs/States/StateButton"]
+margin_left = 170.0
+margin_right = 194.0
+margin_bottom = 24.0
+text = "-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="Tabs/States"]
+margin_left = 25.0
+margin_top = 65.0
+margin_right = 65.0
+margin_bottom = 79.0
+text = "Name"
+
+[node name="NameLine" type="LineEdit" parent="Tabs/States/NameLabel"]
+margin_left = 57.0
+margin_top = -6.0
+margin_right = 173.0
 margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconLabel" type="Label" parent="Tabs/States"]
+margin_left = 230.0
+margin_top = 65.0
+margin_right = 270.0
+margin_bottom = 79.0
+text = "Icon"
+
+[node name="Search" type="Button" parent="Tabs/States/IconLabel"]
+margin_left = 36.0
+margin_top = -6.0
+margin_right = 60.0
+margin_bottom = 14.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Tabs/States/IconLabel"]
+position = Vector2( 87, 6 )
+texture = SubResource( 8 )
+
+[node name="SearchDialog" type="FileDialog" parent="Tabs/States/IconLabel"]
+margin_right = 618.0
+margin_bottom = 337.0
+window_title = "Guardar un Archivo"
+
+[node name="RestrictionLabel" type="Label" parent="Tabs/States"]
+margin_left = 25.0
+margin_top = 100.0
+margin_right = 94.0
+margin_bottom = 114.0
+text = "Restriction"
+
+[node name="RestrictionOption" type="OptionButton" parent="Tabs/States/RestrictionLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 124.0
+margin_bottom = 42.0
+text = "None"
+items = [ "None", null, false, 0, null, "Attack an Enemy", null, false, 1, null, "Attack Anyone", null, false, 2, null, "Attack an Ally", null, false, 3, null, "Immobilized", null, false, 4, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PriorityLabel" type="Label" parent="Tabs/States"]
+margin_left = 185.0
+margin_top = 100.0
+margin_right = 231.0
+margin_bottom = 114.0
+text = "Priority"
+
+[node name="PriorityValue" type="SpinBox" parent="Tabs/States/PriorityLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 88.0
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EraseLabel" type="Label" parent="Tabs/States"]
+margin_left = 25.0
+margin_top = 150.0
+margin_right = 131.0
+margin_bottom = 164.0
+text = "Erase Conditions"
+
+[node name="TurnsLabel" type="Label" parent="Tabs/States/EraseLabel"]
+margin_left = 8.0
+margin_top = 24.0
+margin_right = 48.0
+margin_bottom = 38.0
+text = "Turns"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MinTurns" type="SpinBox" parent="Tabs/States/EraseLabel/TurnsLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 88.0
+margin_bottom = 40.0
+
+[node name="Separate" type="Label" parent="Tabs/States/EraseLabel/TurnsLabel"]
+margin_left = 100.0
+margin_top = 22.0
+margin_right = 113.0
+margin_bottom = 36.0
+text = " to"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaxTurns" type="SpinBox" parent="Tabs/States/EraseLabel/TurnsLabel"]
+margin_left = 140.0
+margin_top = 16.0
+margin_right = 220.0
+margin_bottom = 40.0
+
+[node name="DamageLabel" type="Label" parent="Tabs/States/EraseLabel"]
+margin_left = 8.0
+margin_top = 84.0
+margin_right = 117.0
+margin_bottom = 98.0
+text = "Erase by Damage"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Damage" type="SpinBox" parent="Tabs/States/EraseLabel/DamageLabel"]
+margin_left = 120.0
+margin_top = -6.0
+margin_right = 200.0
+margin_bottom = 18.0
+
+[node name="Label" type="Label" parent="Tabs/States/EraseLabel/DamageLabel"]
+margin_left = 210.0
+margin_right = 222.0
+margin_bottom = 14.0
+text = "%"
+
+[node name="SetpsLabel" type="Label" parent="Tabs/States/EraseLabel"]
+margin_left = 8.0
+margin_top = 118.0
+margin_right = 100.0
+margin_bottom = 132.0
+text = "Erase by Steps"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Tabs/States/EraseLabel/SetpsLabel"]
+margin_left = 108.0
+margin_top = -6.0
+margin_right = 182.0
+margin_bottom = 18.0
+
+[node name="CustomEraseLabel" type="Label" parent="Tabs/States"]
+margin_left = 360.0
+margin_top = 65.0
+margin_right = 519.0
+margin_bottom = 79.0
+text = "Custom Erase Conditions"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/States/CustomEraseLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 233.0
+margin_bottom = 372.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/States/CustomEraseLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 218.0
+margin_bottom = 349.0
+
+[node name="ItemList" type="ItemList" parent="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer"]
+margin_right = 211.0
+margin_bottom = 294.0
+size_flags_vertical = 3
+
+[node name="AddCondition" type="Button" parent="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer"]
+margin_top = 298.0
+margin_right = 211.0
+margin_bottom = 318.0
+text = "Add Custom Condition"
+
+[node name="RemoveCondition" type="Button" parent="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer"]
+margin_top = 322.0
+margin_right = 211.0
+margin_bottom = 342.0
+text = "Remove Custom Condition"
+
+[node name="MessagesLabel" type="Label" parent="Tabs/States"]
+margin_left = 25.0
+margin_top = 300.0
+margin_right = 88.0
+margin_bottom = 314.0
+text = "Messages"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/States/MessagesLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 332.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/States/MessagesLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 317.0
+margin_bottom = 173.0
+
+[node name="MessageList" type="ItemList" parent="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer"]
+margin_right = 310.0
+margin_bottom = 142.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer"]
+margin_top = 146.0
+margin_right = 310.0
+margin_bottom = 166.0
+
+[node name="AddMessage" type="Button" parent="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 153.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Add Message"
+
+[node name="RemoveMessage" type="Button" parent="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 157.0
+margin_right = 310.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Remove Message"
+
+[node name="EffectsLabel" type="Label" parent="Tabs/States"]
+margin_left = 610.0
+margin_top = 65.0
+margin_right = 652.0
+margin_bottom = 79.0
+text = "Effects"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/States/EffectsLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 336.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/States/EffectsLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 321.0
+margin_bottom = 377.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
+margin_right = 314.0
+margin_bottom = 322.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 214.0
+margin_bottom = 322.0
+size_flags_horizontal = 3
+
+[node name="EffectValues" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 218.0
+margin_right = 314.0
+margin_bottom = 322.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="AddEffect" type="Button" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
+margin_top = 326.0
+margin_right = 314.0
+margin_bottom = 346.0
+text = "Add Effect"
+
+[node name="RemoveEffect" type="Button" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
+margin_top = 350.0
+margin_right = 314.0
+margin_bottom = 370.0
+text = "Remove Effect"
 
 [node name="Effects" type="Container" parent="Tabs"]
 visible = false

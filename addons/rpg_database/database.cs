@@ -7,7 +7,6 @@ public class database : EditorPlugin
 {
     PackedScene MainPanel = (PackedScene)ResourceLoader.Load("res://addons/rpg_database/Scenes/Base.tscn");
     Control instanced_scene;
-    bool show = false;
     Button button = new Button();
     public override void _Ready()
     {
@@ -32,7 +31,7 @@ public class database : EditorPlugin
 
     public void _on_button_pressed()
     {
-        if (show == false)
+        if (instanced_scene.Visible == false)
         {
             Vector2 pos = new Vector2(150, 150);
             instanced_scene.SetPosition(pos);
