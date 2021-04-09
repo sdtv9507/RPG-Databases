@@ -257,9 +257,9 @@ public class Base : Control
             eraseCondition.Add("erase_damage", 0);
             eraseCondition.Add("erase_setps", 0);
 			stateData.Add("erase_conditions", eraseCondition);
-            messages.Add("0", "");
+            messages.Add("0", "Insert a custom message");
 			stateData.Add("messages", messages);
-            customEraseConditions.Add("0", "");
+            customEraseConditions.Add("0", "Insert a custom formula for erase state");
 			stateData.Add("custom_erase_conditions", customEraseConditions);
 
             stateList.Add("state0", stateData);
