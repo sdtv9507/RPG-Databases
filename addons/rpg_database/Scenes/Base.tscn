@@ -37,7 +37,6 @@ size = Vector2( 128, 128 )
 size = Vector2( 32, 32 )
 
 [node name="Control" type="WindowDialog"]
-visible = true
 margin_right = 960.0
 margin_bottom = 540.0
 window_title = "Database Manager"
@@ -2874,9 +2873,9 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Tabs/States/AddString/CenterContainer"]
 margin_left = 137.0
-margin_top = 7.0
+margin_top = 8.0
 margin_right = 343.0
-margin_bottom = 31.0
+margin_bottom = 32.0
 custom_constants/separation = 36
 
 [node name="Confirm" type="Button" parent="Tabs/States/AddString/CenterContainer/HBoxContainer"]
@@ -3441,6 +3440,10 @@ selected = 0
 [connection signal="pressed" from="Tabs/Enemy/DropEdit/OkButton" to="Tabs/Enemy" method="_on_DropEditOkButton_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/DropEdit/CancelButton" to="Tabs/Enemy" method="_on_DropEditCancelButton_pressed"]
 [connection signal="item_selected" from="Tabs/Enemy/DropEdit/Type/OptionButton" to="Tabs/Enemy" method="_on_DropType_item_selected"]
+[connection signal="pressed" from="Tabs/States/SaveStates" to="Tabs/States" method="_on_SaveStates_pressed"]
+[connection signal="item_selected" from="Tabs/States/StateButton" to="Tabs/States" method="_on_StateButton_item_selected"]
+[connection signal="pressed" from="Tabs/States/StateButton/AddState" to="Tabs/States" method="_on_AddState_pressed"]
+[connection signal="pressed" from="Tabs/States/StateButton/RemoveState" to="Tabs/States" method="_on_RemoveState_pressed"]
 [connection signal="pressed" from="Tabs/States/IconLabel/Search" to="Tabs/States" method="_on_SearchState_pressed"]
 [connection signal="file_selected" from="Tabs/States/IconLabel/SearchDialog" to="Tabs/States" method="_on_SearchStateIconDialog_file_selected"]
 [connection signal="pressed" from="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer/AddCondition" to="Tabs/States" method="_on_AddCustomStateCondition_pressed"]

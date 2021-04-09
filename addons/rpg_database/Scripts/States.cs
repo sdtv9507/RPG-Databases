@@ -50,10 +50,12 @@ public class States : Container
         GetNode<SpinBox>("EraseLabel/TurnsLabel/MaxTurns").Value = Convert.ToInt32(eraseConditions["turns_max"]);
         GetNode<SpinBox>("EraseLabel/DamageLabel/Damage").Value = Convert.ToInt32(eraseConditions["erase_damage"]);
         GetNode<SpinBox>("EraseLabel/SetpsLabel/SpinBox").Value = Convert.ToInt32(eraseConditions["erase_setps"]);
+        GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").Clear();
         foreach (String message in messages.Values)
         {
             GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").AddItem(message);
         }
+        GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").Clear();
         foreach (String condition in customEraseConditions.Values)
         {
             GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").AddItem(condition);
@@ -123,9 +125,101 @@ public class States : Container
         add_string = -1;
         GetNode<WindowDialog>("AddString").Hide();
     }
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+
+    private void _on_StateButton_item_selected(int id)
+    {
+        stateSelected = id;
+        RefreshData(id);
+    }
+
+    private void _on_AddState_pressed()
+    {
+        GetNode<OptionButton>("StateButton").AddItem("NewState");
+        int id = GetNode<OptionButton>("StateButton").GetItemCount() - 1;
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "State") as Godot.Collections.Dictionary;
+
+        Godot.Collections.Dictionary stateData = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary eraseCondition = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary messages = new Godot.Collections.Dictionary();
+        Godot.Collections.Dictionary customEraseConditions = new Godot.Collections.Dictionary();
+        stateData.Add("name", "NewState");
+        stateData.Add("icon", "");
+        stateData.Add("restriction", 4);
+        stateData.Add("priority", 100);
+        eraseCondition.Add("turns_min", 0);
+        eraseCondition.Add("turns_max", 0);
+        eraseCondition.Add("erase_damage", 0);
+        eraseCondition.Add("erase_setps", 0);
+        stateData.Add("erase_conditions", eraseCondition);
+        messages.Add("0", "");
+        stateData.Add("messages", messages);
+        customEraseConditions.Add("0", "");
+        stateData.Add("custom_erase_conditions", customEraseConditions);
+
+        jsonDictionary.Add("state" + id, stateData);
+        this.GetParent().GetParent().Call("StoreData", "State", jsonDictionary);
+    }
+
+    private void _on_RemoveState_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "State") as Godot.Collections.Dictionary;
+        if (jsonDictionary.Keys.Count > 1)
+        {
+            int stateId = stateSelected;
+            while (stateId < jsonDictionary.Keys.Count - 1)
+            {
+                jsonDictionary["state" + stateId] = jsonDictionary["state" + (stateId + 1)];
+                stateId += 1;
+            }
+            jsonDictionary.Remove("state" + stateId);
+            this.GetParent().GetParent().Call("StoreData", "State", jsonDictionary);
+            GetNode<OptionButton>("StateButton").RemoveItem(stateSelected);
+            if (stateSelected == 0)
+            {
+                GetNode<OptionButton>("StateButton").Select(stateSelected + 1);
+                stateSelected += 1;
+            }
+            else
+            {
+                GetNode<OptionButton>("StateButton").Select(stateSelected - 1);
+                stateSelected -= 1;
+            }
+            GetNode<OptionButton>("StateButton").Select(stateSelected);
+            RefreshData(stateSelected);
+        }
+    }
+
+    private void _on_SaveStates_pressed()
+    {
+        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "State") as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary stateData = jsonDictionary["state" + stateSelected] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary eraseCondition = stateData["erase_conditions"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary messages = stateData["messages"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary customEraseConditions = stateData["custom_erase_conditions"] as Godot.Collections.Dictionary;
+        stateData["name"] = GetNode<LineEdit>("NameLabel/NameLine").Text;
+        stateData["icon"] = iconPath;
+        stateData["restriction"] = GetNode<OptionButton>("RestrictionLabel/RestrictionOption").Selected;
+        stateData["priority"] = GetNode<SpinBox>("PriorityLabel/PriorityValue").Value;
+        eraseCondition["turns_min"] = GetNode<SpinBox>("EraseLabel/TurnsLabel/MinTurns").Value;
+        eraseCondition["turns_max"] = GetNode<SpinBox>("EraseLabel/TurnsLabel/MaxTurns").Value;
+        eraseCondition["erase_damage"] = GetNode<SpinBox>("EraseLabel/DamageLabel/Damage").Value;
+        eraseCondition["erase_setps"] = GetNode<SpinBox>("EraseLabel/SetpsLabel/SpinBox").Value;
+        int items = GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").GetItemCount();
+        for (int i = 0; i < items; i++)
+        {
+            messages[i.ToString()] = GetNode<ItemList>("MessagesLabel/PanelContainer/VBoxContainer/MessageList").GetItemText(i);
+        }
+        items = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetItemCount();
+        for (int i = 0; i < items; i++)
+        {
+            messages[i.ToString()] = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetItemText(i);
+        }
+
+        this.GetParent().GetParent().Call("StoreData", "State", jsonDictionary);
+    }
+    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //  public override void _Process(float delta)
+    //  {
+    //      
+    //  }
 }
