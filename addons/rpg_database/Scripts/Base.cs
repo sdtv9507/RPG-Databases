@@ -47,8 +47,8 @@ public class Base : Control
             slotsData.Add("a1", "Head");
             slotsData.Add("a2", "Body");
             slotsData.Add("a3", "Accessory");
-			skillTypeData.Add("0", "Skills");
-			skillTypeData.Add("1", "Magic");
+            skillTypeData.Add("0", "Skills");
+            skillTypeData.Add("1", "Magic");
             systemList.Add("stats", statsData);
             systemList.Add("weapons", weaponTypeData);
             systemList.Add("armors", armorTypeData);
@@ -248,22 +248,44 @@ public class Base : Control
             Godot.Collections.Dictionary eraseCondition = new Godot.Collections.Dictionary();
             Godot.Collections.Dictionary messages = new Godot.Collections.Dictionary();
             Godot.Collections.Dictionary customEraseConditions = new Godot.Collections.Dictionary();
-			stateData.Add("name", "Death");
-			stateData.Add("icon", "");
-			stateData.Add("restriction", 4);
-			stateData.Add("priority", 100);
+            stateData.Add("name", "Death");
+            stateData.Add("icon", "");
+            stateData.Add("restriction", 4);
+            stateData.Add("priority", 100);
             eraseCondition.Add("turns_min", 0);
             eraseCondition.Add("turns_max", 0);
             eraseCondition.Add("erase_damage", 0);
             eraseCondition.Add("erase_setps", 0);
-			stateData.Add("erase_conditions", eraseCondition);
+            stateData.Add("erase_conditions", eraseCondition);
             messages.Add("0", "Insert a custom message");
-			stateData.Add("messages", messages);
+            stateData.Add("messages", messages);
             customEraseConditions.Add("0", "Insert a custom formula for erase state");
-			stateData.Add("custom_erase_conditions", customEraseConditions);
+            stateData.Add("custom_erase_conditions", customEraseConditions);
 
             stateList.Add("state0", stateData);
             databaseFile.StoreLine(JSON.Print(stateList));
+            databaseFile.Close();
+        }
+
+        if (!databaseFile.FileExists("res://databases/Effect.json"))
+        {
+            databaseFile.Open("res://databases/Effect.json", Godot.File.ModeFlags.Write);
+            Godot.Collections.Dictionary effectList = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary showList = new Godot.Collections.Dictionary();
+            Godot.Collections.Array value2 = new Godot.Collections.Array();
+            effectData.Add("name", "hp_recovery");
+            effectData.Add("code", "1");
+            showList.Add("show", false);
+            showList.Add("data", "");
+            effectData.Add("show_list", showList);
+            effectData.Add("value1", 1);
+            value2.Add(true);
+            value2.Add(2);
+            effectData.Add("value2", value2);
+            
+            effectList.Add("effect0", effectData);
+            databaseFile.StoreLine(JSON.Print(effectList));
             databaseFile.Close();
         }
 

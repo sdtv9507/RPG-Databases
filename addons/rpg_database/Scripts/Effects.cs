@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[Tool]
 public class Effects : Container
 {
     // Declare member variables here. Examples:
@@ -9,18 +10,18 @@ public class Effects : Container
 
     bool addNewEffect = true;
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public void Start()
     {
 
     }
 
-    public void _on_AddEffect_pressed()
+    private void _on_AddEffect_pressed()
     {
         addNewEffect = true;
         GetNode<WindowDialog>("AddEffect").PopupCentered();
     }
 
-    public void _on_EditEffect_pressed()
+    private void _on_EditEffect_pressed()
     {
         if (GetNode<ItemList>("Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetSelectedItems()[0] > -1)
         {

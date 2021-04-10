@@ -2933,26 +2933,84 @@ margin_top = 7.0
 margin_right = 443.0
 margin_bottom = 403.0
 
+[node name="Header" type="HBoxContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer"]
+margin_right = 436.0
+margin_bottom = 14.0
+
+[node name="Name" type="CenterContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header"]
+margin_right = 136.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header/Name"]
+margin_left = 49.0
+margin_right = 87.0
+margin_bottom = 14.0
+text = "Name"
+
+[node name="DataType" type="CenterContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header"]
+margin_left = 140.0
+margin_right = 236.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="Label" type="Label" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header/DataType"]
+margin_left = 16.0
+margin_right = 79.0
+margin_bottom = 14.0
+text = "Data Type"
+
+[node name="Value1" type="CenterContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header"]
+margin_left = 240.0
+margin_right = 336.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="Label" type="Label" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header/Value1"]
+margin_left = 24.0
+margin_right = 71.0
+margin_bottom = 14.0
+text = "Value 1"
+
+[node name="Value2" type="CenterContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header"]
+margin_left = 340.0
+margin_right = 436.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="Label" type="Label" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Header/Value2"]
+margin_left = 24.0
+margin_right = 71.0
+margin_bottom = 14.0
+text = "Value 2"
+
 [node name="Effects" type="HBoxContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 18.0
 margin_right = 436.0
 margin_bottom = 372.0
 size_flags_vertical = 3
 
 [node name="EffectNames" type="ItemList" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects"]
-margin_right = 236.0
-margin_bottom = 372.0
+margin_right = 136.0
+margin_bottom = 354.0
 size_flags_horizontal = 3
+
+[node name="ItemList" type="ItemList" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects"]
+margin_left = 140.0
+margin_right = 236.0
+margin_bottom = 354.0
+rect_min_size = Vector2( 96, 0 )
 
 [node name="EffectValue1" type="ItemList" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects"]
 margin_left = 240.0
 margin_right = 336.0
-margin_bottom = 372.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 96, 0 )
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects"]
 margin_left = 340.0
 margin_right = 436.0
-margin_bottom = 372.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 96, 0 )
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer"]
@@ -3056,9 +3114,10 @@ text = "Edit"
 
 [node name="SpinBox" type="SpinBox" parent="Tabs/Effects/AddEffect/VBoxContainer/Code"]
 margin_left = 450.0
+margin_top = 8.0
 margin_right = 524.0
-margin_bottom = 24.0
-size_flags_vertical = 0
+margin_bottom = 32.0
+size_flags_vertical = 4
 max_value = 9999.0
 editable = false
 
@@ -3093,7 +3152,7 @@ rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 disabled = true
-text = "Characters"
+text = "States"
 items = [ "States", null, false, 0, null, "Stats", null, false, 1, null, "Weapon Types", null, false, 2, null, "Armor Types", null, false, 3, null, "Elements", null, false, 4, null, "Skill Types", null, false, 5, null ]
 selected = 0
 
@@ -3642,6 +3701,10 @@ selected = 0
 [connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/RemoveMessage" to="Tabs/States" method="_on_RemoveStateMessage_pressed"]
 [connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Confirm" to="Tabs/States" method="_on_ConfirmAddString_pressed"]
 [connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Cancel" to="Tabs/States" method="_on_CancelAddString_pressed"]
+[connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Add" to="Tabs/Effects" method="_on_AddEffect_pressed"]
+[connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Edit" to="Tabs/Effects" method="_on_EditEffect_pressed"]
+[connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Remove" to="Tabs/Effects" method="_on_RemoveEffect_pressed"]
+[connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Clear" to="Tabs/Effects" method="_on_ClearEffects_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
