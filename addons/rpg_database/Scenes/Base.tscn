@@ -37,6 +37,7 @@ size = Vector2( 128, 128 )
 size = Vector2( 32, 32 )
 
 [node name="Control" type="WindowDialog"]
+visible = true
 margin_right = 960.0
 margin_bottom = 540.0
 window_title = "Database Manager"
@@ -2995,7 +2996,7 @@ margin_right = 136.0
 margin_bottom = 354.0
 size_flags_horizontal = 3
 
-[node name="ItemList" type="ItemList" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects"]
+[node name="DataTypes" type="ItemList" parent="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/Effects"]
 margin_left = 140.0
 margin_right = 236.0
 margin_bottom = 354.0
@@ -3137,11 +3138,11 @@ margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Tabs/Effects/AddEffect/VBoxContainer/ShowList/CenterContainer"]
-margin_left = 33.0
+margin_left = 60.0
 margin_top = 13.0
-margin_right = 187.0
+margin_right = 159.0
 margin_bottom = 27.0
-text = "Show a list when editing"
+text = "Use Data Types"
 
 [node name="OptionButton" type="OptionButton" parent="Tabs/Effects/AddEffect/VBoxContainer/ShowList"]
 margin_left = 304.0
@@ -3212,6 +3213,7 @@ margin_right = 524.0
 margin_bottom = 31.0
 rect_min_size = Vector2( 136, 24 )
 size_flags_vertical = 4
+disabled = true
 text = "String"
 items = [ "String", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null ]
 selected = 0
@@ -3705,6 +3707,10 @@ selected = 0
 [connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Edit" to="Tabs/Effects" method="_on_EditEffect_pressed"]
 [connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Remove" to="Tabs/Effects" method="_on_RemoveEffect_pressed"]
 [connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Clear" to="Tabs/Effects" method="_on_ClearEffects_pressed"]
+[connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/ShowList/CheckButton" to="Tabs/Effects" method="_on_ShowListCheckButton_pressed"]
+[connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/Value2/CheckButton" to="Tabs/Effects" method="_on_Value2CheckButton_pressed"]
+[connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/Buttons/HBox/Confirm" to="Tabs/Effects" method="_on_AddEffectConfirm_pressed"]
+[connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/Buttons/HBox/Cancel" to="Tabs/Effects" method="_on_AddEffectCancel_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/AddStat" to="Tabs/System" method="_on_AddStat_pressed"]
 [connection signal="pressed" from="Tabs/System/StatsLabel/StatsContainer/StatsBoxContainer/RemoveStat" to="Tabs/System" method="_on_RemoveStat_pressed"]
 [connection signal="pressed" from="Tabs/System/WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/AddWeapon" to="Tabs/System" method="_on_AddWeapon_pressed"]
