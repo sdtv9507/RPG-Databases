@@ -2992,6 +2992,196 @@ margin_bottom = 20.0
 rect_min_size = Vector2( 80, 0 )
 text = "Clear"
 
+[node name="AddEffect" type="WindowDialog" parent="Tabs/Effects"]
+margin_right = 48.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 540, 240 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Effects/AddEffect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="HBoxContainer" parent="Tabs/Effects/AddEffect/VBoxContainer"]
+margin_right = 524.0
+margin_bottom = 24.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Effects/AddEffect/VBoxContainer/Name"]
+margin_right = 260.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Tabs/Effects/AddEffect/VBoxContainer/Name/CenterContainer"]
+margin_left = 111.0
+margin_top = 5.0
+margin_right = 149.0
+margin_bottom = 19.0
+text = "Name"
+
+[node name="LineEdit" type="LineEdit" parent="Tabs/Effects/AddEffect/VBoxContainer/Name"]
+margin_left = 264.0
+margin_right = 524.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Code" type="HBoxContainer" parent="Tabs/Effects/AddEffect/VBoxContainer"]
+margin_top = 28.0
+margin_right = 524.0
+margin_bottom = 68.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Effects/AddEffect/VBoxContainer/Code"]
+margin_right = 338.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Tabs/Effects/AddEffect/VBoxContainer/Code/CenterContainer"]
+margin_left = 144.0
+margin_top = 13.0
+margin_right = 193.0
+margin_bottom = 27.0
+text = "Code Id"
+
+[node name="CheckButton" type="CheckButton" parent="Tabs/Effects/AddEffect/VBoxContainer/Code"]
+margin_left = 342.0
+margin_right = 446.0
+margin_bottom = 40.0
+text = "Edit"
+
+[node name="SpinBox" type="SpinBox" parent="Tabs/Effects/AddEffect/VBoxContainer/Code"]
+margin_left = 450.0
+margin_right = 524.0
+margin_bottom = 24.0
+size_flags_vertical = 0
+max_value = 9999.0
+editable = false
+
+[node name="ShowList" type="HBoxContainer" parent="Tabs/Effects/AddEffect/VBoxContainer"]
+margin_top = 72.0
+margin_right = 524.0
+margin_bottom = 112.0
+
+[node name="CheckButton" type="CheckButton" parent="Tabs/Effects/AddEffect/VBoxContainer/ShowList"]
+margin_right = 76.0
+margin_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Effects/AddEffect/VBoxContainer/ShowList"]
+margin_left = 80.0
+margin_right = 300.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Tabs/Effects/AddEffect/VBoxContainer/ShowList/CenterContainer"]
+margin_left = 33.0
+margin_top = 13.0
+margin_right = 187.0
+margin_bottom = 27.0
+text = "Show a list when editing"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Effects/AddEffect/VBoxContainer/ShowList"]
+margin_left = 304.0
+margin_top = 7.0
+margin_right = 524.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+disabled = true
+text = "Characters"
+items = [ "States", null, false, 0, null, "Stats", null, false, 1, null, "Weapon Types", null, false, 2, null, "Armor Types", null, false, 3, null, "Elements", null, false, 4, null, "Skill Types", null, false, 5, null ]
+selected = 0
+
+[node name="Value1" type="HBoxContainer" parent="Tabs/Effects/AddEffect/VBoxContainer"]
+margin_top = 116.0
+margin_right = 524.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Effects/AddEffect/VBoxContainer/Value1"]
+margin_right = 384.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Tabs/Effects/AddEffect/VBoxContainer/Value1/CenterContainer"]
+margin_left = 151.0
+margin_top = 5.0
+margin_right = 232.0
+margin_bottom = 19.0
+text = "Value 1 Type"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Effects/AddEffect/VBoxContainer/Value1"]
+margin_left = 388.0
+margin_right = 524.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 136, 0 )
+text = "String"
+items = [ "String", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null ]
+selected = 0
+
+[node name="Value2" type="HBoxContainer" parent="Tabs/Effects/AddEffect/VBoxContainer"]
+margin_top = 144.0
+margin_right = 524.0
+margin_bottom = 184.0
+
+[node name="CheckButton" type="CheckButton" parent="Tabs/Effects/AddEffect/VBoxContainer/Value2"]
+margin_right = 76.0
+margin_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Effects/AddEffect/VBoxContainer/Value2"]
+margin_left = 80.0
+margin_right = 384.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Tabs/Effects/AddEffect/VBoxContainer/Value2/CenterContainer"]
+margin_left = 111.0
+margin_top = 13.0
+margin_right = 192.0
+margin_bottom = 27.0
+text = "Value 2 Type"
+
+[node name="OptionButton" type="OptionButton" parent="Tabs/Effects/AddEffect/VBoxContainer/Value2"]
+margin_left = 388.0
+margin_top = 7.0
+margin_right = 524.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 136, 24 )
+size_flags_vertical = 4
+text = "String"
+items = [ "String", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null ]
+selected = 0
+
+[node name="Buttons" type="CenterContainer" parent="Tabs/Effects/AddEffect/VBoxContainer"]
+margin_top = 188.0
+margin_right = 524.0
+margin_bottom = 214.0
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="Tabs/Effects/AddEffect/VBoxContainer/Buttons"]
+margin_left = 156.0
+margin_right = 368.0
+margin_bottom = 26.0
+custom_constants/separation = 32
+
+[node name="Confirm" type="Button" parent="Tabs/Effects/AddEffect/VBoxContainer/Buttons/HBox"]
+margin_right = 90.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 90, 26 )
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="Tabs/Effects/AddEffect/VBoxContainer/Buttons/HBox"]
+margin_left = 122.0
+margin_right = 212.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 90, 26 )
+text = "Cancel"
+
 [node name="System" type="Container" parent="Tabs"]
 visible = false
 anchor_right = 1.0
