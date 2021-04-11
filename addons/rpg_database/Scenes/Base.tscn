@@ -3615,6 +3615,111 @@ align = 1
 items = [ "Weapon", null, false, 0, null, "Armor", null, false, 1, null ]
 selected = 0
 
+[node name="EffectManager" type="WindowDialog" parent="."]
+margin_right = 515.0
+margin_bottom = 216.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EffectManager"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EffectList" type="ItemList" parent="EffectManager/HBoxContainer"]
+margin_right = 156.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 156, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EffectManager/HBoxContainer"]
+margin_left = 160.0
+margin_top = 52.0
+margin_right = 515.0
+margin_bottom = 164.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="DataType" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
+margin_right = 355.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="Label" type="Label" parent="EffectManager/HBoxContainer/VBoxContainer/DataType"]
+margin_left = 146.0
+margin_top = 5.0
+margin_right = 209.0
+margin_bottom = 19.0
+text = "Data Type"
+
+[node name="DataList" type="OptionButton" parent="EffectManager/HBoxContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 355.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="Value1" type="HBoxContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
+margin_top = 60.0
+margin_right = 355.0
+margin_bottom = 84.0
+
+[node name="Value1" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer/Value1"]
+margin_right = 175.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="EffectManager/HBoxContainer/VBoxContainer/Value1/Value1"]
+margin_left = 64.0
+margin_top = 5.0
+margin_right = 111.0
+margin_bottom = 19.0
+text = "Value 1"
+
+[node name="LineEdit" type="LineEdit" parent="EffectManager/HBoxContainer/VBoxContainer/Value1"]
+margin_left = 179.0
+margin_right = 355.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="EffectManager/HBoxContainer/VBoxContainer/Value1"]
+visible = false
+margin_left = 239.0
+margin_right = 355.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Value2" type="HBoxContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
+margin_top = 88.0
+margin_right = 355.0
+margin_bottom = 112.0
+
+[node name="CenterContainer" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer/Value2"]
+margin_right = 175.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="EffectManager/HBoxContainer/VBoxContainer/Value2/CenterContainer"]
+margin_left = 64.0
+margin_top = 5.0
+margin_right = 111.0
+margin_bottom = 19.0
+text = "Value 2"
+
+[node name="LineEdit" type="LineEdit" parent="EffectManager/HBoxContainer/VBoxContainer/Value2"]
+margin_left = 179.0
+margin_right = 355.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="EffectManager/HBoxContainer/VBoxContainer/Value2"]
+visible = false
+margin_left = 239.0
+margin_right = 355.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Character/CharacterButton" to="Tabs/Character" method="_on_CharacterButton_item_selected"]
