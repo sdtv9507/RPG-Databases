@@ -3833,3 +3833,4 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="Tabs/System/EditField/CancelButton" to="Tabs/System" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Tabs/System/AddSlot/OkButton" to="Tabs/System" method="_on_AddSlotOkButton_pressed"]
 [connection signal="pressed" from="Tabs/System/AddSlot/CancelButton" to="Tabs/System" method="_on_AddSlotCancelButton_pressed"]
+[connection signal="item_selected" from="EffectManager/HBoxContainer/EffectList" to="." method="_on_EffectList_item_selected"]

@@ -8,6 +8,7 @@ public class Base : Control
     // private int a = 2;
     // private string b = "text";
     // Called when the node enters the scene tree for the first time.
+    String effectManagerTab = "";
     public override void _Ready()
     {
         Godot.File databaseFile = new Godot.File();
@@ -282,7 +283,7 @@ public class Base : Control
             value2.Add("show", true);
             value2.Add("data", 2);
             effectData.Add("value2", value2);
-            
+
             effectList.Add("effect0", effectData);
             databaseFile.StoreLine(JSON.Print(effectList));
             databaseFile.Close();
@@ -310,6 +311,136 @@ public class Base : Control
         databaseFile.Close();
     }
 
+    public void OpenEffectManager(String tab)
+    {
+        Godot.Collections.Dictionary effectList = this.ReadData("Effect");
+        Godot.Collections.Dictionary effectData;
+        for (int i = 0; i < effectList.Count; i++)
+        {
+            effectData = effectList["effect" + i] as Godot.Collections.Dictionary;
+            GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").AddItem(effectData["name"].ToString());
+        }
+        GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").Select(0);
+        effectManagerTab = tab;
+        GetNode<WindowDialog>("EffectManager").PopupCentered();
+    }
+
+    private void _on_EffectList_item_selected(int index)
+    {
+        Godot.Collections.Dictionary effectList = this.ReadData("Effect");
+        Godot.Collections.Dictionary jsonDictionary;
+        Godot.Collections.Dictionary jsonData;
+        Godot.Collections.Dictionary effectData = effectList["effect" + index] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary dataTypes = effectData["data_type"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary value2 = effectList["value2"] as Godot.Collections.Dictionary;
+
+        if (dataTypes["show"] as bool? == false)
+        {
+            GetNode<CenterContainer>("EffectManager/HBoxContainer/VBoxContainer/DataType").Hide();
+            GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").Hide();
+        }
+        else
+        {
+            GetNode<CenterContainer>("EffectManager/HBoxContainer/VBoxContainer/DataType").Show();
+            GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").Show();
+            String type = dataTypes["data"].ToString();
+            switch (type)
+            {
+                case "States":
+                    jsonDictionary = this.ReadData("States");
+                    for (int i = 0; i < jsonDictionary.Count; i++)
+                    {
+                        jsonData = jsonDictionary["state" + i] as Godot.Collections.Dictionary;
+                        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").AddItem(jsonData["name"].ToString());
+                    }
+                    break;
+                case "Stats":
+                    jsonDictionary = this.ReadData("System");
+                    jsonData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
+                    for (int i = 0; i < jsonDictionary.Count; i++)
+                    {
+                        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").AddItem(jsonData[i.ToString()].ToString());
+                    }
+                    break;
+                case "Weapon Types":
+                    jsonDictionary = this.ReadData("System");
+                    jsonData = jsonDictionary["weapons"] as Godot.Collections.Dictionary;
+                    for (int i = 0; i < jsonDictionary.Count; i++)
+                    {
+                        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").AddItem(jsonData[i.ToString()].ToString());
+                    }
+                    break;
+                case "Armor Types":
+                    jsonDictionary = this.ReadData("System");
+                    jsonData = jsonDictionary["armors"] as Godot.Collections.Dictionary;
+                    for (int i = 0; i < jsonDictionary.Count; i++)
+                    {
+                        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").AddItem(jsonData[i.ToString()].ToString());
+                    }
+                    break;
+                case "Elements":
+                    jsonDictionary = this.ReadData("System");
+                    jsonData = jsonDictionary["elements"] as Godot.Collections.Dictionary;
+                    for (int i = 0; i < jsonDictionary.Count; i++)
+                    {
+                        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").AddItem(jsonData[i.ToString()].ToString());
+                    }
+                    break;
+                case "Skill Types":
+                    jsonDictionary = this.ReadData("System");
+                    jsonData = jsonDictionary["skills"] as Godot.Collections.Dictionary;
+                    for (int i = 0; i < jsonDictionary.Count; i++)
+                    {
+                        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").AddItem(jsonData[i.ToString()].ToString());
+                    }
+                    break;
+            }
+        }
+
+        switch (effectData["value1"])
+        {
+            case 0:
+                GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit").Show();
+                GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Hide();
+                break;
+            case 1:
+                GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit").Hide();
+                GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Show();
+                GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Rounded = true;
+                break;
+            case 2:
+                GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit").Hide();
+                GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Show();
+                GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Rounded = false;
+                break;
+        }
+
+        if (value2["show"] as bool? == false)
+        {
+            GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2").Hide();
+        }
+        else
+        {
+            GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2").Show();
+            switch (value2["data"])
+            {
+                case 0:
+                    GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit").Show();
+                    GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Hide();
+                    break;
+                case 1:
+                    GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit").Hide();
+                    GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Show();
+                    GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Rounded = true;
+                    break;
+                case 2:
+                    GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit").Hide();
+                    GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Show();
+                    GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Rounded = false;
+                    break;
+            }
+        }
+    }
     private void _on_Tabs_tab_changed(int tab)
     {
         if (tab == 0)
