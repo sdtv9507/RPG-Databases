@@ -9,10 +9,11 @@ public class Base : Control
     // private string b = "text";
     // Called when the node enters the scene tree for the first time.
     String effectManagerTab = "";
+    String effectDataType = "";
     public override void _Ready()
     {
         Godot.File databaseFile = new Godot.File();
-
+        
         if (!databaseFile.FileExists("res://databases/System.json"))
         {
             databaseFile.Open("res://databases/System.json", Godot.File.ModeFlags.Write);
@@ -321,6 +322,7 @@ public class Base : Control
             GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").AddItem(effectData["name"].ToString());
         }
         GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").Select(0);
+        this._on_EffectList_item_selected(0);
         effectManagerTab = tab;
         GetNode<WindowDialog>("EffectManager").PopupCentered();
     }
@@ -332,18 +334,21 @@ public class Base : Control
         Godot.Collections.Dictionary jsonData;
         Godot.Collections.Dictionary effectData = effectList["effect" + index] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary dataTypes = effectData["data_type"] as Godot.Collections.Dictionary;
-        Godot.Collections.Dictionary value2 = effectList["value2"] as Godot.Collections.Dictionary;
+        Godot.Collections.Dictionary value2 = effectData["value2"] as Godot.Collections.Dictionary;
 
+        GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").Clear();
         if (dataTypes["show"] as bool? == false)
         {
             GetNode<CenterContainer>("EffectManager/HBoxContainer/VBoxContainer/DataType").Hide();
             GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").Hide();
+            effectDataType = "Disabled";
         }
         else
         {
             GetNode<CenterContainer>("EffectManager/HBoxContainer/VBoxContainer/DataType").Show();
             GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").Show();
             String type = dataTypes["data"].ToString();
+            effectDataType = dataTypes["data"].ToString();
             switch (type)
             {
                 case "States":
@@ -397,7 +402,7 @@ public class Base : Control
             }
         }
 
-        switch (effectData["value1"])
+        switch (Convert.ToInt32(effectData["value1"]))
         {
             case 0:
                 GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit").Show();
@@ -421,8 +426,8 @@ public class Base : Control
         }
         else
         {
-            GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2").Show();
-            switch (value2["data"])
+            GetNode<HBoxContainer>("EffectManager/HBoxContainer/VBoxContainer/Value2").Show();
+            switch (Convert.ToInt32(value2["data"]))
             {
                 case 0:
                     GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit").Show();
@@ -441,6 +446,62 @@ public class Base : Control
             }
         }
     }
+
+    private void _on_AddEffectConfirm_pressed()
+    {
+        int id = GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").GetSelectedItems()[0];
+        String name = GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").GetItemText(id);
+        int dataType = -1;
+        if (effectDataType != "Disabled")
+        {
+            dataType = GetNode<OptionButton>("EffectManager/HBoxContainer/VBoxContainer/DataList").Selected;
+        }
+
+        String value1;
+        if (GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit").Visible)
+        {
+            value1 = GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit").Text;
+        }
+        else if (GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Rounded == true)
+        {
+            value1 = GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Value.ToString();
+        }
+        else
+        {
+            value1 = GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Value.ToString();
+        }
+
+        String value2 = "";
+        if (GetNode<HBoxContainer>("EffectManager/HBoxContainer/VBoxContainer/Value2").Visible)
+        {
+            if (GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit").Visible)
+            {
+                value2 = GetNode<LineEdit>("EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit").Text;
+            }
+            else if (GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox").Rounded == true)
+            {
+                value2 = GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Value.ToString();
+            }
+            else
+            {
+                value2 = GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Value.ToString();
+            }
+        }
+
+        switch (effectManagerTab)
+        {
+            case "Character":
+                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").AddItem(name);
+                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataType.ToString());
+                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
+                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+                break;
+        }
+        effectManagerTab = "";
+        effectDataType = "";
+        GetNode<WindowDialog>("EffectManager").Hide();
+    }
+
     private void _on_Tabs_tab_changed(int tab)
     {
         if (tab == 0)
