@@ -16,7 +16,7 @@ public class Effects : Container
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary effectData = jsonDictionary["effect" + i] as Godot.Collections.Dictionary;
-            Godot.Collections.Dictionary showList = effectData["show_list"] as Godot.Collections.Dictionary;
+            Godot.Collections.Dictionary showList = effectData["data_type"] as Godot.Collections.Dictionary;
             Godot.Collections.Dictionary value2 = effectData["value2"] as Godot.Collections.Dictionary;
 
             GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").AddItem(effectData["name"].ToString());
@@ -114,12 +114,16 @@ public class Effects : Container
         if (selectedEffect > -1)
         {
             GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").RemoveItem(selectedEffect);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").RemoveItem(selectedEffect);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").RemoveItem(selectedEffect);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").RemoveItem(selectedEffect);
         }
     }
 
     private void _on_ClearEffects_pressed()
     {
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").Clear();
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").Clear();
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").Clear();
     }
@@ -186,6 +190,47 @@ public class Effects : Container
     private void _on_AddEffectCancel_pressed()
     {
         GetNode<WindowDialog>("AddEffect").Hide();
+    }
+
+    private void _on_SaveEffects_pressed()
+    {
+        int size = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetItemCount();
+        Godot.Collections.Dictionary effectList = new Godot.Collections.Dictionary();
+        for (int i = 0; i < size; i++)
+        {
+            Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary showList = new Godot.Collections.Dictionary();
+            Godot.Collections.Dictionary value2 = new Godot.Collections.Dictionary();
+            effectData["name"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetItemText(i);
+            String dataType = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").GetItemText(i);
+            if (dataType == "Disabled")
+            {
+                showList["show"] = false;
+                showList["data"] = "";
+            }
+            else
+            {
+                showList["show"] = true;
+                showList["data"] = dataType;
+            }
+            effectData["data_type"] = showList;
+            effectData["value1"] = Convert.ToInt32(GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").GetItemText(i));
+            int value2Val = Convert.ToInt32(GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").GetItemText(i));
+            if (value2Val == -1)
+            {
+                value2["show"] = false;
+                value2["data"] = "";
+            }
+            else
+            {
+                value2["show"] = true;
+                value2["data"] = value2Val;
+            }
+            effectData["value2"] = value2;
+            effectList["effect" + i] = effectData;
+        }
+
+        this.GetParent().GetParent().Call("StoreData", "Effect", effectList);
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)

@@ -275,10 +275,9 @@ public class Base : Control
             Godot.Collections.Dictionary showList = new Godot.Collections.Dictionary();
             Godot.Collections.Dictionary value2 = new Godot.Collections.Dictionary();
             effectData.Add("name", "hp_recovery");
-            effectData.Add("code", "1");
             showList.Add("show", false);
             showList.Add("data", "");
-            effectData.Add("show_list", showList);
+            effectData.Add("data_type", showList);
             effectData.Add("value1", 1);
             value2.Add("show", true);
             value2.Add("data", 2);
