@@ -18,7 +18,7 @@ public class Effects : Container
             Godot.Collections.Dictionary effectData = jsonDictionary["effect" + i] as Godot.Collections.Dictionary;
             Godot.Collections.Dictionary showList = effectData["show_list"] as Godot.Collections.Dictionary;
             Godot.Collections.Dictionary value2 = effectData["value2"] as Godot.Collections.Dictionary;
-            
+
             GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").AddItem(effectData["name"].ToString());
             if (showList["show"] as bool? == true)
             {
@@ -28,7 +28,7 @@ public class Effects : Container
             {
                 GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem("Disabled");
             }
-            
+
             GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").AddItem(effectData["value1"].ToString());
             if (value2["show"] as bool? == true)
             {
@@ -36,7 +36,7 @@ public class Effects : Container
             }
             else
             {
-                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem("Disabled");
+                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem("-1");
             }
         }
     }
@@ -52,6 +52,58 @@ public class Effects : Container
         if (GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetSelectedItems()[0] > -1)
         {
             addNewEffect = false;
+            int id = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetSelectedItems()[0];
+
+            String name = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetItemText(id);
+            String dataTypes = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").GetItemText(id);
+            int value1 = Convert.ToInt32(GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").GetItemText(id));
+            int value2 = Convert.ToInt32(GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").GetItemText(id));
+
+            GetNode<LineEdit>("AddEffect/VBoxContainer/Name/LineEdit").Text = name;
+            if (dataTypes == "Disabled")
+            {
+                GetNode<CheckButton>("AddEffect/VBoxContainer/ShowList/CheckButton").Pressed = false;
+                GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Disabled = true;
+            }
+            else
+            {
+                GetNode<CheckButton>("AddEffect/VBoxContainer/ShowList/CheckButton").Pressed = true;
+                GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Disabled = false;
+                switch (dataTypes)
+                {
+                    case "States":
+                        GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Select(0);
+                        break;
+                    case "Stats":
+                        GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Select(1);
+                        break;
+                    case "Weapon Types":
+                        GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Select(2);
+                        break;
+                    case "Armor Types":
+                        GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Select(3);
+                        break;
+                    case "Elements":
+                        GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Select(4);
+                        break;
+                    case "Skill Types":
+                        GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Select(5);
+                        break;
+                }
+            }
+
+            GetNode<OptionButton>("AddEffect/VBoxContainer/Value1/OptionButton").Select(value1);
+            if (value2 == -1)
+            {
+                GetNode<CheckButton>("AddEffect/VBoxContainer/Value2/CheckButton").Pressed = false;
+                GetNode<OptionButton>("AddEffect/VBoxContainer/Value2/OptionButton").Disabled = true;
+            }
+            else
+            {
+                GetNode<CheckButton>("AddEffect/VBoxContainer/Value2/CheckButton").Pressed = true;
+                GetNode<OptionButton>("AddEffect/VBoxContainer/Value2/OptionButton").Disabled = false;
+                GetNode<OptionButton>("AddEffect/VBoxContainer/Value2/OptionButton").Select(value2);
+            }
             GetNode<WindowDialog>("AddEffect").PopupCentered();
         }
     }
@@ -100,24 +152,34 @@ public class Effects : Container
     {
         String name = GetNode<LineEdit>("AddEffect/VBoxContainer/Name/LineEdit").Text;
         int selected = 0;
-        String dataType = "";
-        if (GetNode<CheckButton>("AddEffect/VBoxContainer/ShowList/CheckButton").Disabled == false)
+        String dataType = "Disabled";
+        if (GetNode<CheckButton>("AddEffect/VBoxContainer/ShowList/CheckButton").Pressed == true)
         {
             selected = GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").Selected;
             dataType = GetNode<OptionButton>("AddEffect/VBoxContainer/ShowList/OptionButton").GetItemText(selected);
         }
-        selected = GetNode<OptionButton>("AddEffect/VBoxContainer/Value1/OptionButton").Selected;
-        String value1 = GetNode<OptionButton>("AddEffect/VBoxContainer/Value1/OptionButton").GetItemText(selected);
-        String value2 = "";
-        if (GetNode<CheckButton>("AddEffect/VBoxContainer/Value2/CheckButton").Disabled == false)
+        int value1 = GetNode<OptionButton>("AddEffect/VBoxContainer/Value1/OptionButton").Selected;
+        int value2 = -1;
+        if (GetNode<CheckButton>("AddEffect/VBoxContainer/Value2/CheckButton").Pressed == true)
         {
-            selected = GetNode<OptionButton>("AddEffect/VBoxContainer/Value2/OptionButton").Selected;
-            value2 = GetNode<OptionButton>("AddEffect/VBoxContainer/Value2/OptionButton").GetItemText(selected);
+            value2 = GetNode<OptionButton>("AddEffect/VBoxContainer/Value2/OptionButton").Selected;
         }
-        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").AddItem(name);
-        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem(dataType);
-        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").AddItem(value1);
-        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem(value2);
+        if (addNewEffect == false)
+        {
+            int id = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").GetSelectedItems()[0];
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").SetItemText(id, name);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").SetItemText(id, dataType);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").SetItemText(id, value1.ToString());
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").SetItemText(id, value2.ToString());
+        }
+        else
+        {
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").AddItem(name);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem(dataType);
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").AddItem(value1.ToString());
+            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem(value2.ToString());
+        }
+
         GetNode<WindowDialog>("AddEffect").Hide();
     }
 
