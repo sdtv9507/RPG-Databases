@@ -453,16 +453,28 @@ margin_bottom = 324.0
 size_flags_vertical = 3
 
 [node name="EffectNames" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 214.0
+margin_right = 110.0
 margin_bottom = 324.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EffectValues" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 218.0
+[node name="DataType" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 114.0
+margin_right = 178.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 182.0
+margin_right = 246.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 250.0
 margin_right = 314.0
 margin_bottom = 324.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
 margin_top = 328.0
@@ -3625,6 +3637,8 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="EffectManager"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 12.0
+margin_right = -12.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3636,50 +3650,51 @@ rect_min_size = Vector2( 156, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="EffectManager/HBoxContainer"]
 margin_left = 160.0
-margin_top = 52.0
-margin_right = 515.0
-margin_bottom = 164.0
+margin_top = 14.0
+margin_right = 491.0
+margin_bottom = 202.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
+custom_constants/separation = 16
 
 [node name="DataType" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
-margin_right = 355.0
+margin_right = 331.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="Label" type="Label" parent="EffectManager/HBoxContainer/VBoxContainer/DataType"]
-margin_left = 146.0
+margin_left = 134.0
 margin_top = 5.0
-margin_right = 209.0
+margin_right = 197.0
 margin_bottom = 19.0
 text = "Data Type"
 
 [node name="DataList" type="OptionButton" parent="EffectManager/HBoxContainer/VBoxContainer"]
-margin_top = 28.0
-margin_right = 355.0
-margin_bottom = 56.0
+margin_top = 40.0
+margin_right = 331.0
+margin_bottom = 68.0
 rect_min_size = Vector2( 0, 28 )
 
 [node name="Value1" type="HBoxContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
-margin_top = 60.0
-margin_right = 355.0
-margin_bottom = 84.0
+margin_top = 84.0
+margin_right = 331.0
+margin_bottom = 108.0
 
 [node name="Value1" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer/Value1"]
-margin_right = 175.0
+margin_right = 163.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="EffectManager/HBoxContainer/VBoxContainer/Value1/Value1"]
-margin_left = 64.0
+margin_left = 58.0
 margin_top = 5.0
-margin_right = 111.0
+margin_right = 105.0
 margin_bottom = 19.0
 text = "Value 1"
 
 [node name="LineEdit" type="LineEdit" parent="EffectManager/HBoxContainer/VBoxContainer/Value1"]
-margin_left = 179.0
-margin_right = 355.0
+margin_left = 167.0
+margin_right = 331.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
@@ -3691,25 +3706,25 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Value2" type="HBoxContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
-margin_top = 88.0
-margin_right = 355.0
-margin_bottom = 112.0
+margin_top = 124.0
+margin_right = 331.0
+margin_bottom = 148.0
 
 [node name="CenterContainer" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer/Value2"]
-margin_right = 175.0
+margin_right = 163.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="EffectManager/HBoxContainer/VBoxContainer/Value2/CenterContainer"]
-margin_left = 64.0
+margin_left = 58.0
 margin_top = 5.0
-margin_right = 111.0
+margin_right = 105.0
 margin_bottom = 19.0
 text = "Value 2"
 
 [node name="LineEdit" type="LineEdit" parent="EffectManager/HBoxContainer/VBoxContainer/Value2"]
-margin_left = 179.0
-margin_right = 355.0
+margin_left = 167.0
+margin_right = 331.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
@@ -3719,6 +3734,19 @@ margin_left = 239.0
 margin_right = 355.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="EffectManager/HBoxContainer/VBoxContainer"]
+margin_top = 164.0
+margin_right = 331.0
+margin_bottom = 188.0
+
+[node name="Confirm" type="Button" parent="EffectManager/HBoxContainer/VBoxContainer/CenterContainer"]
+margin_left = 125.0
+margin_right = 205.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 80, 24 )
+size_flags_horizontal = 0
+text = "Confirm"
 
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
@@ -3735,6 +3763,8 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="Tabs/Character/EquipLabel/AddEquip/OkButton" to="Tabs/Character" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="Tabs/Character/EquipLabel/AddEquip/CancelButton" to="Tabs/Character" method="_on_CancelButton_pressed"]
 [connection signal="item_selected" from="Tabs/Character/EquipLabel/AddEquip/TypeLabel/TypeButton" to="Tabs/Character" method="_on_TypeButton_item_selected"]
+[connection signal="pressed" from="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/AddButton" to="Tabs/Character" method="_on_CharacterAddEffectButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/RemoveButton" to="Tabs/Character" method="_on_CharacterRemoveEffectButton_pressed"]
 [connection signal="pressed" from="Tabs/Class/ClassSaveButton" to="Tabs/Class" method="_on_ClassSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Class/ClassButton" to="Tabs/Class" method="_on_ClassButton_item_selected"]
 [connection signal="pressed" from="Tabs/Class/ClassButton/AddClass" to="Tabs/Class" method="_on_AddClass_pressed"]
