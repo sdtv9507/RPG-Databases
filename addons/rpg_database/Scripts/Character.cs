@@ -197,20 +197,20 @@ public class Character : Control
             int chara = characterSelected;
             while (chara < jsonDictionary.Keys.Count - 1)
             {
-                jsonDictionary["chara"+chara] = jsonDictionary["chara"+(chara+1)];
+                jsonDictionary["chara" + chara] = jsonDictionary["chara" + (chara + 1)];
                 chara += 1;
             }
-            jsonDictionary.Remove("chara"+chara);
+            jsonDictionary.Remove("chara" + chara);
             this.GetParent().GetParent().Call("StoreData", "Character", jsonDictionary);
             GetNode<OptionButton>("CharacterButton").RemoveItem(characterSelected);
             if (characterSelected == 0)
             {
-                GetNode<OptionButton>("CharacterButton").Select(characterSelected+1);
+                GetNode<OptionButton>("CharacterButton").Select(characterSelected + 1);
                 characterSelected += 1;
             }
             else
             {
-                GetNode<OptionButton>("CharacterButton").Select(characterSelected-1);
+                GetNode<OptionButton>("CharacterButton").Select(characterSelected - 1);
                 characterSelected -= 1;
             }
             GetNode<OptionButton>("CharacterButton").Select(characterSelected);
@@ -239,6 +239,8 @@ public class Character : Control
         Godot.Collections.Dictionary charaData = jsonDictionary["chara" + characterSelected] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary equipTypeData = charaData["equip_types"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary initialEquipData = charaData["initial_equip"] as Godot.Collections.Dictionary;
+        Godot.Collections.Array effectList = new Godot.Collections.Array();
+        Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
 
         charaData["faceImage"] = facePath;
         charaData["charaImage"] = "";
@@ -267,13 +269,24 @@ public class Character : Control
 
         charaData["equip_types"] = equipTypeData;
 
-        int slot_items = GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").GetItemCount();
-        for (int i = 0; i < slot_items; i++)
+        int slotItems = GetNode<ItemList>("InitialEquipLabel/PanelContainer/TypeContainer/EquipList").GetItemCount();
+        for (int i = 0; i < slotItems; i++)
         {
             initialEquipData[i.ToString()] = Convert.ToInt32(initialEquipIdArray[i]);
         }
 
         charaData["initial_equip"] = initialEquipData;
+
+        int effectSize = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemCount();
+        for (int i = 0; i < effectSize; i++)
+        {
+            effectData["name"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemText(i);
+            effectData["data_id"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").GetItemText(i);
+            effectData["value1"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").GetItemText(i);
+            effectData["value2"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").GetItemText(i);
+            effectList.Add(effectData);
+        }
+        charaData["effects"] = effectList;
 
         this.GetParent().GetParent().Call("StoreData", "Character", jsonDictionary);
     }
@@ -468,6 +481,13 @@ public class Character : Control
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").RemoveItem(id);
     }
 
+    public void AddEffectList(String name, int dataId, String value1, String value2)
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").AddItem(name);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataId.ToString());
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+    }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
     //  {

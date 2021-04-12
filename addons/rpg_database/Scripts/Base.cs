@@ -491,10 +491,7 @@ public class Base : Control
         switch (effectManagerTab)
         {
             case "Character":
-                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").AddItem(name);
-                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataType.ToString());
-                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
-                GetNode<ItemList>("Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+                GetNode<Control>("Tabs/Character").Call("AddEffectList", name, dataType, value1, value2);
                 break;
         }
         effectManagerTab = "";
