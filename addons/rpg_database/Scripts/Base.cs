@@ -316,6 +316,7 @@ public class Base : Control
     {
         Godot.Collections.Dictionary effectList = this.ReadData("Effect");
         Godot.Collections.Dictionary effectData;
+        GetNode<ItemList>("EffectManager/HBoxContainer/EffectList").Clear();
         for (int i = 0; i < effectList.Count; i++)
         {
             effectData = effectList["effect" + i] as Godot.Collections.Dictionary;
