@@ -353,7 +353,7 @@ public class Base : Control
             switch (type)
             {
                 case "States":
-                    jsonDictionary = this.ReadData("States");
+                    jsonDictionary = this.ReadData("State");
                     for (int i = 0; i < jsonDictionary.Count; i++)
                     {
                         jsonData = jsonDictionary["state" + i] as Godot.Collections.Dictionary;
@@ -423,7 +423,7 @@ public class Base : Control
 
         if (value2["show"] as bool? == false)
         {
-            GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2").Hide();
+            GetNode<HBoxContainer>("EffectManager/HBoxContainer/VBoxContainer/Value2").Hide();
         }
         else
         {
