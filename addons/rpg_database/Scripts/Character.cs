@@ -152,6 +152,17 @@ public class Character : Control
                 GetNode<OptionButton>("ClassLabel/ClassText").SetItemText(i, classData["name"].ToString());
             }
         }
+
+        if (charaData.Contains("effects") == true)
+        {
+            this.ClearEffectList();
+            Godot.Collections.Array effectList = charaData["effects"] as Godot.Collections.Array;
+            foreach (Godot.Collections.Dictionary effect in effectList)
+            {
+                this.AddEffectList(effect["name"].ToString(), Convert.ToInt32(effect["data_id"]), effect["value1"].ToString(), effect["value2"].ToString());
+            }
+        }
+
     }
 
     public void _on_CharaSaveButton_pressed()
@@ -240,7 +251,6 @@ public class Character : Control
         Godot.Collections.Dictionary equipTypeData = charaData["equip_types"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary initialEquipData = charaData["initial_equip"] as Godot.Collections.Dictionary;
         Godot.Collections.Array effectList = new Godot.Collections.Array();
-        Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
 
         charaData["faceImage"] = facePath;
         charaData["charaImage"] = "";
@@ -280,6 +290,7 @@ public class Character : Control
         int effectSize = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemCount();
         for (int i = 0; i < effectSize; i++)
         {
+            Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
             effectData["name"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemText(i);
             effectData["data_id"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").GetItemText(i);
             effectData["value1"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").GetItemText(i);
@@ -487,6 +498,14 @@ public class Character : Control
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataId.ToString());
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
         GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+    }
+
+    public void ClearEffectList()
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").Clear();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
