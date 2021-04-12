@@ -9,36 +9,42 @@ public class Effects : Container
     // private string b = "text";
 
     bool addNewEffect = true;
+    bool databaseLoaded = false;
     // Called when the node enters the scene tree for the first time.
     public void Start()
     {
-        Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Effect") as Godot.Collections.Dictionary;
-        for (int i = 0; i < jsonDictionary.Count; i++)
+        if (databaseLoaded == false)
         {
-            Godot.Collections.Dictionary effectData = jsonDictionary["effect" + i] as Godot.Collections.Dictionary;
-            Godot.Collections.Dictionary showList = effectData["data_type"] as Godot.Collections.Dictionary;
-            Godot.Collections.Dictionary value2 = effectData["value2"] as Godot.Collections.Dictionary;
+            Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Effect") as Godot.Collections.Dictionary;
+            for (int i = 0; i < jsonDictionary.Count; i++)
+            {
+                Godot.Collections.Dictionary effectData = jsonDictionary["effect" + i] as Godot.Collections.Dictionary;
+                Godot.Collections.Dictionary showList = effectData["data_type"] as Godot.Collections.Dictionary;
+                Godot.Collections.Dictionary value2 = effectData["value2"] as Godot.Collections.Dictionary;
 
-            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").AddItem(effectData["name"].ToString());
-            if (showList["show"] as bool? == true)
-            {
-                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem(showList["data"].ToString());
-            }
-            else
-            {
-                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem("Disabled");
-            }
+                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames").AddItem(effectData["name"].ToString());
+                if (showList["show"] as bool? == true)
+                {
+                    GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem(showList["data"].ToString());
+                }
+                else
+                {
+                    GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes").AddItem("Disabled");
+                }
 
-            GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").AddItem(effectData["value1"].ToString());
-            if (value2["show"] as bool? == true)
-            {
-                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem(value2["data"].ToString());
+                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1").AddItem(effectData["value1"].ToString());
+                if (value2["show"] as bool? == true)
+                {
+                    GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem(value2["data"].ToString());
+                }
+                else
+                {
+                    GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem("-1");
+                }
             }
-            else
-            {
-                GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2").AddItem("-1");
-            }
+            databaseLoaded = true;
         }
+
     }
 
     private void _on_AddEffect_pressed()
