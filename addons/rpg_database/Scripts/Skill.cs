@@ -77,6 +77,15 @@ public class Skill : Control
         GetNode<OptionButton>("DamageLabel/DTypeLabel/DTypeButton").Selected = Convert.ToInt32(skillData["damage_type"]);
         GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").Selected = Convert.ToInt32(skillData["element"]);
         GetNode<LineEdit>("DamageLabel/DFormulaLabel/FormulaText").Text = skillData["formula"] as string;
+        if (skillData.Contains("effects") == true)
+        {
+            this.ClearEffectList();
+            Godot.Collections.Array effectList = skillData["effects"] as Godot.Collections.Array;
+            foreach (Godot.Collections.Dictionary effect in effectList)
+            {
+                this.AddEffectList(effect["name"].ToString(), Convert.ToInt32(effect["data_id"]), effect["value1"].ToString(), effect["value2"].ToString());
+            }
+        }
     }
 
     private void _on_Search_pressed()
@@ -151,6 +160,8 @@ public class Skill : Control
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary skillData = jsonDictionary["skill" + skillSelected] as Godot.Collections.Dictionary;
+        Godot.Collections.Array effectList = new Godot.Collections.Array();
+        
         skillData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
         GetNode<OptionButton>("SkillButton").SetItemText(skillSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
         skillData["icon"] = iconPath;
@@ -165,6 +176,17 @@ public class Skill : Control
         skillData["damage_type"] = GetNode<OptionButton>("DamageLabel/DTypeLabel/DTypeButton").Selected;
         skillData["element"] = GetNode<OptionButton>("DamageLabel/ElementLabel/ElementButton").Selected;
         skillData["formula"] = GetNode<LineEdit>("DamageLabel/DFormulaLabel/FormulaText").Text;
+        int effectSize = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemCount();
+        for (int i = 0; i < effectSize; i++)
+        {
+            Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
+            effectData["name"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemText(i);
+            effectData["data_id"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").GetItemText(i);
+            effectData["value1"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").GetItemText(i);
+            effectData["value2"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").GetItemText(i);
+            effectList.Add(effectData);
+        }
+        skillData["effects"] = effectList;
         this.GetParent().GetParent().Call("StoreData", "Skill", jsonDictionary);
     }
 
@@ -172,6 +194,35 @@ public class Skill : Control
     {
         skillSelected = id;
         RefreshData(id);
+    }
+
+    private void _on_AddSkillEffect_pressed()
+    {
+        this.GetParent().GetParent().Call("OpenEffectManager", "Skill");
+    }
+
+    private void _on_RemoveSkillEffect_pressed()
+    {
+        int id = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetSelectedItems()[0];
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").RemoveItem(id);
+    }
+    public void AddEffectList(String name, int dataId, String value1, String value2)
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").AddItem(name);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataId.ToString());
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+    }
+
+    public void ClearEffectList()
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").Clear();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)

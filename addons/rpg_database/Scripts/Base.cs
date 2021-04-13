@@ -497,6 +497,9 @@ public class Base : Control
             case "Class":
                 GetNode<Control>("Tabs/Class").Call("AddEffectList", name, dataType, value1, value2);
                 break;
+            case "Skill":
+                GetNode<Control>("Tabs/Skill").Call("AddEffectList", name, dataType, value1, value2);
+                break;
         }
         effectManagerTab = "";
         effectDataType = "";

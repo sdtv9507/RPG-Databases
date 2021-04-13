@@ -1189,16 +1189,28 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="EffectNames" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 214.0
+margin_right = 110.0
 margin_bottom = 324.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EffectValues" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 218.0
+[node name="DataType" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 114.0
+margin_right = 178.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 182.0
+margin_right = 246.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 250.0
 margin_right = 314.0
 margin_bottom = 324.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
 
 [node name="AddEffect" type="Button" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer"]
 margin_top = 328.0
@@ -3804,6 +3816,8 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/Skill/SkillButton/RemoveSkill" to="Tabs/Skill" method="_on_RemoveSkill_pressed"]
 [connection signal="pressed" from="Tabs/Skill/IconLabel/Search" to="Tabs/Skill" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Skill/IconLabel/IconSearch" to="Tabs/Skill" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/Skill" method="_on_AddSkillEffect_pressed"]
+[connection signal="pressed" from="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/Skill" method="_on_RemoveSkillEffect_pressed"]
 [connection signal="pressed" from="Tabs/Item/ItemSaveButton" to="Tabs/Item" method="_on_ItemSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Item/ItemButton" to="Tabs/Item" method="_on_ItemButton_item_selected"]
 [connection signal="pressed" from="Tabs/Item/ItemButton/AddItem" to="Tabs/Item" method="_on_AddItem_pressed"]
