@@ -15,7 +15,7 @@ public class Class : Control
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Class") as Godot.Collections.Dictionary;
-        
+
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary classData = jsonDictionary["class" + i] as Godot.Collections.Dictionary;
@@ -90,7 +90,15 @@ public class Class : Control
             GetNode<OptionButton>("SkillLabel/AddSkill/SkillLabel/OptionButton").AddItem(name);
             GetNode<OptionButton>("SkillLabel/AddSkill/SkillLabel/OptionButton").Select(0);
         }
-
+        if (classData.Contains("effects") == true)
+        {
+            this.ClearEffectList();
+            Godot.Collections.Array effectList = classData["effects"] as Godot.Collections.Array;
+            foreach (Godot.Collections.Dictionary effect in effectList)
+            {
+                this.AddEffectList(effect["name"].ToString(), Convert.ToInt32(effect["data_id"]), effect["value1"].ToString(), effect["value2"].ToString());
+            }
+        }
     }
 
     private void _on_Search_pressed()
@@ -116,6 +124,7 @@ public class Class : Control
         Godot.Collections.Dictionary classData = jsonDictionary["class" + classSelected] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary classStatFormula = classData["stat_list"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary classSkillList = classData["skill_list"] as Godot.Collections.Dictionary;
+        Godot.Collections.Array effectList = new Godot.Collections.Array();
 
         classData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
         GetNode<OptionButton>("ClassButton").SetItemText(classSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
@@ -137,6 +146,19 @@ public class Class : Control
         }
         classData["stat_list"] = classStatFormula;
         classData["skill_list"] = classSkillList;
+
+        int effectSize = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemCount();
+        for (int i = 0; i < effectSize; i++)
+        {
+            Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
+            effectData["name"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemText(i);
+            effectData["data_id"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").GetItemText(i);
+            effectData["value1"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").GetItemText(i);
+            effectData["value2"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").GetItemText(i);
+            effectList.Add(effectData);
+        }
+        classData["effects"] = effectList;
+
         this.GetParent().GetParent().Call("StoreData", "Class", jsonDictionary);
     }
     private void _on_AddClass_pressed()
@@ -173,20 +195,20 @@ public class Class : Control
             int classId = classSelected;
             while (classId < jsonDictionary.Keys.Count - 1)
             {
-                jsonDictionary["class"+classId] = jsonDictionary["class"+(classId+1)];
-                classId+= 1;
+                jsonDictionary["class" + classId] = jsonDictionary["class" + (classId + 1)];
+                classId += 1;
             }
-            jsonDictionary.Remove("class"+classId);
+            jsonDictionary.Remove("class" + classId);
             this.GetParent().GetParent().Call("StoreData", "Class", jsonDictionary);
             GetNode<OptionButton>("ClassButton").RemoveItem(classSelected);
             if (classSelected == 0)
             {
-                GetNode<OptionButton>("ClassButton").Select(classSelected+1);
+                GetNode<OptionButton>("ClassButton").Select(classSelected + 1);
                 classSelected += 1;
             }
             else
             {
-                GetNode<OptionButton>("ClassButton").Select(classSelected-1);
+                GetNode<OptionButton>("ClassButton").Select(classSelected - 1);
                 classSelected -= 1;
             }
             GetNode<OptionButton>("ClassButton").Select(classSelected);
@@ -215,7 +237,7 @@ public class Class : Control
     private void _on_OkButton_pressed()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
-        
+
         int skill = GetNode<OptionButton>("SkillLabel/AddSkill/SkillLabel/OptionButton").GetSelectedId();
         int level = Convert.ToInt32(GetNode<SpinBox>("SkillLabel/AddSkill/LevelLabel/LevelSpin").Value);
         skillListArray.Add(Convert.ToString(skill));
@@ -275,6 +297,36 @@ public class Class : Control
     {
         statEdit = -1;
         GetNode<WindowDialog>("StatEditor").Hide();
+    }
+
+    private void _on_AddClassEffect_pressed()
+    {
+        this.GetParent().GetParent().Call("OpenEffectManager", "Class");
+    }
+
+    private void _on_RemoveClassEffect_pressed()
+    {
+        int id = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetSelectedItems()[0];
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").RemoveItem(id);
+    }
+
+    public void AddEffectList(String name, int dataId, String value1, String value2)
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").AddItem(name);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataId.ToString());
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+    }
+
+    public void ClearEffectList()
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").Clear();
     }
     //  public override void _Process(float delta)
     //  {
