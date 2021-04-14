@@ -2123,6 +2123,66 @@ text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
 
+[node name="EffectLabel" type="Label" parent="Tabs/Armor"]
+margin_left = 600.0
+margin_top = 65.0
+margin_right = 642.0
+margin_bottom = 79.0
+text = "Effects"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Armor/EffectLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 350.0
+margin_bottom = 414.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Armor/EffectLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 335.0
+margin_bottom = 391.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
+margin_right = 328.0
+margin_bottom = 336.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 228.0
+margin_bottom = 336.0
+size_flags_horizontal = 3
+
+[node name="DataType" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 232.0
+margin_right = 328.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 96, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="AddEffect" type="Button" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 340.0
+margin_right = 328.0
+margin_bottom = 360.0
+text = "Add Effect"
+
+[node name="RemoveEffect" type="Button" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 364.0
+margin_right = 328.0
+margin_bottom = 384.0
+text = "Remove Effect"
+
 [node name="StatEditor" type="WindowDialog" parent="Tabs/Armor"]
 margin_left = 152.0
 margin_top = 67.0
@@ -2158,56 +2218,6 @@ margin_top = 60.0
 margin_right = 271.0
 margin_bottom = 80.0
 text = "Cancel"
-
-[node name="EffectLabel" type="Label" parent="Tabs/Armor"]
-margin_left = 600.0
-margin_top = 65.0
-margin_right = 642.0
-margin_bottom = 79.0
-text = "Effects"
-
-[node name="PanelContainer" type="PanelContainer" parent="Tabs/Armor/EffectLabel"]
-margin_left = 8.0
-margin_top = 16.0
-margin_right = 350.0
-margin_bottom = 414.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Armor/EffectLabel/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 335.0
-margin_bottom = 391.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
-margin_right = 328.0
-margin_bottom = 336.0
-size_flags_vertical = 3
-
-[node name="EffectNames" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 228.0
-margin_bottom = 336.0
-size_flags_horizontal = 3
-
-[node name="EffectValues" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 232.0
-margin_right = 328.0
-margin_bottom = 336.0
-rect_min_size = Vector2( 96, 0 )
-
-[node name="AddEffect" type="Button" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
-margin_top = 340.0
-margin_right = 328.0
-margin_bottom = 360.0
-text = "Add Effect"
-
-[node name="RemoveEffect" type="Button" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer"]
-margin_top = 364.0
-margin_right = 328.0
-margin_bottom = 384.0
-text = "Remove Effect"
 
 [node name="Enemy" type="Container" parent="Tabs"]
 visible = false
@@ -3866,6 +3876,8 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/Armor/IconLabel/Search" to="Tabs/Armor" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Armor/IconLabel/IconSearch" to="Tabs/Armor" method="_on_IconSearch_file_selected"]
 [connection signal="item_activated" from="Tabs/Armor/StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList" to="Tabs/Armor" method="_on_StatValueList_item_activated"]
+[connection signal="pressed" from="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/Armor" method="_on_AddArmorEffect_pressed"]
+[connection signal="pressed" from="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/Armor" method="_on_RemoveArmorEffect_pressed"]
 [connection signal="pressed" from="Tabs/Armor/StatEditor/OkButton" to="Tabs/Armor" method="_on_OkButton_pressed"]
 [connection signal="pressed" from="Tabs/Armor/StatEditor/CancelButton" to="Tabs/Armor" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/EnemySaveButton" to="Tabs/Enemy" method="_on_EnemySaveButton_pressed"]
