@@ -489,7 +489,8 @@ public class Base : Control
             }
         }
 
-        switch (effectManagerTab)
+        GetNode<Control>("Tabs/"+effectManagerTab).Call("AddEffectList", name, dataType, value1, value2);
+        /*switch (effectManagerTab)
         {
             case "Character":
                 GetNode<Control>("Tabs/Character").Call("AddEffectList", name, dataType, value1, value2);
@@ -500,7 +501,7 @@ public class Base : Control
             case "Skill":
                 GetNode<Control>("Tabs/Skill").Call("AddEffectList", name, dataType, value1, value2);
                 break;
-        }
+        }*/
         effectManagerTab = "";
         effectDataType = "";
         GetNode<WindowDialog>("EffectManager").Hide();
