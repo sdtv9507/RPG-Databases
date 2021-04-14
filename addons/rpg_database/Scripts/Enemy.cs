@@ -226,7 +226,9 @@ public class Enemy : Control
 
     private void _on_RemoveDrop_pressed()
     {
-
+        int id = GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").GetSelectedItems()[0];
+        GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList").RemoveItem(id);
+        GetNode<ItemList>("DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/ChanceList").RemoveItem(id);
     }
 
     private void _on_DropType_item_selected(int index)

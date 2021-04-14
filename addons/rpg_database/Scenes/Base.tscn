@@ -2351,8 +2351,8 @@ __meta__ = {
 [node name="DropsContainer" type="PanelContainer" parent="Tabs/Enemy/DropsLabel"]
 margin_left = 7.0
 margin_top = 16.0
-margin_right = 204.0
-margin_bottom = 174.0
+margin_right = 209.0
+margin_bottom = 226.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2361,33 +2361,34 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 195.0
-margin_bottom = 151.0
+margin_bottom = 203.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
 margin_right = 188.0
-margin_bottom = 96.0
+margin_bottom = 148.0
+size_flags_vertical = 3
 
 [node name="DropsList" type="ItemList" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer/HBoxContainer"]
 margin_right = 128.0
-margin_bottom = 96.0
+margin_bottom = 148.0
 rect_min_size = Vector2( 128, 96 )
 
 [node name="ChanceList" type="ItemList" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer/HBoxContainer"]
 margin_left = 132.0
 margin_right = 188.0
-margin_bottom = 96.0
+margin_bottom = 148.0
 rect_min_size = Vector2( 56, 0 )
 
 [node name="AddDrop" type="Button" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
-margin_top = 100.0
+margin_top = 152.0
 margin_right = 188.0
-margin_bottom = 120.0
+margin_bottom = 172.0
 text = "Add Drop"
 
 [node name="RemoveDrop" type="Button" parent="Tabs/Enemy/DropsLabel/DropsContainer/VBoxContainer"]
-margin_top = 124.0
+margin_top = 176.0
 margin_right = 188.0
-margin_bottom = 144.0
+margin_bottom = 196.0
 text = "Remove Drop"
 
 [node name="ExpLabel" type="Label" parent="Tabs/Enemy"]
@@ -2451,24 +2452,26 @@ margin_bottom = 322.0
 size_flags_vertical = 3
 
 [node name="EffectNames" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 214.0
+margin_right = 78.0
 margin_bottom = 322.0
 size_flags_horizontal = 3
 
 [node name="DataType" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 82.0
+margin_right = 146.0
+margin_bottom = 322.0
 rect_min_size = Vector2( 64, 0 )
 
 [node name="EffectValue1" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 218.0
-margin_right = 314.0
+margin_left = 150.0
+margin_right = 246.0
 margin_bottom = 322.0
 rect_min_size = Vector2( 96, 0 )
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 250.0
+margin_right = 314.0
+margin_bottom = 322.0
 rect_min_size = Vector2( 64, 0 )
 
 [node name="AddEffect" type="Button" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer"]
