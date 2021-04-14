@@ -1859,7 +1859,7 @@ rect_min_size = Vector2( 64, 0 )
 margin_left = 218.0
 margin_right = 314.0
 margin_bottom = 322.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Weapon/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 40.0
@@ -2164,7 +2164,7 @@ rect_min_size = Vector2( 64, 0 )
 margin_left = 232.0
 margin_right = 328.0
 margin_bottom = 336.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 40.0
@@ -2466,7 +2466,7 @@ rect_min_size = Vector2( 64, 0 )
 margin_left = 150.0
 margin_right = 246.0
 margin_bottom = 322.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Enemy/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 250.0
@@ -2881,6 +2881,13 @@ margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Remove Message"
 
+[node name="RemoveEffect" type="Button" parent="Tabs/States/MessagesLabel"]
+margin_left = 600.0
+margin_top = 138.0
+margin_right = 914.0
+margin_bottom = 158.0
+text = "Remove Effect"
+
 [node name="EffectsLabel" type="Label" parent="Tabs/States"]
 margin_left = 610.0
 margin_top = 65.0
@@ -2913,11 +2920,21 @@ margin_right = 214.0
 margin_bottom = 322.0
 size_flags_horizontal = 3
 
-[node name="EffectValues" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="DataType" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 218.0
 margin_right = 314.0
 margin_bottom = 322.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 64, 0 )
 
 [node name="AddEffect" type="Button" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
 margin_top = 326.0
@@ -2926,10 +2943,8 @@ margin_bottom = 346.0
 text = "Add Effect"
 
 [node name="RemoveEffect" type="Button" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
-margin_top = 350.0
-margin_right = 314.0
-margin_bottom = 370.0
-text = "Remove Effect"
+margin_right = 12.0
+margin_bottom = 20.0
 
 [node name="AddString" type="WindowDialog" parent="Tabs/States"]
 margin_right = 480.0
@@ -3918,6 +3933,9 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/States/CustomEraseLabel/PanelContainer/VBoxContainer/RemoveCondition" to="Tabs/States" method="_on_RemoveCustomStateCondition_pressed"]
 [connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/AddMessage" to="Tabs/States" method="_on_AddStateMessage_pressed"]
 [connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/RemoveMessage" to="Tabs/States" method="_on_RemoveStateMessage_pressed"]
+[connection signal="pressed" from="Tabs/States/MessagesLabel/RemoveEffect" to="Tabs/States" method="_on_RemoveStateEffect_pressed"]
+[connection signal="pressed" from="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/States" method="_on_AddStateEffect_pressed"]
+[connection signal="pressed" from="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/States" method="_on_RemoveStateEffect_pressed"]
 [connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Confirm" to="Tabs/States" method="_on_ConfirmAddString_pressed"]
 [connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Cancel" to="Tabs/States" method="_on_CancelAddString_pressed"]
 [connection signal="pressed" from="Tabs/Effects/SaveEffects" to="Tabs/Effects" method="_on_SaveEffects_pressed"]

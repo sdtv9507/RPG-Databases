@@ -60,6 +60,15 @@ public class States : Container
         {
             GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").AddItem(condition);
         }
+        if (stateData.Contains("effects") == true)
+        {
+            this.ClearEffectList();
+            Godot.Collections.Array effectList = stateData["effects"] as Godot.Collections.Array;
+            foreach (Godot.Collections.Dictionary effect in effectList)
+            {
+                this.AddEffectList(effect["name"].ToString(), Convert.ToInt32(effect["data_id"]), effect["value1"].ToString(), effect["value2"].ToString());
+            }
+        }
     }
 
     private void _on_SearchState_pressed()
@@ -196,6 +205,8 @@ public class States : Container
         Godot.Collections.Dictionary eraseCondition = stateData["erase_conditions"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary messages = stateData["messages"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary customEraseConditions = stateData["custom_erase_conditions"] as Godot.Collections.Dictionary;
+        Godot.Collections.Array effectList = new Godot.Collections.Array();
+
         stateData["name"] = GetNode<LineEdit>("NameLabel/NameLine").Text;
         stateData["icon"] = iconPath;
         stateData["restriction"] = GetNode<OptionButton>("RestrictionLabel/RestrictionOption").Selected;
@@ -215,7 +226,46 @@ public class States : Container
             messages[i.ToString()] = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetItemText(i);
         }
 
+        int effectSize = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemCount();
+        for (int i = 0; i < effectSize; i++)
+        {
+            Godot.Collections.Dictionary effectData = new Godot.Collections.Dictionary();
+            effectData["name"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemText(i);
+            effectData["data_id"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").GetItemText(i);
+            effectData["value1"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").GetItemText(i);
+            effectData["value2"] = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").GetItemText(i);
+            effectList.Add(effectData);
+        }
+        stateData["effects"] = effectList;
         this.GetParent().GetParent().Call("StoreData", "State", jsonDictionary);
+    }
+    private void _on_AddStateEffect_pressed()
+    {
+        this.GetParent().GetParent().Call("OpenEffectManager", "Armor");
+    }
+
+    private void _on_RemoveStateEffect_pressed()
+    {
+        int id = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetSelectedItems()[0];
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").RemoveItem(id);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").RemoveItem(id);
+    }
+    public void AddEffectList(String name, int dataId, String value1, String value2)
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").AddItem(name);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").AddItem(dataId.ToString());
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").AddItem(value1);
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").AddItem(value2);
+    }
+
+    public void ClearEffectList()
+    {
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1").Clear();
+        GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2").Clear();
     }
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     //  public override void _Process(float delta)
