@@ -15,6 +15,7 @@ public class Enemy : Control
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Enemy") as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("EnemyButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary enemyData = jsonDictionary["enemy" + i] as Godot.Collections.Dictionary;
@@ -34,7 +35,7 @@ public class Enemy : Control
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Enemy") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary enemyData = jsonDictionary["enemy" + id] as Godot.Collections.Dictionary;
-
+        
         jsonDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary systemStatsData = jsonDictionary["stats"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary itemList = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;

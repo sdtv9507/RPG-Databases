@@ -14,7 +14,7 @@ public class Skill : Control
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Skill") as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary systemDictionary = this.GetParent().GetParent().Call("ReadData", "System") as Godot.Collections.Dictionary;
-
+        GetNode<OptionButton>("SkillButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary skillData = jsonDictionary["skill" + i] as Godot.Collections.Dictionary;

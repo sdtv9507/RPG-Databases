@@ -13,7 +13,7 @@ public class Item : Control
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Item") as Godot.Collections.Dictionary;
-        
+        GetNode<OptionButton>("ItemButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary itemData = jsonDictionary["item"+i] as Godot.Collections.Dictionary;

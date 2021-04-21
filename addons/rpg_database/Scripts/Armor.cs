@@ -15,7 +15,7 @@ public class Armor : Control
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Armor") as Godot.Collections.Dictionary;
-        
+        GetNode<OptionButton>("ArmorButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary armorData = jsonDictionary["armor" + i] as Godot.Collections.Dictionary;

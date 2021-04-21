@@ -18,6 +18,7 @@ public class Character : Control
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("CharacterButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary charaData = jsonDictionary["chara" + i] as Godot.Collections.Dictionary;

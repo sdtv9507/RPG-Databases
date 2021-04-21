@@ -15,6 +15,7 @@ public class States : Container
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "State") as Godot.Collections.Dictionary;
+        GetNode<OptionButton>("StateButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary stateData = jsonDictionary["state" + i] as Godot.Collections.Dictionary;

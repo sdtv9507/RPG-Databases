@@ -91,7 +91,7 @@ margin_right = 548.0
 margin_bottom = 37.0
 text = "Kate"
 align = 1
-items = [ "Kate", null, false, 0, null, "Vegetta", null, false, 1, null, "Willy", null, false, 2, null ]
+items = [ "Kate", null, false, 0, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false

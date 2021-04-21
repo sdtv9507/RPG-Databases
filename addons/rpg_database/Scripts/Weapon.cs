@@ -15,7 +15,7 @@ public class Weapon : Control
     public void Start()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Weapon") as Godot.Collections.Dictionary;
-        
+        GetNode<OptionButton>("WeaponButton").Clear();
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary weaponData = jsonDictionary["weapon" + i] as Godot.Collections.Dictionary;
