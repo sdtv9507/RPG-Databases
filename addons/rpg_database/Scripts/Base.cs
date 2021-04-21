@@ -488,6 +488,10 @@ public class Base : Control
                 value2 = GetNode<SpinBox>("EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox").Value.ToString();
             }
         }
+        else
+        {
+            value2 = "0";
+        }
 
         GetNode<Control>("Tabs/"+effectManagerTab).Call("AddEffectList", name, dataType, value1, value2);
         

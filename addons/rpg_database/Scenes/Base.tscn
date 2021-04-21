@@ -2888,14 +2888,14 @@ margin_right = 914.0
 margin_bottom = 158.0
 text = "Remove Effect"
 
-[node name="EffectsLabel" type="Label" parent="Tabs/States"]
+[node name="EffectLabel" type="Label" parent="Tabs/States"]
 margin_left = 610.0
 margin_top = 65.0
 margin_right = 652.0
 margin_bottom = 79.0
 text = "Effects"
 
-[node name="PanelContainer" type="PanelContainer" parent="Tabs/States/EffectsLabel"]
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/States/EffectLabel"]
 margin_left = 8.0
 margin_top = 16.0
 margin_right = 336.0
@@ -2904,47 +2904,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/States/EffectsLabel/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/States/EffectLabel/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 321.0
 margin_bottom = 377.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer"]
 margin_right = 314.0
 margin_bottom = 322.0
 size_flags_vertical = 3
 
-[node name="EffectNames" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="EffectNames" type="ItemList" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 214.0
 margin_bottom = 322.0
 size_flags_horizontal = 3
 
-[node name="DataType" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="DataType" type="ItemList" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 64, 0 )
 
-[node name="EffectValue1" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="EffectValue1" type="ItemList" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 218.0
 margin_right = 314.0
 margin_bottom = 322.0
 rect_min_size = Vector2( 64, 0 )
 
-[node name="EffectValue2" type="ItemList" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="EffectValue2" type="ItemList" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 64, 0 )
 
-[node name="AddEffect" type="Button" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
+[node name="AddEffect" type="Button" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer"]
 margin_top = 326.0
 margin_right = 314.0
 margin_bottom = 346.0
 text = "Add Effect"
 
-[node name="RemoveEffect" type="Button" parent="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer"]
+[node name="RemoveEffect" type="Button" parent="Tabs/States/EffectLabel/PanelContainer/VBoxContainer"]
 margin_right = 12.0
 margin_bottom = 20.0
+text = "Remove State"
 
 [node name="AddString" type="WindowDialog" parent="Tabs/States"]
 margin_right = 480.0
@@ -3934,8 +3935,8 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/AddMessage" to="Tabs/States" method="_on_AddStateMessage_pressed"]
 [connection signal="pressed" from="Tabs/States/MessagesLabel/PanelContainer/VBoxContainer/HBoxContainer/RemoveMessage" to="Tabs/States" method="_on_RemoveStateMessage_pressed"]
 [connection signal="pressed" from="Tabs/States/MessagesLabel/RemoveEffect" to="Tabs/States" method="_on_RemoveStateEffect_pressed"]
-[connection signal="pressed" from="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/States" method="_on_AddStateEffect_pressed"]
-[connection signal="pressed" from="Tabs/States/EffectsLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/States" method="_on_RemoveStateEffect_pressed"]
+[connection signal="pressed" from="Tabs/States/EffectLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/States" method="_on_AddStateEffect_pressed"]
+[connection signal="pressed" from="Tabs/States/EffectLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/States" method="_on_RemoveStateEffect_pressed"]
 [connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Confirm" to="Tabs/States" method="_on_ConfirmAddString_pressed"]
 [connection signal="pressed" from="Tabs/States/AddString/CenterContainer/HBoxContainer/Cancel" to="Tabs/States" method="_on_CancelAddString_pressed"]
 [connection signal="pressed" from="Tabs/Effects/SaveEffects" to="Tabs/Effects" method="_on_SaveEffects_pressed"]

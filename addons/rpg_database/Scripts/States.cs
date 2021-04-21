@@ -238,6 +238,7 @@ public class States : Container
         }
         stateData["effects"] = effectList;
         this.GetParent().GetParent().Call("StoreData", "State", jsonDictionary);
+        RefreshData(stateSelected);
     }
     private void _on_AddStateEffect_pressed()
     {
