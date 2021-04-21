@@ -125,7 +125,8 @@ public class Class : Control
         Godot.Collections.Dictionary classStatFormula = classData["stat_list"] as Godot.Collections.Dictionary;
         Godot.Collections.Dictionary classSkillList = classData["skill_list"] as Godot.Collections.Dictionary;
         Godot.Collections.Array effectList = new Godot.Collections.Array();
-
+        classSkillList.Clear();
+        
         classData["name"] = GetNode<LineEdit>("NameLabel/NameText").Text;
         GetNode<OptionButton>("ClassButton").SetItemText(classSelected, GetNode<LineEdit>("NameLabel/NameText").Text);
         classData["icon"] = iconPath;
