@@ -223,7 +223,7 @@ public class States : Container
         items = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetItemCount();
         for (int i = 0; i < items; i++)
         {
-            messages[i.ToString()] = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetItemText(i);
+            customEraseConditions[i.ToString()] = GetNode<ItemList>("CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions").GetItemText(i);
         }
 
         int effectSize = GetNode<ItemList>("EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames").GetItemCount();
@@ -242,7 +242,7 @@ public class States : Container
     }
     private void _on_AddStateEffect_pressed()
     {
-        this.GetParent().GetParent().Call("OpenEffectManager", "Armor");
+        this.GetParent().GetParent().Call("OpenEffectManager", "States");
     }
 
     private void _on_RemoveStateEffect_pressed()
