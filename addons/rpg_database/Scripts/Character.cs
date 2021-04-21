@@ -144,7 +144,7 @@ public class Character : Control
         for (int i = 0; i < jsonDictionary.Count; i++)
         {
             Godot.Collections.Dictionary classData = jsonDictionary["class" + i] as Godot.Collections.Dictionary;
-            if (i > GetNode<OptionButton>("ClassLabel/ClassText").GetItemCount())
+            if (i >= GetNode<OptionButton>("ClassLabel/ClassText").GetItemCount())
             {
                 GetNode<OptionButton>("ClassLabel/ClassText").AddItem(classData["name"].ToString());
             }
