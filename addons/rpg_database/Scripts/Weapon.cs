@@ -147,10 +147,10 @@ public class Weapon : Control
         weaponData.Add("element", 0);
         weaponStats.Add("hp", "0");
         weaponStats.Add("mp", "0");
-        weaponStats.Add("atk", "10");
-        weaponStats.Add("def", "2");
-        weaponStats.Add("int", "2");
-        weaponStats.Add("res", "1");
+        weaponStats.Add("atk", "0");
+        weaponStats.Add("def", "0");
+        weaponStats.Add("int", "0");
+        weaponStats.Add("res", "0");
         weaponStats.Add("spd", "0");
         weaponStats.Add("luk", "0");
         weaponData.Add("stat_list", weaponStats);

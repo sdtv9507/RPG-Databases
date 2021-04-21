@@ -132,10 +132,10 @@ public class Armor : Control
         armorData.Add("price", 50);
         armorStats.Add("hp", "0");
         armorStats.Add("mp", "0");
-        armorStats.Add("atk", "10");
-        armorStats.Add("def", "2");
-        armorStats.Add("int", "2");
-        armorStats.Add("res", "1");
+        armorStats.Add("atk", "0");
+        armorStats.Add("def", "0");
+        armorStats.Add("int", "0");
+        armorStats.Add("res", "0");
         armorStats.Add("spd", "0");
         armorStats.Add("luk", "0");
         armorData.Add("stat_list", armorStats);
