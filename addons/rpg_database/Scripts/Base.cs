@@ -304,11 +304,11 @@ public class Base : Control
         return jsonParsed.Result as Godot.Collections.Dictionary;
     }
 
-    public void StoreData(String file, Godot.Collections.Dictionary save)
+    public void StoreData(String file, Godot.Collections.Dictionary data)
     {
         Godot.File databaseFile = new Godot.File();
         databaseFile.Open("res://databases/" + file + ".json", Godot.File.ModeFlags.Write);
-        databaseFile.StoreString(JSON.Print(save));
+        databaseFile.StoreString(JSON.Print(data));
         databaseFile.Close();
     }
 

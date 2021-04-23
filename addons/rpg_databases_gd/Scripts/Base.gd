@@ -254,7 +254,160 @@ func _ready() -> void:
 		database_file.close()
 	
 	database_file.close()
+	$Tabs/Character.call("start")
 
+func read_data(file: String) -> Dictionary:
+	var database_file: File = File.new()
+	database_file.open("res://databases/" + file + ".json", File.READ)
+	var json_as_text: String = database_file.get_as_text()
+	database_file.close()
+	var json_parsed: JSONParseResult = JSON.parse(json_as_text)
+	return json_parsed.result()
+
+func store_data(file: String, data: Dictionary) -> void:
+	var database_file: File = File.new()
+	database_file.open("res://databases/" + file + ".json", File.WRITE)
+	database_file.store_string(JSON.print(data))
+	database_file.close()
+
+func open_effect_manager(tab: String) -> void:
+	var effect_list: Dictionary = read_data("Effect")
+	var effect_data: Dictionary
+	$EffectManager/HBoxContainer/EffectList.clear()
+	for i in range(effect_list.size()):
+		effect_data = effect_list["effect"+String(i)]
+		$EffectManager/HBoxContainer/EffectList.add_item(effect_data["name"])
+	$EffectManager/HBoxContainer/EffectList.select(0)
+	_on_EffectList_item_selected(0)
+	effect_manager_tab = tab
+	$EffectManager.popup_centered()
+
+func _on_EffectList_item_selected(index: int) -> void:
+	var effect_list: Dictionary = read_data("Effect")
+	var json_dictionary: Dictionary
+	var json_data: Dictionary
+	var effect_data: Dictionary = effect_list["effect"+String(index)]
+	var data_types: Dictionary = effect_data["data_type"]
+	var value2: Dictionary = effect_data["value2"]
+	$EffectManager/HBoxContainer/VBoxContainer/DataList.clear()
+	if data_types["show"] == false:
+		$EffectManager/HBoxContainer/VBoxContainer/DataType.hide()
+		$EffectManager/HBoxContainer/VBoxContainer/DataList.hide()
+		effect_data_type = "Disabled"
+	else:
+		$EffectManager/HBoxContainer/VBoxContainer/DataType.show()
+		$EffectManager/HBoxContainer/VBoxContainer/DataList.show()
+		var type: String = data_types["data"]
+		effect_data_type = data_types["data"]
+		match type:
+			"States":
+				json_dictionary = read_data("State")
+				for i in range(json_dictionary.size()):
+					json_data = json_dictionary["state"+String(i)]
+					$EffectManager/HBoxContainer/VBoxContainer/DataList.add_item(json_data["name"])
+			"Stats":
+				json_dictionary = read_data("System")
+				json_data = json_dictionary["stats"]
+				for i in range(json_dictionary.size()):
+					$EffectManager/HBoxContainer/VBoxContainer/DataList.add_item(String(i))
+			"Weapon Types":
+				json_dictionary = read_data("System")
+				json_data = json_dictionary["weapons"]
+				for i in range(json_dictionary.size()):
+					$EffectManager/HBoxContainer/VBoxContainer/DataList.add_item(String(i))
+			"Armor Types":
+				json_dictionary = read_data("System")
+				json_data = json_dictionary["armors"]
+				for i in range(json_dictionary.size()):
+					$EffectManager/HBoxContainer/VBoxContainer/DataList.add_item(String(i))
+			"Elements":
+				json_dictionary = read_data("System")
+				json_data = json_dictionary["elements"]
+				for i in range(json_dictionary.size()):
+					$EffectManager/HBoxContainer/VBoxContainer/DataList.add_item(String(i))
+			"Skill Types":
+				json_dictionary = read_data("System")
+				json_data = json_dictionary["skills"]
+				for i in range(json_dictionary.size()):
+					$EffectManager/HBoxContainer/VBoxContainer/DataList.add_item(String(i))
+	match effect_data["value1"]:
+		0:
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit.show()
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.hide()
+		1:
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit.hide()
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.show()
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.rounded = true
+		2:
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit.hide()
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.show()
+			$EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.rounded = false
+	if value2["show"] == false:
+		$EffectManager/HBoxContainer/VBoxContainer/Value2.hide()
+	else:
+		$EffectManager/HBoxContainer/VBoxContainer/Value2.show()
+		match value2["data"]:
+			0:
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit.show()
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.hide()
+			1:
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit.hide()
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.show()
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.rounded = true
+			2:
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit.hide()
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.show()
+				$EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.rounded = false
+
+func _on_AddEffectConfirm_pressed() -> void:
+	var id: int = $EffectManager/HBoxContainer/EffectList.get_selected_items()[0]
+	var name: String = $EffectManager/HBoxContainer/EffectList.get_item_text(id)
+	var data_type: int = -1
+	if (effect_data_type != "Disabled"):
+		data_type = $EffectManager/HBoxContainer/VBoxContainer/DataList.selected
+	var value1: String
+	if $EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit.visible:
+		value1 = $EffectManager/HBoxContainer/VBoxContainer/Value1/LineEdit.text
+	elif $EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.rounded == true:
+		value1 = String($EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.value)
+	else:
+		value1 = String($EffectManager/HBoxContainer/VBoxContainer/Value1/SpinBox.value)
+	var value2: String = ""
+	if $EffectManager/HBoxContainer/VBoxContainer/Value2.visible:
+		if $EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit.visible:
+			value2 = $EffectManager/HBoxContainer/VBoxContainer/Value2/LineEdit.text
+		elif $EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.rounded == true:
+			value2 = String($EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.value)
+		else:
+			value2 = String($EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.value)
+	else:
+		value2 = "0"
+	get_node("Tabs"+effect_manager_tab).call("add_effect_list", name, data_type, value1, value2)
+	effect_manager_tab = ""
+	effect_data_type = ""
+	$EffectManager.hide()
+
+func _on_Tabs_tab_changed(tab: int) -> void:
+	if tab == 0:
+		$Tabs/Character.call("start")
+	if tab == 1:
+		$Tabs/Class.call("start")
+	if tab == 2:
+		$Tabs/Skill.call("start")
+	if tab == 3:
+		$Tabs/Item.call("start")
+	if tab == 4:
+		$Tabs/Weapon.call("start")
+	if tab == 5:
+		$Tabs/Armor.call("start")
+	if tab == 6:
+		$Tabs/Enemy.call("start")
+	if tab == 7:
+		$Tabs/States.call("start")
+	if tab == 8:
+		$Tabs/Effects.call("start")
+	if tab == 9:
+		$Tabs/System.call("start")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
