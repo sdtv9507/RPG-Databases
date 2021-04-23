@@ -262,7 +262,7 @@ func read_data(file: String) -> Dictionary:
 	var json_as_text: String = database_file.get_as_text()
 	database_file.close()
 	var json_parsed: JSONParseResult = JSON.parse(json_as_text)
-	return json_parsed.result()
+	return json_parsed.result
 
 func store_data(file: String, data: Dictionary) -> void:
 	var database_file: File = File.new()

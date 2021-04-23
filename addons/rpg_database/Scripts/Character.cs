@@ -180,8 +180,8 @@ public class Character : Control
         Godot.Collections.Dictionary characterData = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary etypeData = new Godot.Collections.Dictionary();
         Godot.Collections.Dictionary einitData = new Godot.Collections.Dictionary();
-        characterData.Add("faceImage", "res://");
-        characterData.Add("charaImage", "res://");
+        characterData.Add("faceImage", "");
+        characterData.Add("charaImage", "");
         characterData.Add("name", "NewCharacter");
         characterData.Add("class", 0);
         characterData.Add("description", "");
@@ -245,6 +245,7 @@ public class Character : Control
     {
         GetNode<Sprite>("FaceLabel/FaceSprite").Texture = GD.Load(path) as Godot.Texture;
     }
+	
     public void SaveCharacterData()
     {
         Godot.Collections.Dictionary jsonDictionary = this.GetParent().GetParent().Call("ReadData", "Character") as Godot.Collections.Dictionary;
