@@ -48,6 +48,7 @@ public class Item : Control
         string icon = itemData["icon"] as string;
         if (icon != "")
         {
+            iconPath = icon;
             GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(itemData["icon"] as string) as Godot.Texture;
         }
         GetNode<TextEdit>("DescLabel/DescText").Text = itemData["description"] as string;

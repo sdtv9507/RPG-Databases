@@ -105,7 +105,7 @@ func refresh_data(id: int):
 		else:
 			$ClassLabel/ClassText.set_item_text(i, class_data["name"])
 	if chara_data.has("effects"):
-		#clear_effect_list()
+		clear_effect_list()
 		var effect_list: Array = chara_data["effects"]
 		for effect in effect_list:
 			add_effect_list(effect["name"], effect["data_id"], effect["value1"], effect["value2"])
