@@ -80,6 +80,7 @@ public class Armor : Control
         string icon = armorData["icon"] as string;
         if (icon != "")
         {
+            iconPath = icon;
             GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(armorData["icon"] as string) as Godot.Texture;
         }
         GetNode<TextEdit>("DescLabel/DescText").Text = armorData["description"] as string;

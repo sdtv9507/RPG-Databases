@@ -93,6 +93,7 @@ public class Weapon : Control
         string icon = weaponData["icon"] as string;
         if (icon != "")
         {
+            iconPath = icon;
             GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(weaponData["icon"] as string) as Godot.Texture;
         }
         GetNode<TextEdit>("DescLabel/DescText").Text = weaponData["description"] as string;

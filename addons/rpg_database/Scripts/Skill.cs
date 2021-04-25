@@ -64,6 +64,7 @@ public class Skill : Control
         string icon = skillData["icon"] as string;
         if (icon != "")
         {
+            iconPath = icon;
             GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(skillData["icon"] as string) as Godot.Texture;
         }
         GetNode<TextEdit>("DescLabel/DescText").Text = skillData["description"] as string;

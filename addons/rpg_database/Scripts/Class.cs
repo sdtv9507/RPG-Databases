@@ -46,6 +46,7 @@ public class Class : Control
         string icon = classData["icon"] as string;
         if (icon != "")
         {
+            iconPath = icon;
             GetNode<Sprite>("IconLabel/IconSprite").Texture = GD.Load(classData["icon"] as string) as Godot.Texture;
         }
         GetNode<LineEdit>("ExpLabel/ExpText").Text = classData["experience"] as string;
