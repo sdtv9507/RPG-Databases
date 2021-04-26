@@ -216,10 +216,10 @@ func _on_CancelStatButton_pressed() -> void:
 	stat_edit = -1
 	$StatEditor.hide()
 
-func _on_CharacterAddEffectButton_pressed() -> void:
-	get_parent().get_parent().call("open_effect_manager", "Character")
+func _on_AddClassEffect_pressed() -> void:
+	get_parent().get_parent().call("open_effect_manager", "Class")
 
-func _on_CharacterRemoveEffectButton_pressed() -> void:
+func _on_RemoveClassEffect_pressed() -> void:
 	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)

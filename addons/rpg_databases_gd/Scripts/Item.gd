@@ -22,7 +22,7 @@ func start() -> void:
 			$ItemButton.set_item_text(i, item_data["name"])
 	json_dictionary = get_parent().get_parent().call("read_data", "System")
 	var system_data: Dictionary = json_dictionary["elements"]
-	for i in range(json_dictionary.size()):
+	for i in range(system_data.size()):
 		if i >$DamageLabel/ElementLabel/ElementButton.get_item_count() - 1:
 			$DamageLabel/ElementLabel/ElementButton.add_item(system_data[String(i)])
 		else:
@@ -138,10 +138,10 @@ func _on_ItemButton_item_selected(id: int) -> void:
 	item_selected = id
 	refresh_data(id)
 
-func _on_CharacterAddEffectButton_pressed() -> void:
-	get_parent().get_parent().call("open_effect_manager", "Character")
+func __on_AddItemEffect_pressed() -> void:
+	get_parent().get_parent().call("open_effect_manager", "Item")
 
-func _on_CharacterRemoveEffectButton_pressed() -> void:
+func _on_RemoveItemEffect_pressed() -> void:
 	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)

@@ -110,8 +110,8 @@ public class Skill : Control
         skillData.Add("icon", "");
         skillData.Add("description", "New created skill");
         skillData.Add("skill_type", 0);
-        skillData.Add("mp_cost", 1);
-        skillData.Add("tp_cost", 1);
+        skillData.Add("mp_cost", 0);
+        skillData.Add("tp_cost", 0);
         skillData.Add("target", 1);
         skillData.Add("usable", 1);
         skillData.Add("success", 95);
