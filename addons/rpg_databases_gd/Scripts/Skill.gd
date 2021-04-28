@@ -97,14 +97,14 @@ func _on_RemoveSkill_pressed():
 			skill_id += 1
 		json_dictionary.erase("skill"+String(skill_id))
 		get_parent().get_parent().call("store_data", "Skill", json_dictionary)
-		$CharacterButton.remove_skill(skill_selected)
+		$SkillButton.remove_skill(skill_selected)
 		if skill_selected == 0:
-			$CharacterButton.select(skill_selected + 1)
+			$SkillButton.select(skill_selected + 1)
 			skill_selected += 1
 		else:
-			$CharacterButton.select(skill_selected + 1)
+			$SkillButton.select(skill_selected + 1)
 			skill_selected -= 1
-		$CharacterButton.select(skill_selected)
+		$SkillButton.select(skill_selected)
 		refresh_data(skill_selected)
 
 func _on_SkillSaveButton_pressed() -> void:

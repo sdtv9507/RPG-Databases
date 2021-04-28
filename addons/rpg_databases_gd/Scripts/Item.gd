@@ -138,7 +138,7 @@ func _on_ItemButton_item_selected(id: int) -> void:
 	item_selected = id
 	refresh_data(id)
 
-func __on_AddItemEffect_pressed() -> void:
+func _on_AddItemEffect_pressed() -> void:
 	get_parent().get_parent().call("open_effect_manager", "Item")
 
 func _on_RemoveItemEffect_pressed() -> void:
