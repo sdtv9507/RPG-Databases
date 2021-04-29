@@ -48,7 +48,7 @@ func refresh_data(id):
 		$CustomEraseLabel/PanelContainer/VBoxContainer/EraseConditions.add_item(condition)
 	if (state_data.has("effects") == true):
 		clear_effect_list()
-		var effect_list = state_data["effects"]
+		var effect_list: Array = state_data["effects"]
 		for effect in effect_list:
 			add_effect_list(effect["name"], int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 
