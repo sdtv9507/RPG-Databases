@@ -34,30 +34,31 @@ func start() -> void:
 	$SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.clear()
 	for i in range(stats_data.size()):
 		var item = $StatsLabel/StatsContainer/StatsBoxContainer/StatsList
-		item.append_item(stats_data[String(i)])
+		item.add_item(stats_data[String(i)])
 	for i in range(weapons_data.size()):
 		var item = $WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList
-		item.append_item(weapons_data[String(i)])
+		item.add_item(weapons_data[String(i)])
 	for i in range(armors_data.size()):
 		var item = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList
-		item.append_item(armors_data[String(i)])
+		item.add_item(armors_data[String(i)])
 	for i in range(elements_data.size()):
 		var item = $ElementLabel/ElementContainer/EleBoxContainer/ElementList
-		item.append_item(elements_data[String(i)])
+		item.add_item(elements_data[String(i)])
 	for i in range(skills_data.size()):
 		var item = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList
-		item.append_item(skills_data[String(i)])
-	for id in range(slots_data.keys()):
+		item.add_item(skills_data[String(i)])
+	for id in slots_data.keys():
 		var kind = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList
-		var kindId: String = String(slots_data[id][0])
+		var kindId: String = String(id[0])
+		print(kindId)
 		var type = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList
 		match (kindId):
 			"w":
-				kind.append_item("Weapon")
-				type.append_item(slots_data[id])
+				kind.add_item("Weapon")
+				type.add_item(slots_data[id])
 			"a":
-				kind.append_item("Armor")
-				type.append_item(slots_data[id])
+				kind.add_item("Armor")
+				type.add_item(slots_data[id])
 
 func save_data():
 	save_stats()
@@ -89,8 +90,7 @@ func save_weapons():
 
 func save_armors():
 	var json_dictionary = get_parent().get_parent().call("read_data", "System")
-	var armors_data
-
+	var armors_data: Dictionary
 	var armor_size = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_item_count()
 	for i in range(armor_size):
 		var text = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_item_text(i)
@@ -100,7 +100,7 @@ func save_armors():
 
 func save_elements():
 	var json_dictionary = get_parent().get_parent().call("read_data", "System")
-	var elements_data
+	var elements_data: Dictionary
 	var element_size = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_item_count()
 	for i in range(element_size):
 		var text = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_item_text(i)
@@ -110,7 +110,7 @@ func save_elements():
 
 func save_skills():
 	var json_dictionary = get_parent().get_parent().call("read_data", "System")
-	var skills_data
+	var skills_data: Dictionary
 	var skill_size = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.get_item_count()
 	for i in range(skill_size):
 		var text = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.get_item_text(i)
@@ -120,9 +120,9 @@ func save_skills():
 
 func save_slots():
 	var json_dictionary = get_parent().get_parent().call("read_data", "System")
-	var slotsData
-	var slotSize = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_count()
-	for i in range(slotSize):
+	var slots_data: Dictionary
+	var slot_size = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_count()
+	for i in range(slot_size):
 		var kind = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_text(i)
 		var id = ""
 		match (kind):
@@ -132,12 +132,12 @@ func save_slots():
 				id = "a"
 		var text = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList.get_item_text(i)
 		id += String(i)
-		slotsData[String(id)] = text
-	json_dictionary["slots"] = slotsData
+		slots_data[String(id)] = text
+	json_dictionary["slots"] = slots_data
 	get_parent().get_parent().call("store_data", "System", json_dictionary)
 
 func _on_OKButton_pressed():
-	var name = $EditField/FieldName.Text
+	var name = $EditField/FieldName.text
 	if (name != ""):
 		if (edited_field == 0):
 			$StatsLabel/StatsContainer/StatsBoxContainer/StatsList.add_item(name)

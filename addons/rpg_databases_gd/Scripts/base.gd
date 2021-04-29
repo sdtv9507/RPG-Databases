@@ -45,7 +45,7 @@ func _ready() -> void:
 		system_list["stats"] = stats_data
 		system_list["weapons"] = weapon_type_data
 		system_list["armors"] = armor_type_data
-		system_list["elemets"] = element_data
+		system_list["elements"] = element_data
 		system_list["slots"] = slots_data
 		system_list["skills"] = skill_type_data
 		database_file.store_string(JSON.print(system_list))
