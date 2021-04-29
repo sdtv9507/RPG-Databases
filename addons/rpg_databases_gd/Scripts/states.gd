@@ -127,7 +127,7 @@ func _on_RemoveState_pressed():
 		while (stateId < json_dictionary.Keys.size() - 1):
 			json_dictionary["state" + stateId] = json_dictionary["state" + (stateId + 1)]
 			stateId += 1
-		json_dictionary.remove("state" + String(stateId))
+		json_dictionary.erase("state" + String(stateId))
 		get_parent().get_parent().call("store_data", "State", json_dictionary)
 		$StateButton.remove_item(state_selected)
 		if (state_selected == 0):
