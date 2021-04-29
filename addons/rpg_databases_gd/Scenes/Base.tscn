@@ -1,16 +1,16 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Base.gd" type="Script" id=1]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Character.gd" type="Script" id=2]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/System.gd" type="Script" id=3]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Effects.gd" type="Script" id=4]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Skill.gd" type="Script" id=5]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Item.gd" type="Script" id=6]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Armor.gd" type="Script" id=7]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Class.gd" type="Script" id=8]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Weapon.gd" type="Script" id=9]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/States.gd" type="Script" id=10]
-[ext_resource path="res://addons/rpg_databases_gd/Scripts/Enemy.gd" type="Script" id=11]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/base.gd" type="Script" id=1]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/character.gd" type="Script" id=2]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/class.gd" type="Script" id=3]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/weapon.gd" type="Script" id=4]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/item.gd" type="Script" id=5]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/armor.gd" type="Script" id=6]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/system.gd" type="Script" id=7]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/effects.gd" type="Script" id=8]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/enemy.gd" type="Script" id=9]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/skill.gd" type="Script" id=10]
+[ext_resource path="res://addons/rpg_databases_gd/Scripts/states.gd" type="Script" id=11]
 
 [sub_resource type="ImageTexture" id=1]
 size = Vector2( 96, 96 )
@@ -496,7 +496,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 8 )
+script = ExtResource( 3 )
 
 [node name="ClassSaveButton" type="Button" parent="Tabs/Class"]
 margin_left = 451.0
@@ -863,7 +863,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 5 )
+script = ExtResource( 10 )
 
 [node name="SkillSaveButton" type="Button" parent="Tabs/Skill"]
 margin_left = 451.0
@@ -1232,7 +1232,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 
 [node name="ItemSaveButton" type="Button" parent="Tabs/Item"]
 margin_left = 451.0
@@ -1593,7 +1593,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 9 )
+script = ExtResource( 4 )
 
 [node name="WeaponSaveButton" type="Button" parent="Tabs/Weapon"]
 margin_left = 451.0
@@ -1922,7 +1922,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 
 [node name="ArmorSaveButton" type="Button" parent="Tabs/Armor"]
 margin_left = 451.0
@@ -2227,7 +2227,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 11 )
+script = ExtResource( 9 )
 
 [node name="EnemySaveButton" type="Button" parent="Tabs/Enemy"]
 margin_left = 451.0
@@ -2607,7 +2607,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="SaveStates" type="Button" parent="Tabs/States"]
 margin_left = 451.0
@@ -2999,7 +2999,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 4 )
+script = ExtResource( 8 )
 
 [node name="SaveEffects" type="Button" parent="Tabs/Effects"]
 margin_left = 451.0
@@ -3347,7 +3347,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-script = ExtResource( 3 )
+script = ExtResource( 7 )
 
 [node name="StatsLabel" type="Label" parent="Tabs/System"]
 margin_left = 12.0
