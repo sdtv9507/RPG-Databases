@@ -21,12 +21,12 @@ func start():
 
 			$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.add_item(effect_data["name"])
 			if (show_list["show"] == true):
-				$EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.add_item(show_list["data"])
+				$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.add_item(show_list["data"])
 			else:
-				$EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.add_item("disabled")
-			$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.add_item(effect_data["value1"])
+				$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.add_item("disabled")
+			$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.add_item(String(effect_data["value1"]))
 			if (value2["show"] == true):
-				$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item(value2["data"])
+				$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item(String(value2["data"]))
 			else:
 				$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item("-1")
 		database_loaded = true
@@ -40,30 +40,30 @@ func _on_EditEffect_pressed():
 		add_new_effect = false;
 		var id = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0]
 		var name = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_item_text(id)
-		var data_types = $EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.get_item_text(id)
+		var data_types = $EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.get_item_text(id)
 		var value1 = int($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.get_item_text(id))
 		var value2 = int($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.get_item_text(id))
 
 		$AddEffect/VBoxContainer/Name/LineEdit.text = name
 		if (data_types == "disabled"):
-			$AddEffect/VBoxContainer/show_list/CheckButton.pressed = false
-			$AddEffect/VBoxContainer/show_list/OptionButton.disabled = true
+			$AddEffect/VBoxContainer/ShowList/CheckButton.pressed = false
+			$AddEffect/VBoxContainer/ShowList/OptionButton.disabled = true
 		else:
-			$AddEffect/VBoxContainer/show_list/CheckButton.pressed = true
-			$AddEffect/VBoxContainer/show_list/OptionButton.disabled = false
+			$AddEffect/VBoxContainer/ShowList/CheckButton.pressed = true
+			$AddEffect/VBoxContainer/ShowList/OptionButton.disabled = false
 			match (data_types):
 				"States":
-					$AddEffect/VBoxContainer/show_list/OptionButton.select(0)
+					$AddEffect/VBoxContainer/ShowList/OptionButton.select(0)
 				"Stats":
-					$AddEffect/VBoxContainer/show_list/OptionButton.select(1)
+					$AddEffect/VBoxContainer/ShowList/OptionButton.select(1)
 				"Weapon Types":
-					$AddEffect/VBoxContainer/show_list/OptionButton.select(2)
+					$AddEffect/VBoxContainer/ShowList/OptionButton.select(2)
 				"Armor Types":
-					$AddEffect/VBoxContainer/show_list/OptionButton.select(3)
+					$AddEffect/VBoxContainer/ShowList/OptionButton.select(3)
 				"Elements":
-					$AddEffect/VBoxContainer/show_list/OptionButton.select(4)
+					$AddEffect/VBoxContainer/ShowList/OptionButton.select(4)
 				"Skill Types":
-					$AddEffect/VBoxContainer/show_list/OptionButton.select(5)
+					$AddEffect/VBoxContainer/ShowList/OptionButton.select(5)
 		$AddEffect/VBoxContainer/Value1/OptionButton.select(value1)
 		if (value2 == -1):
 			$AddEffect/VBoxContainer/Value2/CheckButton.pressed = false
@@ -78,21 +78,21 @@ func _on_RemoveEffect_pressed():
 	var selected_effect = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0];
 	if (selected_effect > -1):
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.RemoveItem(selected_effect)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.RemoveItem(selected_effect)
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.RemoveItem(selected_effect)
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.RemoveItem(selected_effect)
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.RemoveItem(selected_effect)
 
 func _on_clearEffects_pressed():
 	$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.clear()
-	$EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.clear()
+	$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.clear()
 	$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.clear()
 	$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.clear()
 
-func _on_show_listCheckButton_pressed():
-	if ($AddEffect/VBoxContainer/show_list/CheckButton.pressed == true):
-		$AddEffect/VBoxContainer/show_list/OptionButton.disabled = false
+func _on_CheckButton_toggled(button_pressed):
+	if (button_pressed == true):
+		$AddEffect/VBoxContainer/ShowList/OptionButton.disabled = false
 	else:
-		$AddEffect/VBoxContainer/show_list/OptionButton.disabled = true
+		$AddEffect/VBoxContainer/ShowList/OptionButton.disabled = true
 
 func _on_Value2CheckButton_pressed():
 	if ($AddEffect/VBoxContainer/Value2/CheckButton.pressed == true):
@@ -104,9 +104,9 @@ func _on_AddEffectConfirm_pressed():
 	var name = $AddEffect/VBoxContainer/Name/LineEdit.text
 	var selected = 0
 	var data_type = "disabled"
-	if ($AddEffect/VBoxContainer/show_list/CheckButton.pressed == true):
-		selected = $AddEffect/VBoxContainer/show_list/OptionButton.selected
-		data_type = $AddEffect/VBoxContainer/show_list/OptionButton.get_item_text(selected)
+	if ($AddEffect/VBoxContainer/ShowList/CheckButton.pressed == true):
+		selected = $AddEffect/VBoxContainer/ShowList/OptionButton.selected
+		data_type = $AddEffect/VBoxContainer/ShowList/OptionButton.get_item_text(selected)
 	var value1 = $AddEffect/VBoxContainer/Value1/OptionButton.selected
 	var value2 = -1
 	if ($AddEffect/VBoxContainer/Value2/CheckButton.pressed == true):
@@ -114,14 +114,14 @@ func _on_AddEffectConfirm_pressed():
 	if (add_new_effect == false):
 		var id = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0];
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.SetItemtext(id, name)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.SetItemtext(id, data_type)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.SetItemtext(id, value1)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.SetItemtext(id, value2)
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.SetItemtext(id, data_type)
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.SetItemtext(id, String(value1))
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.SetItemtext(id, String(value2))
 	else:
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.add_item(name)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.add_item(data_type)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.add_item(value1)
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item(value2)
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.add_item(data_type)
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.add_item(String(value1))
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item(String(value2))
 	$AddEffect.hide()
 
 func _on_AddEffectCancel_pressed():
@@ -129,13 +129,13 @@ func _on_AddEffectCancel_pressed():
 
 func _on_SaveEffects_pressed():
 	var size = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_item_count()
-	var effect_list
+	var effect_list: Dictionary
 	for i in range(size):
-		var effect_data
-		var show_list
-		var value2
+		var effect_data: Dictionary
+		var show_list: Dictionary
+		var value2: Dictionary
 		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_item_text(i)
-		var data_type = $EffectLabel/PanelContainer/VBoxContainer/Effects/data_types.get_item_text(i)
+		var data_type = $EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.get_item_text(i)
 		if (data_type == "disabled"):
 			show_list["show"] = false
 			show_list["data"] = ""

@@ -91,7 +91,7 @@ margin_right = 548.0
 margin_bottom = 37.0
 text = "Kate"
 align = 1
-items = [ "Kate", null, false, 0, null, "Maria", null, false, 1, null, "Reyson", null, false, 2, null ]
+items = [ "Kate", null, false, 0, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -271,7 +271,7 @@ size_flags_vertical = 3
 margin_right = 112.0
 margin_bottom = 182.0
 rect_min_size = Vector2( 112, 0 )
-items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false, "Shield", null, false ]
+items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false ]
 
 [node name="EquipList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
 margin_left = 116.0
@@ -280,7 +280,7 @@ margin_bottom = 182.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "Broad Sword", null, false, "Helmet", null, false, "Armor", null, false, "None", null, false, "Shield", null, false ]
+items = [ "None", null, false, "None", null, false, "None", null, false, "None", null, false ]
 
 [node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character/InitialEquipLabel"]
 margin_left = 109.0
@@ -355,7 +355,7 @@ margin_bottom = 189.0
 margin_right = 114.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 132 )
-items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Helmet", null, false, "A: Shield", null, false ]
+items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Hat", null, false ]
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
 margin_top = 136.0
@@ -3944,7 +3944,7 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Edit" to="Tabs/Effects" method="_on_EditEffect_pressed"]
 [connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Remove" to="Tabs/Effects" method="_on_RemoveEffect_pressed"]
 [connection signal="pressed" from="Tabs/Effects/EffectLabel/PanelContainer/VBoxContainer/CenterContainer/Buttons/Clear" to="Tabs/Effects" method="_on_ClearEffects_pressed"]
-[connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/ShowList/CheckButton" to="Tabs/Effects" method="_on_ShowListCheckButton_pressed"]
+[connection signal="toggled" from="Tabs/Effects/AddEffect/VBoxContainer/ShowList/CheckButton" to="Tabs/Effects" method="_on_CheckButton_toggled"]
 [connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/Value2/CheckButton" to="Tabs/Effects" method="_on_Value2CheckButton_pressed"]
 [connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/Buttons/HBox/Confirm" to="Tabs/Effects" method="_on_AddEffectConfirm_pressed"]
 [connection signal="pressed" from="Tabs/Effects/AddEffect/VBoxContainer/Buttons/HBox/Cancel" to="Tabs/Effects" method="_on_AddEffectCancel_pressed"]
