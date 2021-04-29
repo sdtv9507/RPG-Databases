@@ -382,7 +382,7 @@ func _on_AddEffectConfirm_pressed() -> void:
 			value2 = String($EffectManager/HBoxContainer/VBoxContainer/Value2/SpinBox.value)
 	else:
 		value2 = "0"
-	get_node("Tabs"+effect_manager_tab).call("add_effect_list", name, data_type, value1, value2)
+	get_node("Tabs/"+effect_manager_tab).call("add_effect_list", name, data_type, value1, value2)
 	effect_manager_tab = ""
 	effect_data_type = ""
 	$EffectManager.hide()

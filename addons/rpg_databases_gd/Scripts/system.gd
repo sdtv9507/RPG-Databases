@@ -50,7 +50,6 @@ func start() -> void:
 	for id in slots_data.keys():
 		var kind = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList
 		var kindId: String = String(id[0])
-		print(kindId)
 		var type = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList
 		match (kindId):
 			"w":
