@@ -5,7 +5,6 @@ tool
 # var a = 2
 # var b = "text"
 
-
 var icon_path: String = ""
 var armor_selected: int = 0
 var stat_edit: int = -1
