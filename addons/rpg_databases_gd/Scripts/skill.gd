@@ -17,10 +17,10 @@ func start() -> void:
 	$SkillButton.clear()
 	for i in range(json_dictionary.size()):
 		var skill_data: Dictionary = json_dictionary["skill"+String(i)]
-		if i > $skillButton.get_item_count() - 1:
-			$skillButton.add_item(skill_data["name"])
+		if i > $SkillButton.get_item_count() - 1:
+			$SkillButton.add_item(skill_data["name"])
 		else:
-			$skillButton.set_item_text(i, skill_data["name"])
+			$SkillButton.set_item_text(i, skill_data["name"])
 	var system_data: Dictionary = system_dictionary["elements"]
 	for i in range(system_data.size()):
 		if i >$DamageLabel/ElementLabel/ElementButton.get_item_count() - 1:
@@ -46,7 +46,7 @@ func refresh_data(id: int) -> void:
 	$DescLabel/DescText.text = skill_data["description"]
 	$SkillTypeLabel/SkillTypeButton.selected = skill_data["skill_type"]
 	$MPCostLabel/MPCostBox.value = skill_data["mp_cost"]
-	$TPCostLabel/TPCostBox.selected = skill_data["tp_cost"]
+	$TPCostLabel/TPCostBox.value = skill_data["tp_cost"]
 	$TargetLabel/TargetButton.selected = skill_data["target"]
 	$UsableLabel/UsableButton.selected = skill_data["usable"]
 	$HitLabel/HitBox.value = skill_data["success"]
@@ -121,7 +121,7 @@ func save_skill_data() -> void:
 	skill_data["description"] = $DescLabel/DescText.text
 	skill_data["skill_type"] = $SkillTypeLabel/SkillTypeButton.selected
 	skill_data["mp_cost"] = $MPCostLabel/MPCostBox.value
-	skill_data["tp_cost"] = $TPCostLabel/TPCostBox.selected
+	skill_data["tp_cost"] = $TPCostLabel/TPCostBox.value
 	skill_data["target"] = $TargetLabel/TargetButton.selected
 	skill_data["usable"] = $UsableLabel/UsableButton.selected
 	skill_data["success"] = $HitLabel/HitBox.value
@@ -132,15 +132,15 @@ func save_skill_data() -> void:
 	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_count()
 	for i in effect_size:
 		var effect_data: Dictionary
-		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_text(i)
-		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_skill_text(i)
-		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_skill_text(i)
-		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_skill_text(i)
+		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_text(i)
+		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_item_text(i)
+		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_item_text(i)
+		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_item_text(i)
 		effect_list.append(effect_data)
 	skill_data["effects"] = effect_list
 	get_parent().get_parent().call("store_data", "Skill", json_dictionary)
 
-func _on_SkillButton_skill_selected(id: int) -> void:
+func _on_SkillButton_item_selected(id: int) -> void:
 	skill_selected = id
 	refresh_data(id)
 
