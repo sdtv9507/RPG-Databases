@@ -53,7 +53,7 @@ func refresh_data(id: int) -> void:
 	var weapon_data: Dictionary = json_dictionary["weapon" + String(id)]
 	json_dictionary = get_parent().get_parent().call("read_data", "System")
 	var system_data: Dictionary = json_dictionary["stats"]
-	$NameLabel/NameText.text = json_dictionary["name"]
+	$NameLabel/NameText.text = weapon_data["name"]
 	var icon: String = weapon_data["icon"]
 	if icon != "":
 		icon_path = icon
@@ -115,7 +115,7 @@ func _on_RemoveWeapon_pressed() -> void:
 			weapon_id += 1
 		json_dictionary.erase("weapon"+String(weapon_id))
 		get_parent().get_parent().call("store_data", "Weapon", json_dictionary)
-		$WeaponButton.remove_weapon(weapon_selected)
+		$WeaponButton.remove_item(weapon_selected)
 		if weapon_selected == 0:
 			$WeaponButton.select(weapon_selected + 1)
 			weapon_selected += 1
@@ -146,7 +146,7 @@ func save_weapon_data() -> void:
 	var weapon_stat_formula: Dictionary = weapon_data["stat_list"]
 	var effect_list: Array
 	weapon_data["name"] = $NameLabel/NameText.text
-	$WeaponButton.set_item_text(weapon_selected, $NameLabel/NameText)
+	$WeaponButton.set_item_text(weapon_selected, $NameLabel/NameText.text)
 	weapon_data["icon"] = icon_path
 	weapon_data["description"] = $DescLabel/DescText.text
 	weapon_data["weapon_type"] = $WTypeLabel/WTypeButton.selected
@@ -158,13 +158,13 @@ func save_weapon_data() -> void:
 		var stat: String = $StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList.get_item_text(i)
 		var formula: String = $StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList.get_item_text(i)
 		weapon_stat_formula[stat] = formula
-	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_count()
+	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_count()
 	for i in effect_size:
 		var effect_data: Dictionary
-		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_text(i)
-		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_skill_text(i)
-		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_skill_text(i)
-		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_skill_text(i)
+		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_text(i)
+		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_item_text(i)
+		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_item_text(i)
+		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_item_text(i)
 		effect_list.append(effect_data)
 	weapon_data["effects"] = effect_list
 	get_parent().get_parent().call("store_data", "Weapon", json_dictionary)
