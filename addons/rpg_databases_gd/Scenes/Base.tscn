@@ -271,7 +271,7 @@ size_flags_vertical = 3
 margin_right = 112.0
 margin_bottom = 182.0
 rect_min_size = Vector2( 112, 0 )
-items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false ]
+items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false, "Gun", null, false ]
 
 [node name="EquipList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
 margin_left = 116.0
@@ -280,7 +280,7 @@ margin_bottom = 182.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "None", null, false, "None", null, false, "None", null, false, "None", null, false ]
+items = [ "Broad Sword", null, false, "None", null, false, "Clothes", null, false, "None", null, false, "None", null, false ]
 
 [node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character/InitialEquipLabel"]
 margin_left = 109.0
@@ -299,6 +299,9 @@ margin_top = 78.0
 margin_right = 150.0
 margin_bottom = 104.0
 text = "Ok"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CancelButton" type="Button" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
 margin_left = 170.0
@@ -355,7 +358,7 @@ margin_bottom = 189.0
 margin_right = 114.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 132 )
-items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Hat", null, false ]
+items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Hat", null, false, "A: Shield", null, false, "W: Axe", null, false ]
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
 margin_top = 136.0
@@ -457,24 +460,28 @@ margin_right = 110.0
 margin_bottom = 324.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+items = [ "hp_recovery", null, false ]
 
 [node name="DataType" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 114.0
 margin_right = 178.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 64, 0 )
+items = [ "-1", null, false ]
 
 [node name="EffectValue1" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 182.0
 margin_right = 246.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 64, 0 )
+items = [ "j", null, false ]
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 250.0
 margin_right = 314.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 64, 0 )
+items = [ "m", null, false ]
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
 margin_top = 328.0

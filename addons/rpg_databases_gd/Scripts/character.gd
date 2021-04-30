@@ -80,7 +80,7 @@ func refresh_data(id: int):
 			"w":
 				var w_id: int = -1
 				if int(kind_id) < initial_equip_data.keys().size():
-					w_id = initial_equip_data[kind_id]
+					w_id = int(initial_equip_data[kind_id])
 				initial_equip_id_array.append(w_id)
 				if w_id >= 0:
 					var weapon_data: Dictionary = weapon_list["weapon"+String(w_id)]
@@ -90,7 +90,7 @@ func refresh_data(id: int):
 			"a":
 				var a_id: int = -1
 				if int(kind_id) < initial_equip_data.keys().size():
-					a_id = initial_equip_data[kind_id]
+					a_id = int(initial_equip_data[kind_id])
 				initial_equip_id_array.append(a_id)
 				if a_id >= 0:
 					var armor_data: Dictionary = armor_list["armor"+String(a_id)]
@@ -98,6 +98,7 @@ func refresh_data(id: int):
 				else:
 					$InitialEquipLabel/PanelContainer/TypeContainer/EquipList.add_item("None")
 	json_dictionary = get_parent().get_parent().call("read_data", "Class")
+	$ClassLabel/ClassText.clear()
 	for i in range(json_dictionary.size()):
 		var class_data: Dictionary = json_dictionary["class"+String(i)]
 		if i > $ClassLabel/ClassText.get_item_count():
@@ -114,7 +115,7 @@ func _on_CharaSaveButton_pressed() -> void:
 	save_character_data();
 	refresh_data(character_selected)
 
-func on_AddButton_pressed() -> void:
+func _on_AddButton_pressed() -> void:
 	$CharacterButton.add_item("NewCharacter")
 	var id: int = $CharacterButton.get_item_count() - 1
 	var json_dictionary: Dictionary = get_parent().get_parent().call("read_data", "Character")
@@ -196,7 +197,8 @@ func save_character_data() -> void:
 	chara_data["equip_types"] = equip_type_data
 	var slot_items: int = $InitialEquipLabel/PanelContainer/TypeContainer/EquipList.get_item_count()
 	for i in range(slot_items):
-		initial_equip_data[String(i)] = int(initial_equip_id_array[i])
+		var data = initial_equip_id_array[i]
+		initial_equip_data[String(i)] = data
 	chara_data["initial_equip"] = initial_equip_data
 	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_count()
 	for i in range(effect_size):
@@ -282,8 +284,10 @@ func _on_EquipList_item_activated(index: int) -> void:
 				weapon_array.append(int(equip_types_data[key]))
 		for weapon in weapon_list.keys():
 			var weapon_data: Dictionary = weapon_list[weapon]
-			if weapon_array.has(weapon_data["weapon_type"]):
-				equip_edit_array.append(String(weapon).erase(0, 6))
+			if weapon_data["weapon_type"] in weapon_array:
+				var weapon_name = String(weapon)
+				weapon_name.erase(0, 6)
+				equip_edit_array.append(weapon_name)
 				$InitialEquipLabel/InitialEquipChange/Label/OptionButton.add_item(weapon_data["name"])
 	elif slots_data.has("a"+String(index)):
 		var armor_list: Dictionary = get_parent().get_parent().call("read_data", "Armor")
@@ -294,8 +298,10 @@ func _on_EquipList_item_activated(index: int) -> void:
 				armor_array.append(int(equip_types_data[key]))
 		for armor in armor_list.keys():
 			var armor_data: Dictionary = armor_list[armor]
-			if armor_array.has(armor_data["armor_type"]):
-				equip_edit_array.append(String(armor).erase(0, 6))
+			if armor_data["armor_type"] in armor_array:
+				var armor_name = String(armor)
+				armor_name.erase(0, 5)
+				equip_edit_array.append(armor_name)
 				$InitialEquipLabel/InitialEquipChange/Label/OptionButton.add_item(armor_data["name"])
 	$InitialEquipLabel/InitialEquipChange.popup_centered()
 
