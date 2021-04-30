@@ -28,7 +28,7 @@ func start() -> void:
 			$ElementLabel/ElementButton.add_item(system_data[String(i)])
 		else:
 			$ElementLabel/ElementButton.set_item_text(i, system_data[String(i)])
-	system_data = json_dictionary["weapon"]
+	system_data = json_dictionary["weapons"]
 	for i in range(system_data.size()):
 		if i > $WTypeLabel/WTypeButton.get_item_count() - 1:
 			$WTypeLabel/WTypeButton.add_item(system_data[String(i)])
@@ -38,11 +38,12 @@ func start() -> void:
 	var final_id: int = 0
 	for string in system_data.keys():
 		if string[0] == "w":
-			var id: int = int(string.erase(0, 1))
-			if id > $SlotLabel/SlotButton.get_item_count() - 1:
+			var id = string
+			id.erase(0, 1)
+			if int(id) > $SlotLabel/SlotButton.get_item_count() - 1:
 				$SlotLabel/SlotButton.add_item(system_data[string])
 			else:
-				$SlotLabel/SlotButton.set_item_text(id, system_data[string])
+				$SlotLabel/SlotButton.set_item_text(int(id), system_data[string])
 		else:
 			final_id += 1
 	refresh_data(weapon_selected)
@@ -78,7 +79,7 @@ func refresh_data(id: int) -> void:
 		clear_effect_list()
 		var effect_list: Array = weapon_data["effects"]
 		for effect in effect_list:
-			add_effect_list(effect["name"], effect["data_id"], effect["value1"], effect["value2"])
+			add_effect_list(effect["name"], int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 
 func _on_AddWeaponButton_pressed() -> void:
 	$WeaponButton.add_item("NewWeapon")

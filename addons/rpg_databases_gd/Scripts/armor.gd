@@ -22,7 +22,7 @@ func start() -> void:
 		else:
 			$ArmorButton.set_item_text(i, armor_data["name"])
 	json_dictionary = get_parent().get_parent().call("read_data", "System")
-	var system_data: Dictionary = json_dictionary["armor"]
+	var system_data: Dictionary = json_dictionary["armors"]
 	for i in range(system_data.size()):
 		if i > $ATypeLabel/ATypeButton.get_item_count() - 1:
 			$ATypeLabel/ATypeButton.add_item(system_data[String(i)])
@@ -32,11 +32,12 @@ func start() -> void:
 	var final_id: int = 0
 	for string in system_data.keys():
 		if string[0] == "w":
-			var id: int = int(string.erase(0, 1))
-			if id > $SlotLabel/SlotButton.get_item_count() - 1:
+			var id = string
+			id.erase(0, 1)
+			if int(id) > $SlotLabel/SlotButton.get_item_count() - 1:
 				$SlotLabel/SlotButton.add_item(system_data[string])
 			else:
-				$SlotLabel/SlotButton.set_item_text(id, system_data[string])
+				$SlotLabel/SlotButton.set_item_text(int(id), system_data[string])
 		else:
 			final_id += 1
 	refresh_data(armor_selected)
@@ -46,7 +47,7 @@ func refresh_data(id: int) -> void:
 	var armor_data: Dictionary = json_dictionary["armor" + String(id)]
 	json_dictionary = get_parent().get_parent().call("read_data", "System")
 	var system_data: Dictionary = json_dictionary["stats"]
-	$NameLabel/NameText.text = json_dictionary["name"]
+	$NameLabel/NameText.text = armor_data["name"]
 	var icon: String = armor_data["icon"]
 	if icon != "":
 		icon_path = icon
@@ -72,7 +73,7 @@ func refresh_data(id: int) -> void:
 		clear_effect_list()
 		var effect_list: Array = armor_data["effects"]
 		for effect in effect_list:
-			add_effect_list(effect["name"], effect["data_id"], effect["value1"], effect["value2"])
+			add_effect_list(effect["name"], int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 
 func _on_AddArmorButton_pressed() -> void:
 	$ArmorButton.add_item("NewArmor")
@@ -107,7 +108,7 @@ func _on_RemoveArmor_pressed() -> void:
 			armor_id += 1
 		json_dictionary.erase("armor"+String(armor_id))
 		get_parent().get_parent().call("store_data", "Armor", json_dictionary)
-		$ArmorButton.remove_armor(armor_selected)
+		$ArmorButton.remove_item(armor_selected)
 		if armor_selected == 0:
 			$ArmorButton.select(armor_selected + 1)
 			armor_selected += 1
@@ -138,7 +139,7 @@ func save_armor_data() -> void:
 	var armor_stat_formula: Dictionary = armor_data["stat_list"]
 	var effect_list: Array
 	armor_data["name"] = $NameLabel/NameText.text
-	$ArmorButton.set_item_text(armor_selected, $NameLabel/NameText)
+	$ArmorButton.set_item_text(armor_selected, $NameLabel/NameText.text)
 	armor_data["icon"] = icon_path
 	armor_data["description"] = $DescLabel/DescText.text
 	armor_data["armor_type"] = $ATypeLabel/ATypeButton.selected
@@ -149,13 +150,13 @@ func save_armor_data() -> void:
 		var stat: String = $StatsLabel/StatsContainer/DataContainer/StatNameCont/StatNameList.get_item_text(i)
 		var formula: String = $StatsLabel/StatsContainer/DataContainer/StatValueCont/StatValueList.get_item_text(i)
 		armor_stat_formula[stat] = formula
-	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_count()
+	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_count()
 	for i in effect_size:
 		var effect_data: Dictionary
-		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_text(i)
-		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_skill_text(i)
-		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_skill_text(i)
-		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_skill_text(i)
+		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_text(i)
+		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_item_text(i)
+		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_item_text(i)
+		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_item_text(i)
 		effect_list.append(effect_data)
 	armor_data["effects"] = effect_list
 	get_parent().get_parent().call("store_data", "Armor", json_dictionary)

@@ -17,22 +17,22 @@ func start() -> void:
 	$SkillButton.clear()
 	for i in range(json_dictionary.size()):
 		var skill_data: Dictionary = json_dictionary["skill"+String(i)]
-		if i > $skillButton.get_skill_count() - 1:
+		if i > $skillButton.get_item_count() - 1:
 			$skillButton.add_item(skill_data["name"])
 		else:
-			$skillButton.set_skill_text(i, skill_data["name"])
+			$skillButton.set_item_text(i, skill_data["name"])
 	var system_data: Dictionary = system_dictionary["elements"]
 	for i in range(system_data.size()):
-		if i >$DamageLabel/ElementLabel/ElementButton.get_skill_count() - 1:
+		if i >$DamageLabel/ElementLabel/ElementButton.get_item_count() - 1:
 			$DamageLabel/ElementLabel/ElementButton.add_item(system_data[String(i)])
 		else:
-			$DamageLabel/ElementLabel/ElementButton.set_skill_text(i, system_data[String(i)])
+			$DamageLabel/ElementLabel/ElementButton.set_item_text(i, system_data[String(i)])
 	system_data = system_dictionary["skills"]
 	for i in range(system_data.size()):
-		if i >$SkillTypeLabel/SkillTypeButton.get_skill_count() - 1:
+		if i >$SkillTypeLabel/SkillTypeButton.get_item_count() - 1:
 			$SkillTypeLabel/SkillTypeButton.add_item(system_data[String(i)])
 		else:
-			$SkillTypeLabel/SkillTypeButton.set_skill_text(i, system_data[String(i)])
+			$SkillTypeLabel/SkillTypeButton.set_item_text(i, system_data[String(i)])
 	refresh_data(skill_selected)
 
 func refresh_data(id: int) -> void:
@@ -58,7 +58,7 @@ func refresh_data(id: int) -> void:
 		clear_effect_list()
 		var effect_list: Array = skill_data["effects"]
 		for effect in effect_list:
-			add_effect_list(effect["name"], effect["data_id"], effect["value1"], effect["value2"])
+			add_effect_list(effect["name"], int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 
 func _on_Search_pressed() -> void:
 	$IconLabel/IconSearch.popup_centered()
@@ -69,7 +69,7 @@ func _on_IconSearch_file_selected(path: String) -> void:
 
 func _on_AddSkill_pressed() -> void:
 	$SkillButton.add_item("NewSkill")
-	var id: int = $SkillButton.get_skill_count() - 1
+	var id: int = $SkillButton.get_item_count() - 1
 	var json_dictionary: Dictionary = get_parent().get_parent().call("read_data", "Skill")
 	var skill_data: Dictionary
 	skill_data["name"] = "NewSkill"
@@ -116,7 +116,7 @@ func save_skill_data() -> void:
 	var skill_data: Dictionary = json_dictionary["skill"+String(skill_selected)]
 	var effect_list: Array
 	skill_data["name"] = $NameLabel/NameText.text
-	$SkillButton.set_skill_text(skill_selected, $NameLabel/NameText.text)
+	$SkillButton.set_item_text(skill_selected, $NameLabel/NameText.text)
 	skill_data["icon"] = icon_path
 	skill_data["description"] = $DescLabel/DescText.text
 	skill_data["skill_type"] = $SkillTypeLabel/SkillTypeButton.selected
@@ -129,7 +129,7 @@ func save_skill_data() -> void:
 	skill_data["damage_type"] = $DamageLabel/DTypeLabel/DTypeButton.selected
 	skill_data["element"] = $DamageLabel/ElementLabel/ElementButton.selected
 	skill_data["formula"] = $DamageLabel/DFormulaLabel/FormulaText.text
-	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_count()
+	var effect_size: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_count()
 	for i in effect_size:
 		var effect_data: Dictionary
 		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_skill_text(i)
@@ -148,7 +148,7 @@ func _on_AddSkillEffect_pressed() -> void:
 	get_parent().get_parent().call("open_effect_manager", "Skill")
 
 func _on_RemoveSkillEffect_pressed() -> void:
-	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_skills()[0]
+	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)
@@ -157,7 +157,7 @@ func _on_CharacterAddEffectButton_pressed() -> void:
 	get_parent().get_parent().call("open_effect_manager", "Character")
 
 func _on_CharacterRemoveEffectButton_pressed() -> void:
-	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_skills()[0]
+	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)

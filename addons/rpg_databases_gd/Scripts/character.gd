@@ -108,7 +108,7 @@ func refresh_data(id: int):
 		clear_effect_list()
 		var effect_list: Array = chara_data["effects"]
 		for effect in effect_list:
-			add_effect_list(effect["name"], effect["data_id"], effect["value1"], effect["value2"])
+			add_effect_list(effect["name"], int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 
 func _on_CharaSaveButton_pressed() -> void:
 	save_character_data();

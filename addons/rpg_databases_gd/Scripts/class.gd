@@ -67,7 +67,7 @@ func refresh_data(id: int) -> void:
 		clear_effect_list()
 		var effect_list: Array = class_data["effects"]
 		for effect in effect_list:
-			add_effect_list(effect["name"], int(effect["data_id"]), effect["value1"], effect["value2"])
+			add_effect_list(effect["name"], int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 
 func _on_Search_pressed() -> void:
 	$IconLabel/IconSearch.popup_centered()
