@@ -150,7 +150,7 @@ func _on_RemoveItemEffect_pressed() -> void:
 
 func add_effect_list(name: String, data_id: int, value1: String, value2: String) -> void:
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_item(data_id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_item(String(data_id))
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.add_item(value1)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.add_item(value2)
 

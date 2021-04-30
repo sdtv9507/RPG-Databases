@@ -18,19 +18,19 @@ func start() -> void:
 	for i in range(json_dictionary.size()):
 		var skill_data: Dictionary = json_dictionary["skill"+String(i)]
 		if i > $skillButton.get_skill_count() - 1:
-			$skillButton.add_skill(skill_data["name"])
+			$skillButton.add_item(skill_data["name"])
 		else:
 			$skillButton.set_skill_text(i, skill_data["name"])
 	var system_data: Dictionary = system_dictionary["elements"]
 	for i in range(system_data.size()):
 		if i >$DamageLabel/ElementLabel/ElementButton.get_skill_count() - 1:
-			$DamageLabel/ElementLabel/ElementButton.add_skill(system_data[String(i)])
+			$DamageLabel/ElementLabel/ElementButton.add_item(system_data[String(i)])
 		else:
 			$DamageLabel/ElementLabel/ElementButton.set_skill_text(i, system_data[String(i)])
 	system_data = system_dictionary["skills"]
 	for i in range(system_data.size()):
 		if i >$SkillTypeLabel/SkillTypeButton.get_skill_count() - 1:
-			$SkillTypeLabel/SkillTypeButton.add_skill(system_data[String(i)])
+			$SkillTypeLabel/SkillTypeButton.add_item(system_data[String(i)])
 		else:
 			$SkillTypeLabel/SkillTypeButton.set_skill_text(i, system_data[String(i)])
 	refresh_data(skill_selected)
@@ -68,7 +68,7 @@ func _on_IconSearch_file_selected(path: String) -> void:
 	$IconLabel/IconSprite.texture = load(path)
 
 func _on_AddSkill_pressed() -> void:
-	$SkillButton.add_skill("NewSkill")
+	$SkillButton.add_item("NewSkill")
 	var id: int = $SkillButton.get_skill_count() - 1
 	var json_dictionary: Dictionary = get_parent().get_parent().call("read_data", "Skill")
 	var skill_data: Dictionary
@@ -97,7 +97,7 @@ func _on_RemoveSkill_pressed():
 			skill_id += 1
 		json_dictionary.erase("skill"+String(skill_id))
 		get_parent().get_parent().call("store_data", "Skill", json_dictionary)
-		$SkillButton.remove_skill(skill_selected)
+		$SkillButton.remove_item(skill_selected)
 		if skill_selected == 0:
 			$SkillButton.select(skill_selected + 1)
 			skill_selected += 1
@@ -149,25 +149,25 @@ func _on_AddSkillEffect_pressed() -> void:
 
 func _on_RemoveSkillEffect_pressed() -> void:
 	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_skills()[0]
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_skill(id)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_skill(id)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_skill(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)
 
 func _on_CharacterAddEffectButton_pressed() -> void:
 	get_parent().get_parent().call("open_effect_manager", "Character")
 
 func _on_CharacterRemoveEffectButton_pressed() -> void:
 	var id: int = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_skills()[0]
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_skill(id)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_skill(id)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_skill(id)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_skill(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_item(id)
 
 func add_effect_list(name: String, data_id: int, value1: String, value2: String) -> void:
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_skill(name)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_skill(data_id)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.add_skill(value1)
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.add_skill(value2)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_item(String(data_id))
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.add_item(value1)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.add_item(value2)
 
 func clear_effect_list() -> void:
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.clear()
