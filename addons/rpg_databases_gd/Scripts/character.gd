@@ -220,11 +220,11 @@ func _on_AddEquipTypeButton_pressed() -> void:
 	$EquipLabel/AddEquip.popup_centered()
 	var json_dictionary: Dictionary = get_parent().get_parent().call("read_data", "System")
 	var w_type_data: Dictionary = json_dictionary["weapons"]
-	for i in w_type_data.size:
+	for i in w_type_data.size():
 		if i > $EquipLabel/AddEquip/EquipLabel/EquipButton.get_item_count() - 1:
 			$EquipLabel/AddEquip/EquipLabel/EquipButton.add_item(w_type_data[String(i)])
 		else:
-			$EquipLabel/AddEquip/EquipLabel/EquipButton.set_item_text(w_type_data[String(i)])
+			$EquipLabel/AddEquip/EquipLabel/EquipButton.set_item_text(i, w_type_data[String(i)])
 
 func _on_RemoveEquipTypeButton_pressed() -> void:
 	var selected: int = $EquipLabel/EquipContainer/EquipContainer/EquipList.get_selected_items()[0]

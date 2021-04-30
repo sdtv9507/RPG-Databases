@@ -82,7 +82,7 @@ func _on_AddItem_pressed() -> void:
 	json_dictionary["item" + String(id)] = item_data
 	get_parent().get_parent().call("store_data", "Item", json_dictionary)
 
-func _on_RemoveItemButton_pressed():
+func _on_RemoveItem_pressed():
 	var json_dictionary: Dictionary = get_parent().get_parent().call("read_data", "Item")
 	if json_dictionary.keys().size() > 1:
 		var item_id: int = item_selected
@@ -91,14 +91,14 @@ func _on_RemoveItemButton_pressed():
 			item_id += 1
 		json_dictionary.erase("item"+String(item_id))
 		get_parent().get_parent().call("store_data", "Item", json_dictionary)
-		$CharacterButton.remove_item(item_selected)
+		$ItemButton.remove_item(item_selected)
 		if item_selected == 0:
-			$CharacterButton.select(item_selected + 1)
+			$ItemButton.select(item_selected + 1)
 			item_selected += 1
 		else:
-			$CharacterButton.select(item_selected + 1)
+			$ItemButton.select(item_selected + 1)
 			item_selected -= 1
-		$CharacterButton.select(item_selected)
+		$ItemButton.select(item_selected)
 		refresh_data(item_selected)
 
 func _on_ItemSaveButton_pressed() -> void:

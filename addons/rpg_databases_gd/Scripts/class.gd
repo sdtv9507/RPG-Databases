@@ -89,7 +89,7 @@ func save_class_data() -> void:
 	class_skill_list.clear()
 	
 	class_data["name"] = $NameLabel/NameText.text
-	$ClassButton.set_item_text(class_selected, $NameLabel/NameText)
+	$ClassButton.set_item_text(class_selected, $NameLabel/NameText.text)
 	class_data["icon"] = icon_path
 	class_data["experience"] = $ExpLabel/ExpText.text
 	var items: int = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_count()
