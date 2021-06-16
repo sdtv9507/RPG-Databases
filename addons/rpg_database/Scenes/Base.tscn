@@ -91,7 +91,7 @@ margin_right = 548.0
 margin_bottom = 37.0
 text = "Kate"
 align = 1
-items = [ "Kate", null, false, 0, null ]
+items = [ "Kate", null, false, 0, null, "Maria", null, false, 1, null, "Reyson", null, false, 2, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -198,7 +198,7 @@ margin_top = -6.0
 margin_right = 185.0
 margin_bottom = 20.0
 text = "Warrior"
-items = [ "Warrior", null, false, 0, null, "NewClass", null, false, 1, null ]
+items = [ "Warrior", null, false, 0, null, "Mage", null, false, 1, null, "Priest", null, false, 2, null ]
 selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -271,7 +271,7 @@ size_flags_vertical = 3
 margin_right = 112.0
 margin_bottom = 182.0
 rect_min_size = Vector2( 112, 0 )
-items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false ]
+items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false, "Shield", null, false ]
 
 [node name="EquipList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
 margin_left = 116.0
@@ -280,7 +280,7 @@ margin_bottom = 182.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "None", null, false, "None", null, false, "None", null, false, "None", null, false ]
+items = [ "Broad Sword", null, false, "Helmet", null, false, "Armor", null, false, "None", null, false, "Shield", null, false ]
 
 [node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character/InitialEquipLabel"]
 margin_left = 109.0
@@ -355,7 +355,7 @@ margin_bottom = 189.0
 margin_right = 114.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 132 )
-items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Hat", null, false ]
+items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Helmet", null, false, "A: Shield", null, false ]
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
 margin_top = 136.0
@@ -2597,6 +2597,31 @@ margin_right = 191.0
 margin_bottom = 19.0
 text = "Item"
 items = [ "Item", null, false, 0, null, "Weapon", null, false, 1, null, "Armor", null, false, 2, null ]
+selected = 0
+
+[node name="Groups" type="Container" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="GroupsSaveButton" type="Button" parent="Tabs/Groups"]
+margin_left = 451.0
+margin_top = 463.0
+margin_right = 541.0
+margin_bottom = 493.0
+text = "Save"
+
+[node name="GroupsButton" type="OptionButton" parent="Tabs/Groups"]
+margin_left = 412.0
+margin_top = 13.0
+margin_right = 548.0
+margin_bottom = 37.0
+text = "Ítem 0"
+items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
 
 [node name="States" type="Container" parent="Tabs"]
