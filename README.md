@@ -6,6 +6,7 @@ RPG database for [Godot Engine](https://godotengine.org) inspired on RPG Maker's
 
 - Copy the folder rpg_database from the project in "res://addons/".
 - Create a new folder in the root of your project called "databases" (without the quotes).
+- If you are using the C# version, build the project.
 - Go to your project's Settings and enable the plugin.
 - A button should show above the inspector. Press it to open the database
 
