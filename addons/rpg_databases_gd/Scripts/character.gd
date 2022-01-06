@@ -101,10 +101,8 @@ func refresh_data(id: int):
 	$ClassLabel/ClassText.clear()
 	for i in range(json_dictionary.size()):
 		var class_data: Dictionary = json_dictionary["class"+String(i)]
-		if i > $ClassLabel/ClassText.get_item_count():
-			$ClassLabel/ClassText.add_item(class_data["name"])
-		else:
-			$ClassLabel/ClassText.set_item_text(i, class_data["name"])
+		$ClassLabel/ClassText.add_item(class_data["name"])
+	
 	if chara_data.has("effects"):
 		clear_effect_list()
 		var effect_list: Array = chara_data["effects"]
