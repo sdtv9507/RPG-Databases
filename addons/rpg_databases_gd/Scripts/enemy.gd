@@ -85,9 +85,9 @@ func _on_AddEnemy_pressed():
 	$EnemyButton.add_item("NewEnemy")
 	var id = $EnemyButton.get_item_count() - 1;
 	var json_dictionary = get_parent().get_parent().call("read_data", "Enemy")
-	var enemy_data
-	var stats_data
-	var drop_data
+	var enemy_data: Dictionary
+	var stats_data: Dictionary
+	var drop_data: Dictionary
 	enemy_data["name"] = "Slime"
 	enemy_data["graphicImage"] = ""
 	stats_data["hp"] = "150"
