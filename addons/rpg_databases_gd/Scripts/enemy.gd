@@ -283,3 +283,7 @@ func clear_effect_list() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _on_EnemyButton_item_selected(index):
+	enemy_selected = index
+	refresh_data(index)
