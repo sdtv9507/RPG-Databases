@@ -37,6 +37,7 @@ size = Vector2( 128, 128 )
 size = Vector2( 32, 32 )
 
 [node name="Control" type="WindowDialog"]
+visible = true
 margin_right = 960.0
 margin_bottom = 540.0
 window_title = "Database Manager"
@@ -74,21 +75,23 @@ margin_bottom = -4.0
 size_flags_horizontal = 3
 script = ExtResource( 2 )
 
-[node name="CharaSaveButton" type="Button" parent="Tabs/Character"]
-margin_left = 451.0
-margin_top = 463.0
-margin_right = 541.0
-margin_bottom = 493.0
-text = "Save"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Character"]
+margin_top = 8.0
+margin_right = 952.0
 
-[node name="CharacterButton" type="OptionButton" parent="Tabs/Character"]
-margin_left = 412.0
-margin_top = 13.0
-margin_right = 548.0
-margin_bottom = 37.0
+[node name="CharacterList" type="CenterContainer" parent="Tabs/Character/VBoxContainer"]
+margin_right = 952.0
+margin_bottom = 24.0
+
+[node name="CharacterList" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/CharacterList"]
+margin_left = 363.0
+margin_right = 588.0
+margin_bottom = 24.0
+
+[node name="CharacterButton" type="OptionButton" parent="Tabs/Character/VBoxContainer/CharacterList/CharacterList"]
+margin_right = 180.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 180, 24 )
 text = "Kate"
 align = 1
 items = [ "Kate", null, false, 0, null, "Maria", null, false, 1, null, "Reyson", null, false, 2, null ]
@@ -97,65 +100,101 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddButton" type="Button" parent="Tabs/Character/CharacterButton"]
-margin_left = 142.0
-margin_right = 166.0
+[node name="AddButton" type="Button" parent="Tabs/Character/VBoxContainer/CharacterList/CharacterList"]
+margin_left = 184.0
+margin_right = 204.0
 margin_bottom = 24.0
 text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="RemoveButton" type="Button" parent="Tabs/Character/CharacterButton"]
-margin_left = 170.0
-margin_right = 194.0
+[node name="RemoveButton" type="Button" parent="Tabs/Character/VBoxContainer/CharacterList/CharacterList"]
+margin_left = 208.0
+margin_right = 225.0
 margin_bottom = 24.0
 text = "-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="FaceLabel" type="Label" parent="Tabs/Character"]
-margin_left = 62.0
-margin_top = 46.0
-margin_right = 102.0
-margin_bottom = 60.0
+[node name="Body" type="HBoxContainer" parent="Tabs/Character/VBoxContainer"]
+margin_top = 28.0
+margin_right = 952.0
+margin_bottom = 454.0
+size_flags_vertical = 3
+
+[node name="Data" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body"]
+margin_right = 624.0
+margin_bottom = 426.0
+size_flags_horizontal = 3
+custom_constants/separation = 12
+
+[node name="Top" type="CenterContainer" parent="Tabs/Character/VBoxContainer/Body/Data"]
+margin_right = 624.0
+margin_bottom = 120.0
+
+[node name="Top" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top"]
+margin_right = 624.0
+margin_bottom = 120.0
+
+[node name="Face" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top"]
+margin_right = 96.0
+margin_bottom = 120.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Face"]
+margin_right = 96.0
+margin_bottom = 20.0
+
+[node name="FaceLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Face/HBoxContainer"]
+margin_top = 3.0
+margin_right = 29.0
+margin_bottom = 17.0
 text = "Face"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FaceSprite" type="Sprite" parent="Tabs/Character/FaceLabel"]
-position = Vector2( 20, 72 )
-texture = SubResource( 1 )
-
-[node name="FaceSearch" type="FileDialog" parent="Tabs/Character/FaceLabel"]
-margin_right = 542.0
-margin_bottom = 288.0
-window_title = "Abrir un Archivo"
-mode = 0
-filters = PoolStringArray( "*.png" )
-
-[node name="Search" type="Button" parent="Tabs/Character/FaceLabel"]
-margin_left = 43.0
-margin_top = -5.0
-margin_right = 55.0
-margin_bottom = 15.0
+[node name="Search" type="Button" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Face/HBoxContainer"]
+margin_left = 33.0
+margin_right = 57.0
+margin_bottom = 20.0
 text = "..."
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameLabel" type="Label" parent="Tabs/Character"]
-margin_left = 63.0
-margin_top = 197.0
-margin_right = 103.0
-margin_bottom = 211.0
+[node name="FaceSprite" type="TextureRect" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Face"]
+margin_top = 24.0
+margin_right = 96.0
+margin_bottom = 120.0
+texture = SubResource( 1 )
+
+[node name="Name" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top"]
+margin_left = 100.0
+margin_right = 292.0
+margin_bottom = 120.0
+
+[node name="NameLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Name"]
+margin_top = 53.0
+margin_right = 38.0
+margin_bottom = 67.0
 text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameText" type="LineEdit" parent="Tabs/Character/NameLabel"]
-margin_left = 53.0
-margin_top = -6.0
-margin_right = 185.0
-margin_bottom = 20.0
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Name"]
+margin_left = 42.0
+margin_right = 192.0
+margin_bottom = 120.0
+
+[node name="NameText" type="LineEdit" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Name/CenterContainer"]
+margin_top = 46.0
+margin_right = 150.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 150, 28 )
 text = "Kate"
 caret_blink = true
 caret_blink_speed = 0.5
@@ -163,40 +202,63 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DescLabel" type="Label" parent="Tabs/Character"]
-margin_left = 183.0
-margin_top = 87.0
-margin_right = 257.0
-margin_bottom = 101.0
+[node name="Description" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top"]
+margin_left = 296.0
+margin_right = 624.0
+margin_bottom = 120.0
+
+[node name="DescLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Description"]
+margin_top = 53.0
+margin_right = 74.0
+margin_bottom = 67.0
 text = "Description"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DescText" type="TextEdit" parent="Tabs/Character/DescLabel"]
-margin_left = 8.0
-margin_top = 20.0
-margin_right = 357.0
-margin_bottom = 88.0
+[node name="CenterContainer" type="CenterContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Description"]
+margin_left = 78.0
+margin_right = 328.0
+margin_bottom = 120.0
+
+[node name="DescText" type="TextEdit" parent="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Description/CenterContainer"]
+margin_right = 250.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 250, 120 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ClassLabel" type="Label" parent="Tabs/Character"]
-margin_left = 315.0
-margin_top = 198.0
-margin_right = 355.0
-margin_bottom = 212.0
+[node name="Middle" type="CenterContainer" parent="Tabs/Character/VBoxContainer/Body/Data"]
+margin_top = 132.0
+margin_right = 624.0
+margin_bottom = 156.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="Middle" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Middle"]
+margin_left = 62.0
+margin_right = 562.0
+margin_bottom = 24.0
+custom_constants/separation = 24
+
+[node name="Class" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle"]
+margin_right = 157.0
+margin_bottom = 24.0
+
+[node name="ClassLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle/Class"]
+margin_top = 5.0
+margin_right = 33.0
+margin_bottom = 19.0
 text = "Class"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ClassText" type="OptionButton" parent="Tabs/Character/ClassLabel"]
-margin_left = 53.0
-margin_top = -6.0
-margin_right = 185.0
-margin_bottom = 20.0
+[node name="ClassText" type="OptionButton" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle/Class"]
+margin_left = 37.0
+margin_right = 157.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 120, 0 )
 text = "Warrior"
 items = [ "Warrior", null, false, 0, null, "Mage", null, false, 1, null, "Priest", null, false, 2, null ]
 selected = 0
@@ -204,85 +266,248 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InitLevelLabel" type="Label" parent="Tabs/Character"]
-margin_left = 187.0
-margin_top = 59.0
-margin_right = 262.0
-margin_bottom = 73.0
+[node name="iLevel" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle"]
+margin_left = 181.0
+margin_right = 334.0
+margin_bottom = 24.0
+
+[node name="InitLevelLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle/iLevel"]
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 19.0
 text = "Initial Level"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InitLevelText" type="SpinBox" parent="Tabs/Character/InitLevelLabel"]
-margin_left = 90.0
-margin_top = -8.0
-margin_right = 144.0
-margin_bottom = 18.0
+[node name="InitLevelText" type="SpinBox" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle/iLevel"]
+margin_left = 79.0
+margin_right = 153.0
+margin_bottom = 24.0
 min_value = 1.0
 value = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MaxLevelLabel" type="Label" parent="Tabs/Character"]
-margin_left = 391.0
-margin_top = 58.0
-margin_right = 455.0
-margin_bottom = 72.0
+[node name="mLevel" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle"]
+margin_left = 358.0
+margin_right = 500.0
+margin_bottom = 24.0
+
+[node name="MaxLevelLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle/mLevel"]
+margin_top = 5.0
+margin_right = 64.0
+margin_bottom = 19.0
 text = "Max Level"
 
-[node name="MaxLevelText" type="SpinBox" parent="Tabs/Character/MaxLevelLabel"]
-margin_left = 82.0
-margin_top = -7.0
-margin_right = 136.0
-margin_bottom = 19.0
+[node name="MaxLevelText" type="SpinBox" parent="Tabs/Character/VBoxContainer/Body/Data/Middle/Middle/mLevel"]
+margin_left = 68.0
+margin_right = 142.0
+margin_bottom = 24.0
 min_value = 1.0
 max_value = 99999.0
 value = 99.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="InitialEquipLabel" type="Label" parent="Tabs/Character"]
-margin_left = 24.0
-margin_top = 233.0
-margin_right = 134.0
-margin_bottom = 247.0
+[node name="Bottom" type="CenterContainer" parent="Tabs/Character/VBoxContainer/Body/Data"]
+margin_top = 168.0
+margin_right = 624.0
+margin_bottom = 426.0
+
+[node name="Bottom" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom"]
+margin_left = 70.0
+margin_right = 554.0
+margin_bottom = 258.0
+
+[node name="Iequip" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom"]
+margin_right = 300.0
+margin_bottom = 258.0
+
+[node name="InitialEquipLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Iequip"]
+margin_right = 300.0
+margin_bottom = 14.0
 text = "Initial Equipment"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="Tabs/Character/InitialEquipLabel"]
-margin_left = 8.0
-margin_top = 16.0
-margin_right = 331.0
-margin_bottom = 212.0
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Iequip"]
+margin_top = 18.0
+margin_right = 300.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 300, 240 )
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TypeContainer" type="HBoxContainer" parent="Tabs/Character/InitialEquipLabel/PanelContainer"]
+[node name="TypeContainer" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Iequip/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 316.0
-margin_bottom = 189.0
+margin_right = 293.0
+margin_bottom = 233.0
 size_flags_vertical = 3
 
-[node name="TypeList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
+[node name="TypeList" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Iequip/PanelContainer/TypeContainer"]
 margin_right = 112.0
-margin_bottom = 182.0
+margin_bottom = 226.0
 rect_min_size = Vector2( 112, 0 )
 items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false, "Shield", null, false ]
 
-[node name="EquipList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
+[node name="EquipList" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Iequip/PanelContainer/TypeContainer"]
 margin_left = 116.0
-margin_right = 309.0
-margin_bottom = 182.0
+margin_right = 286.0
+margin_bottom = 226.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 items = [ "Broad Sword", null, false, "Helmet", null, false, "Armor", null, false, "None", null, false, "Shield", null, false ]
 
-[node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character/InitialEquipLabel"]
+[node name="Equip" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom"]
+margin_left = 304.0
+margin_right = 484.0
+margin_bottom = 258.0
+
+[node name="EquipLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip"]
+margin_right = 180.0
+margin_bottom = 14.0
+text = "Equip Types"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EquipContainer" type="PanelContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip"]
+margin_top = 18.0
+margin_right = 180.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 180, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EquipContainer" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip/EquipContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 173.0
+margin_bottom = 187.0
+
+[node name="EquipList" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip/EquipContainer/EquipContainer"]
+margin_right = 166.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 132 )
+items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Helmet", null, false, "A: Shield", null, false ]
+
+[node name="AddButton" type="Button" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip/EquipContainer/EquipContainer"]
+margin_top = 136.0
+margin_right = 166.0
+margin_bottom = 156.0
+text = "Add Type"
+
+[node name="RemoveButton" type="Button" parent="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip/EquipContainer/EquipContainer"]
+margin_top = 160.0
+margin_right = 166.0
+margin_bottom = 180.0
+text = "Remove Type"
+
+[node name="Effects" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body"]
+margin_left = 628.0
+margin_right = 952.0
+margin_bottom = 426.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EffectLabel" type="Label" parent="Tabs/Character/VBoxContainer/Body/Effects"]
+margin_right = 324.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Effects"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Character/VBoxContainer/Body/Effects"]
+margin_top = 18.0
+margin_right = 324.0
+margin_bottom = 426.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 317.0
+margin_bottom = 401.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer"]
+margin_right = 310.0
+margin_bottom = 346.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 106.0
+margin_bottom = 346.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DataType" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 110.0
+margin_right = 174.0
+margin_bottom = 346.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 178.0
+margin_right = 242.0
+margin_bottom = 346.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 246.0
+margin_right = 310.0
+margin_bottom = 346.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="AddButton" type="Button" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer"]
+margin_top = 350.0
+margin_right = 310.0
+margin_bottom = 370.0
+text = "Add Effect"
+
+[node name="RemoveButton" type="Button" parent="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer"]
+margin_top = 374.0
+margin_right = 310.0
+margin_bottom = 394.0
+text = "Remove Effect"
+
+[node name="Save" type="CenterContainer" parent="Tabs/Character/VBoxContainer"]
+margin_top = 458.0
+margin_right = 952.0
+margin_bottom = 482.0
+
+[node name="CharaSaveButton" type="Button" parent="Tabs/Character/VBoxContainer/Save"]
+margin_left = 436.0
+margin_right = 516.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 80, 24 )
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FaceSearch" type="FileDialog" parent="Tabs/Character"]
+margin_left = 33.0
+margin_right = 276.0
+margin_bottom = 130.0
+window_title = "Abrir un Archivo"
+mode = 0
+filters = PoolStringArray( "*.png" )
+
+[node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character"]
 margin_left = 109.0
 margin_top = -125.0
 margin_right = 439.0
@@ -293,7 +518,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OkButton" type="Button" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
+[node name="OkButton" type="Button" parent="Tabs/Character/InitialEquipChange"]
 margin_left = 70.0
 margin_top = 78.0
 margin_right = 150.0
@@ -303,21 +528,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CancelButton" type="Button" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
+[node name="CancelButton" type="Button" parent="Tabs/Character/InitialEquipChange"]
 margin_left = 170.0
 margin_top = 78.0
 margin_right = 250.0
 margin_bottom = 104.0
 text = "Cancel"
 
-[node name="Label" type="Label" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange"]
+[node name="Label" type="Label" parent="Tabs/Character/InitialEquipChange"]
 margin_left = 39.0
 margin_top = 29.0
 margin_right = 79.0
 margin_bottom = 43.0
 text = "Weapon"
 
-[node name="OptionButton" type="OptionButton" parent="Tabs/Character/InitialEquipLabel/InitialEquipChange/Label"]
+[node name="OptionButton" type="OptionButton" parent="Tabs/Character/InitialEquipChange/Label"]
 margin_left = 70.0
 margin_top = -8.0
 margin_right = 226.0
@@ -329,78 +554,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EquipLabel" type="Label" parent="Tabs/Character"]
-margin_left = 367.0
-margin_top = 235.0
-margin_right = 443.0
-margin_bottom = 249.0
-text = "Equip Types"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EquipContainer" type="PanelContainer" parent="Tabs/Character/EquipLabel"]
-margin_left = 8.0
-margin_top = 16.0
-margin_right = 136.0
-margin_bottom = 212.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EquipContainer" type="VBoxContainer" parent="Tabs/Character/EquipLabel/EquipContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 121.0
-margin_bottom = 189.0
-
-[node name="EquipList" type="ItemList" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
-margin_right = 114.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 0, 132 )
-items = [ "W: Sword", null, false, "W: Spear", null, false, "A: Armor", null, false, "A: Helmet", null, false, "A: Shield", null, false ]
-
-[node name="AddButton" type="Button" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
-margin_top = 136.0
-margin_right = 114.0
-margin_bottom = 156.0
-text = "Add Type"
-
-[node name="RemoveButton" type="Button" parent="Tabs/Character/EquipLabel/EquipContainer/EquipContainer"]
-margin_top = 160.0
-margin_right = 114.0
-margin_bottom = 180.0
-text = "Remove Type"
-
-[node name="AddEquip" type="WindowDialog" parent="Tabs/Character/EquipLabel"]
+[node name="AddEquip" type="WindowDialog" parent="Tabs/Character"]
 margin_left = -310.0
 margin_top = -101.0
 margin_right = 116.0
 margin_bottom = 18.0
 window_title = "Add Equip Type"
 
-[node name="OkButton" type="Button" parent="Tabs/Character/EquipLabel/AddEquip"]
+[node name="OkButton" type="Button" parent="Tabs/Character/AddEquip"]
 margin_left = 110.0
 margin_top = 78.0
 margin_right = 190.0
 margin_bottom = 104.0
 text = "Ok"
 
-[node name="CancelButton" type="Button" parent="Tabs/Character/EquipLabel/AddEquip"]
+[node name="CancelButton" type="Button" parent="Tabs/Character/AddEquip"]
 margin_left = 235.0
 margin_top = 78.0
 margin_right = 315.0
 margin_bottom = 104.0
 text = "Cancel"
 
-[node name="TypeLabel" type="Label" parent="Tabs/Character/EquipLabel/AddEquip"]
+[node name="TypeLabel" type="Label" parent="Tabs/Character/AddEquip"]
 margin_left = 21.0
 margin_top = 36.0
 margin_right = 61.0
 margin_bottom = 50.0
 text = "Type"
 
-[node name="TypeButton" type="OptionButton" parent="Tabs/Character/EquipLabel/AddEquip/TypeLabel"]
+[node name="TypeButton" type="OptionButton" parent="Tabs/Character/AddEquip/TypeLabel"]
 margin_left = 48.0
 margin_top = -6.0
 margin_right = 166.0
@@ -409,14 +591,14 @@ text = "Weapon"
 items = [ "Weapon", null, false, 0, null, "Armor", null, false, 1, null ]
 selected = 0
 
-[node name="EquipLabel" type="Label" parent="Tabs/Character/EquipLabel/AddEquip"]
+[node name="EquipLabel" type="Label" parent="Tabs/Character/AddEquip"]
 margin_left = 226.0
 margin_top = 36.0
 margin_right = 266.0
 margin_bottom = 50.0
 text = "Equip"
 
-[node name="EquipButton" type="OptionButton" parent="Tabs/Character/EquipLabel/AddEquip/EquipLabel"]
+[node name="EquipButton" type="OptionButton" parent="Tabs/Character/AddEquip/EquipLabel"]
 margin_left = 48.0
 margin_top = -6.0
 margin_right = 166.0
@@ -424,72 +606,6 @@ margin_bottom = 20.0
 text = "Ítem 0"
 items = [ "Ítem 0", null, false, 0, null ]
 selected = 0
-
-[node name="EffectLabel" type="Label" parent="Tabs/Character"]
-margin_left = 590.0
-margin_top = 58.0
-margin_right = 632.0
-margin_bottom = 72.0
-text = "Effects"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelContainer" type="PanelContainer" parent="Tabs/Character/EffectLabel"]
-margin_left = 8.0
-margin_top = 16.0
-margin_right = 336.0
-margin_bottom = 402.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Character/EffectLabel/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 321.0
-margin_bottom = 379.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
-margin_right = 314.0
-margin_bottom = 324.0
-size_flags_vertical = 3
-
-[node name="EffectNames" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 110.0
-margin_bottom = 324.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="DataType" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 114.0
-margin_right = 178.0
-margin_bottom = 324.0
-rect_min_size = Vector2( 64, 0 )
-
-[node name="EffectValue1" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 182.0
-margin_right = 246.0
-margin_bottom = 324.0
-rect_min_size = Vector2( 64, 0 )
-
-[node name="EffectValue2" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 250.0
-margin_right = 314.0
-margin_bottom = 324.0
-rect_min_size = Vector2( 64, 0 )
-
-[node name="AddButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
-margin_top = 328.0
-margin_right = 314.0
-margin_bottom = 348.0
-text = "Add Effect"
-
-[node name="RemoveButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
-margin_top = 352.0
-margin_right = 314.0
-margin_bottom = 372.0
-text = "Remove Effect"
 
 [node name="Class" type="Container" parent="Tabs"]
 visible = false
@@ -3864,22 +3980,22 @@ size_flags_horizontal = 0
 text = "Confirm"
 
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
-[connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
-[connection signal="item_selected" from="Tabs/Character/CharacterButton" to="Tabs/Character" method="_on_CharacterButton_item_selected"]
-[connection signal="pressed" from="Tabs/Character/CharacterButton/AddButton" to="Tabs/Character" method="_on_AddButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/CharacterButton/RemoveButton" to="Tabs/Character" method="_on_RemoveCharacterButton_pressed"]
-[connection signal="file_selected" from="Tabs/Character/FaceLabel/FaceSearch" to="Tabs/Character" method="_on_FaceSearch_file_selected"]
-[connection signal="pressed" from="Tabs/Character/FaceLabel/Search" to="Tabs/Character" method="_on_Search_pressed"]
-[connection signal="item_activated" from="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer/EquipList" to="Tabs/Character" method="_on_EquipList_item_activated"]
-[connection signal="pressed" from="Tabs/Character/InitialEquipLabel/InitialEquipChange/OkButton" to="Tabs/Character" method="_on_OkInitialEquipButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/InitialEquipLabel/InitialEquipChange/CancelButton" to="Tabs/Character" method="_on_CancelInitialEquipButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/EquipLabel/EquipContainer/EquipContainer/AddButton" to="Tabs/Character" method="_on_AddEquipTypeButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/EquipLabel/EquipContainer/EquipContainer/RemoveButton" to="Tabs/Character" method="_on_RemoveEquipTypeButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/EquipLabel/AddEquip/OkButton" to="Tabs/Character" method="_on_OkButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/EquipLabel/AddEquip/CancelButton" to="Tabs/Character" method="_on_CancelButton_pressed"]
-[connection signal="item_selected" from="Tabs/Character/EquipLabel/AddEquip/TypeLabel/TypeButton" to="Tabs/Character" method="_on_TypeButton_item_selected"]
-[connection signal="pressed" from="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/AddButton" to="Tabs/Character" method="_on_CharacterAddEffectButton_pressed"]
-[connection signal="pressed" from="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/RemoveButton" to="Tabs/Character" method="_on_CharacterRemoveEffectButton_pressed"]
+[connection signal="item_selected" from="Tabs/Character/VBoxContainer/CharacterList/CharacterList/CharacterButton" to="Tabs/Character" method="_on_CharacterButton_item_selected"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/CharacterList/CharacterList/AddButton" to="Tabs/Character" method="_on_AddButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/CharacterList/CharacterList/RemoveButton" to="Tabs/Character" method="_on_RemoveCharacterButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/Body/Data/Top/Top/Face/HBoxContainer/Search" to="Tabs/Character" method="_on_Search_pressed"]
+[connection signal="item_activated" from="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Iequip/PanelContainer/TypeContainer/EquipList" to="Tabs/Character" method="_on_EquipList_item_activated"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip/EquipContainer/EquipContainer/AddButton" to="Tabs/Character" method="_on_AddEquipTypeButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/Body/Data/Bottom/Bottom/Equip/EquipContainer/EquipContainer/RemoveButton" to="Tabs/Character" method="_on_RemoveEquipTypeButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer/AddButton" to="Tabs/Character" method="_on_CharacterAddEffectButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/Body/Effects/PanelContainer/VBoxContainer/RemoveButton" to="Tabs/Character" method="_on_CharacterRemoveEffectButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/VBoxContainer/Save/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
+[connection signal="file_selected" from="Tabs/Character/FaceSearch" to="Tabs/Character" method="_on_FaceSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Character/InitialEquipChange/OkButton" to="Tabs/Character" method="_on_OkInitialEquipButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/InitialEquipChange/CancelButton" to="Tabs/Character" method="_on_CancelInitialEquipButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/AddEquip/OkButton" to="Tabs/Character" method="_on_OkButton_pressed"]
+[connection signal="pressed" from="Tabs/Character/AddEquip/CancelButton" to="Tabs/Character" method="_on_CancelButton_pressed"]
+[connection signal="item_selected" from="Tabs/Character/AddEquip/TypeLabel/TypeButton" to="Tabs/Character" method="_on_TypeButton_item_selected"]
 [connection signal="pressed" from="Tabs/Class/ClassSaveButton" to="Tabs/Class" method="_on_ClassSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Class/ClassButton" to="Tabs/Class" method="_on_ClassButton_item_selected"]
 [connection signal="pressed" from="Tabs/Class/ClassButton/AddClass" to="Tabs/Class" method="_on_AddClass_pressed"]
